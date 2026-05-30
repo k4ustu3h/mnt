@@ -4,6 +4,7 @@ import { FastAverageColor } from "fast-average-color";
 import { M3eTheme } from "@m3e/react/theme";
 
 import AppBar from "@/components/surfaces/AppBar";
+import Drawer from "@/components/surfaces/Drawer";
 import Greeting from "@/components/typography/Greeting";
 import Scallop from "@/components/widgets/clocks/Scallop";
 import Weather from "@/components/widgets/weather/Weather";
@@ -34,35 +35,43 @@ export default function App() {
 					backgroundImage: `url(${bgUrl})`,
 					backgroundPosition: "center",
 					backgroundSize: "cover",
-					display: "flex",
-					flexDirection: "column",
 					height: "100vh",
 				}}
 			>
-				<AppBar />
-
-				<div
-					style={{
-						alignItems: "center",
-						display: "flex",
-						flex: 1,
-						flexDirection: "column",
-						gap: 24,
-						justifyContent: "center",
-						padding: 24,
-					}}
-				>
-					<Greeting />
+				<Drawer>
 					<div
 						style={{
 							display: "flex",
-							gap: 24,
+							flexDirection: "column",
+							height: "100%",
+							width: "100%",
 						}}
 					>
-						<Scallop />
-						<Weather />
+						<AppBar />
+						<div
+							style={{
+								alignItems: "center",
+								display: "flex",
+								flex: 1,
+								flexDirection: "column",
+								gap: 24,
+								justifyContent: "center",
+								padding: 24,
+							}}
+						>
+							<Greeting />
+							<div
+								style={{
+									display: "flex",
+									gap: 24,
+								}}
+							>
+								<Scallop />
+								<Weather />
+							</div>
+						</div>
 					</div>
-				</div>
+				</Drawer>
 			</div>
 		</M3eTheme>
 	);
