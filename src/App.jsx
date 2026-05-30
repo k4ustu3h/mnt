@@ -4,6 +4,7 @@ import { FastAverageColor } from "fast-average-color";
 import { M3eTheme } from "@m3e/react/theme";
 
 import Greeting from "@/components/typography/Greeting";
+import Scallop from "@/components/widgets/clocks/Scallop";
 
 export default function App() {
 	const [bgUrl] = useState(() => `https://picsum.photos/1920/1080`);
@@ -39,6 +40,7 @@ export default function App() {
 				}}
 			>
 				<Greeting />
+				<Scallop />
 			</div>
 		</M3eTheme>
 	);
