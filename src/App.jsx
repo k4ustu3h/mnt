@@ -5,6 +5,7 @@ import { M3eTheme } from "@m3e/react/theme";
 
 import Greeting from "@/components/typography/Greeting";
 import Scallop from "@/components/widgets/clocks/Scallop";
+import Weather from "@/components/widgets/weather/Weather";
 
 export default function App() {
 	const [bgUrl] = useState(() => `https://picsum.photos/1920/1080`);
@@ -34,13 +35,24 @@ export default function App() {
 					backgroundImage: `url(${bgUrl})`,
 					backgroundPosition: "center",
 					backgroundSize: "cover",
-					display: "flex",
-					flexDirection: "column",
 					height: "100%",
 				}}
 			>
-				<Greeting />
-				<Scallop />
+				<div
+					style={{
+						alignItems: "center",
+						display: "flex",
+						flexDirection: "column",
+						gap: 24,
+						padding: 24,
+					}}
+				>
+					<Greeting />
+					<div style={{ display: "flex", gap: 24 }}>
+						<Scallop />
+						<Weather />
+					</div>
+				</div>
 			</div>
 		</M3eTheme>
 	);
