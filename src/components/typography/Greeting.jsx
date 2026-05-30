@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { M3eHeading } from "@m3e/react/heading";
 
@@ -6,7 +6,16 @@ export default function Greeting() {
 	const [name, setName] = useState(() => {
 		return localStorage.getItem("newTabUserName") || "User";
 	});
-	const [isEditing, setIsEditing] = useState(false);
+
+	useEffect(() => {
+		const handleNameChange = () => {
+			setName(localStorage.getItem("newTabUserName") || "User");
+		};
+
+		window.addEventListener("userNameChanged", handleNameChange);
+		return () =>
+			window.removeEventListener("userNameChanged", handleNameChange);
+	}, []);
 
 	const hour = new Date().getHours();
 	let timeGreeting = "Good Evening,";
@@ -16,68 +25,17 @@ export default function Greeting() {
 		timeGreeting = "Good Afternoon,";
 	}
 
-	const handleNameSubmit = (e) => {
-		if (e.key === "Enter") {
-			localStorage.setItem("newTabUserName", name);
-			setIsEditing(false);
-		}
-	};
-
 	return (
-		<div
+		<M3eHeading
+			size="large"
 			style={{
-				alignItems: "center",
-				display: "flex",
-				gap: 8,
+				color: "var(--md-sys-color-primary)",
+				fontWeight: 800,
+				textAlign: "center",
 			}}
+			variant="display"
 		>
-			<M3eHeading
-				size="large"
-				style={{
-					color: "var(--md-sys-color-primary)",
-					fontWeight: 800,
-				}}
-				variant="display"
-			>
-				{timeGreeting}
-			</M3eHeading>
-
-			{isEditing ? (
-				<input
-					autoFocus
-					onBlur={() => setIsEditing(false)}
-					onChange={(e) => setName(e.target.value)}
-					onKeyDown={handleNameSubmit}
-					value={name}
-					style={{
-						background: "transparent",
-						border: "none",
-						borderBottom: "4px solid var(--md-sys-color-primary)",
-						color: "var(--md-sys-color-primary)",
-						fontFamily: "inherit",
-						fontSize: 57,
-						fontWeight: 800,
-						outline: "none",
-						width: 250,
-					}}
-				/>
-			) : (
-				<M3eHeading
-					onClick={() => setIsEditing(true)}
-					size="large"
-					style={{
-						color: "var(--md-sys-color-primary)",
-						cursor: "pointer",
-						fontWeight: 800,
-						textDecoration: "underline transparent",
-						transition: "text-decoration 0.2s",
-					}}
-					title="Click to change name"
-					variant="display"
-				>
-					{name}!
-				</M3eHeading>
-			)}
-		</div>
+			{timeGreeting} {name}!
+		</M3eHeading>
 	);
 }
