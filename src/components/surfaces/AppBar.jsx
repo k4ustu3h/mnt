@@ -4,7 +4,12 @@ import { Settings } from "@nine-thirty-five/material-symbols-react/rounded";
 
 export default function AppBar() {
 	return (
-		<M3eAppBar>
+		<M3eAppBar
+			style={{
+				"--m3e-app-bar-container-color": "transparent",
+				paddingInline: 8,
+			}}
+		>
 			<M3eIconButton slot="trailing">
 				<Settings />
 			</M3eIconButton>
