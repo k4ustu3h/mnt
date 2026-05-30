@@ -1,9 +1,75 @@
+import { useState, useEffect } from "react";
 import { M3eHeading } from "@m3e/react/heading";
 import { M3eShape } from "@m3e/react/shape";
+import { getWeatherDetails, getIconUrl } from "@/utils/weather";
 
-import weatherIcon from "@/assets/icons/weather/dark/mostly_sunny.svg";
+export default function Weather() {
+	const [weatherData, setWeatherData] = useState({
+		temperature: "--",
+		iconName: "mostly_sunny",
+		label: "Loading...",
+	});
 
-export default function Weather({ temperature = 38 }) {
+	const [theme, setTheme] = useState(
+		window.matchMedia("(prefers-color-scheme: dark)").matches
+			? "dark"
+			: "light",
+	);
+
+	useEffect(() => {
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+		const handleChange = (e) => setTheme(e.matches ? "dark" : "light");
+
+		mediaQuery.addEventListener("change", handleChange);
+		return () => mediaQuery.removeEventListener("change", handleChange);
+	}, []);
+
+	useEffect(() => {
+		const defaultLat = 51.5036;
+		const defaultLon = -0.2272;
+
+		const fetchWeather = async (lat, lon) => {
+			try {
+				const response = await fetch(
+					`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,is_day,weather_code&temperature_unit=celsius`,
+				);
+				const data = await response.json();
+
+				if (data.current) {
+					const temp = Math.round(data.current.temperature_2m);
+					const code = data.current.weather_code;
+					const isDay = data.current.is_day === 1;
+
+					const details = getWeatherDetails(code, isDay);
+
+					setWeatherData({
+						temperature: temp,
+						iconName: details.iconName,
+						label: details.label,
+					});
+				}
+			} catch (error) {
+				console.error("Error fetching weather data:", error);
+				setWeatherData((prev) => ({ ...prev, label: "Error loading" }));
+			}
+		};
+
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(
+				(position) =>
+					fetchWeather(
+						position.coords.latitude,
+						position.coords.longitude,
+					),
+				() => fetchWeather(defaultLat, defaultLon),
+			);
+		} else {
+			fetchWeather(defaultLat, defaultLon);
+		}
+	}, []);
+
+	const iconSrc = getIconUrl(weatherData.iconName, theme);
+
 	return (
 		<div>
 			<div
@@ -48,7 +114,7 @@ export default function Weather({ temperature = 38 }) {
 						}}
 						variant="display"
 					>
-						{temperature}°
+						{weatherData.temperature}°
 					</M3eHeading>
 
 					<div
@@ -59,8 +125,8 @@ export default function Weather({ temperature = 38 }) {
 						}}
 					>
 						<img
-							alt="Mostly Sunny"
-							src={weatherIcon}
+							alt={weatherData.label}
+							src={iconSrc}
 							style={{
 								width: "100%",
 								height: "100%",
