@@ -7,11 +7,10 @@ export default function App() {
 		<M3eTheme>
 			<div
 				style={{
-					alignItems: "center",
+					backgroundImage: "url(https://picsum.photos/1920/1080)",
 					display: "flex",
 					flexDirection: "column",
 					height: "100%",
-					justifyContent: "center",
 				}}
 			>
 				<Greeting />

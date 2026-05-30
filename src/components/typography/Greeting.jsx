@@ -13,7 +13,11 @@ export default function Greeting() {
 	return (
 		<M3eHeading
 			size="large"
-			style={{ color: "var(--md-sys-color-primary)", fontWeight: 800 }}
+			style={{
+				alignSelf: "center",
+				color: "var(--md-sys-color-primary)",
+				fontWeight: 800,
+			}}
 			variant="display"
 		>
 			{greeting}
