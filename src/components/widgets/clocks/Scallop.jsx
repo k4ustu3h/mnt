@@ -17,7 +17,7 @@ export default function Scallop() {
 	const secondsDegrees = time.getSeconds() * 6;
 
 	const abstractHandStyle = {
-		borderRadius: "16px",
+		borderRadius: 16,
 		bottom: "calc(50% - 9px)",
 		left: "calc(50% - 9px)",
 		position: "absolute",
@@ -29,10 +29,10 @@ export default function Scallop() {
 			style={{
 				alignItems: "center",
 				display: "flex",
-				height: "240px",
+				height: 240,
 				justifyContent: "center",
 				position: "relative",
-				width: "240px",
+				width: 240,
 			}}
 		>
 			<M3eShape
@@ -63,7 +63,7 @@ export default function Scallop() {
 						backgroundColor: "var(--md-sys-color-surface-variant)",
 						height: "38%",
 						transform: `rotate(${hoursDegrees}deg)`,
-						width: "18px",
+						width: 18,
 					}}
 				/>
 				{/* Minute Hand */}
@@ -74,7 +74,7 @@ export default function Scallop() {
 						backgroundColor: "var(--md-sys-color-primary)",
 						height: "48%",
 						transform: `rotate(${minutesDegrees}deg)`,
-						width: "18px",
+						width: 18,
 					}}
 				/>
 
@@ -94,11 +94,11 @@ export default function Scallop() {
 						style={{
 							backgroundColor: "var(--md-sys-color-tertiary)",
 							borderRadius: "50%",
-							height: "18px",
+							height: 18,
 							left: "70%",
 							position: "absolute",
 							transform: "translateX(-50%)",
-							width: "18px",
+							width: 18,
 						}}
 					/>
 				</div>

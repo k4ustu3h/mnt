@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+
 import { M3eHeading } from "@m3e/react/heading";
 import { M3eShape } from "@m3e/react/shape";
+
 import { getWeatherDetails, getIconUrl } from "@/utils/weather";
 
 export default function Weather() {
@@ -74,9 +76,9 @@ export default function Weather() {
 		<div>
 			<div
 				style={{
-					height: 220,
+					height: 240,
 					position: "relative",
-					width: 220,
+					width: 240,
 				}}
 			>
 				<M3eShape

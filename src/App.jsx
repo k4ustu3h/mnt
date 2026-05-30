@@ -32,15 +32,17 @@ export default function App() {
 		<M3eTheme color={themeColor}>
 			<div
 				style={{
+					alignItems: "center",
 					backgroundImage: `url(${bgUrl})`,
 					backgroundPosition: "center",
 					backgroundSize: "cover",
+					display: "flex",
 					height: "100%",
+					justifyContent: "center",
 				}}
 			>
 				<div
 					style={{
-						alignItems: "center",
 						display: "flex",
 						flexDirection: "column",
 						gap: 24,
@@ -48,7 +50,12 @@ export default function App() {
 					}}
 				>
 					<Greeting />
-					<div style={{ display: "flex", gap: 24 }}>
+					<div
+						style={{
+							display: "flex",
+							gap: 24,
+						}}
+					>
 						<Scallop />
 						<Weather />
 					</div>
