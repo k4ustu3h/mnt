@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-
-import { FastAverageColor } from "fast-average-color";
 import { M3eTheme } from "@m3e/react/theme";
 
 import AppBar from "@/components/surfaces/AppBar";
@@ -9,23 +7,28 @@ import Greeting from "@/components/typography/Greeting";
 import Scallop from "@/components/widgets/clocks/Scallop";
 import Weather from "@/components/widgets/weather/Weather";
 
+import { extractThemeColor } from "@/utils/monet";
+
 export default function App() {
 	const [bgUrl] = useState(() => `https://picsum.photos/1920/1080`);
 	const [themeColor, setThemeColor] = useState("");
 
 	useEffect(() => {
-		const fac = new FastAverageColor();
-		const img = new Image();
-		img.crossOrigin = "anonymous";
-		img.src = bgUrl;
+		let isMounted = true;
 
-		img.onload = () => {
-			const color = fac.getColor(img);
-			setThemeColor(color.hex);
-			fac.destroy();
+		extractThemeColor(bgUrl)
+			.then((colorHex) => {
+				if (isMounted) {
+					setThemeColor(colorHex);
+				}
+			})
+			.catch((err) => {
+				console.error("Failed to extract theme color:", err);
+			});
+
+		return () => {
+			isMounted = false;
 		};
-
-		return () => fac.destroy();
 	}, [bgUrl]);
 
 	return (
