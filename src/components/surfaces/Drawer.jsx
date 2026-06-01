@@ -2,8 +2,15 @@ import { M3eDrawerContainer } from "@m3e/react/drawer-container";
 import { M3eHeading } from "@m3e/react/heading";
 
 import UsernameField from "@/components/textfields/UsernameField";
+import WidgetSwitch from "@/components/switches/WidgetSwitch";
 
-export default function Drawer({ children }) {
+export default function Drawer({
+	children,
+	setShowScallop,
+	setShowWeather,
+	showScallop,
+	showWeather,
+}) {
 	return (
 		<M3eDrawerContainer
 			endMode="push"
@@ -38,6 +45,24 @@ export default function Drawer({ children }) {
 					Settings
 				</M3eHeading>
 				<UsernameField />
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						gap: 16,
+					}}
+				>
+					<WidgetSwitch
+						checked={showScallop}
+						label="Clock Widget"
+						onChange={setShowScallop}
+					/>
+					<WidgetSwitch
+						checked={showWeather}
+						label="Weather Widget"
+						onChange={setShowWeather}
+					/>
+				</div>
 			</div>
 		</M3eDrawerContainer>
 	);

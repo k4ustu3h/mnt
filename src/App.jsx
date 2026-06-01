@@ -13,6 +13,24 @@ export default function App() {
 	const [bgUrl] = useState(() => `https://picsum.photos/1920/1080`);
 	const [themeColor, setThemeColor] = useState("");
 
+	const [showScallop, setShowScallop] = useState(() => {
+		const saved = localStorage.getItem("showScallop");
+		return saved !== null ? JSON.parse(saved) : true;
+	});
+
+	const [showWeather, setShowWeather] = useState(() => {
+		const saved = localStorage.getItem("showWeather");
+		return saved !== null ? JSON.parse(saved) : true;
+	});
+
+	useEffect(() => {
+		localStorage.setItem("showScallop", JSON.stringify(showScallop));
+	}, [showScallop]);
+
+	useEffect(() => {
+		localStorage.setItem("showWeather", JSON.stringify(showWeather));
+	}, [showWeather]);
+
 	useEffect(() => {
 		let isMounted = true;
 
@@ -41,7 +59,12 @@ export default function App() {
 					height: "100vh",
 				}}
 			>
-				<Drawer>
+				<Drawer
+					setShowScallop={setShowScallop}
+					setShowWeather={setShowWeather}
+					showScallop={showScallop}
+					showWeather={showWeather}
+				>
 					<div
 						style={{
 							display: "flex",
@@ -69,8 +92,8 @@ export default function App() {
 									gap: 24,
 								}}
 							>
-								<Scallop />
-								<Weather />
+								{showScallop && <Scallop />}
+								{showWeather && <Weather />}
 							</div>
 						</div>
 					</div>
