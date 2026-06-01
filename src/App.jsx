@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { M3eTheme } from "@m3e/react/theme";
-
 import AppBar from "@/components/surfaces/AppBar";
 import Drawer from "@/components/surfaces/Drawer";
 import Greeting from "@/components/typography/Greeting";
-import LoadingScreen from "@/components/loading/LoadingScreen";
 import Scallop from "@/components/widgets/clocks/Scallop";
+import ThemeWrapper from "@/components/theme/ThemeWrapper";
 import Weather from "@/components/widgets/weather/Weather";
-
-import { extractThemeColor } from "@/utils/monet";
 
 export default function App() {
 	const [bgUrl] = useState(() => `https://picsum.photos/1920/1080`);
-	const [themeColor, setThemeColor] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
 
 	const [showScallop, setShowScallop] = useState(() => {
 		const saved = localStorage.getItem("showScallop");
@@ -34,34 +28,8 @@ export default function App() {
 		localStorage.setItem("showWeather", JSON.stringify(showWeather));
 	}, [showWeather]);
 
-	useEffect(() => {
-		let isMounted = true;
-
-		extractThemeColor(bgUrl)
-			.then((colorHex) => {
-				if (isMounted) {
-					setThemeColor(colorHex);
-					setIsLoading(false);
-				}
-			})
-			.catch((err) => {
-				console.error("Failed to extract theme color:", err);
-				if (isMounted) {
-					setIsLoading(false);
-				}
-			});
-
-		return () => {
-			isMounted = false;
-		};
-	}, [bgUrl]);
-
-	if (isLoading) {
-		return <LoadingScreen bgUrl={bgUrl} />;
-	}
-
 	return (
-		<M3eTheme color={themeColor}>
+		<ThemeWrapper bgUrl={bgUrl}>
 			<div
 				style={{
 					backgroundImage: `url(${bgUrl})`,
@@ -110,6 +78,6 @@ export default function App() {
 					</div>
 				</Drawer>
 			</div>
-		</M3eTheme>
+		</ThemeWrapper>
 	);
 }
