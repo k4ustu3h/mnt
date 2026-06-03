@@ -1,0 +1,16 @@
+{
+	"height": {
+		"xs": "(max-height: 400px)",
+		"sm": "(min-height: 400px) and (max-height: 600px)",
+		"md": "(min-height: 600px) and (max-height: 800px)",
+		"lg": "(min-height: 800px) and (max-height: 1000px)",
+		"xl": "(min-height: 1200px)"
+	},
+	"width": {
+		"xs": "(max-width: 600px)",
+		"sm": "(min-width: 600px) and (max-width: 900px)",
+		"md": "(min-width: 900px) and (max-width: 1200px)",
+		"lg": "(min-width: 1200px) and (max-width: 1536px)",
+		"xl": "(min-width: 1536px)"
+	}
+}

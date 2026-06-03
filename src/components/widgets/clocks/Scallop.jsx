@@ -2,8 +2,16 @@ import { useEffect, useState } from "react";
 
 import { M3eShape } from "@m3e/react/shape";
 
+import { scallopDimensions } from "@/styles/dimensions";
+import useBreakpoint from "@/hooks/useBreakpoint";
+
 export default function Scallop() {
 	const [time, setTime] = useState(new Date());
+
+	const breakpoint = useBreakpoint();
+
+	const { scallopSize, handSize, handPosition } =
+		scallopDimensions[breakpoint];
 
 	useEffect(() => {
 		const timerId = setInterval(() => {
@@ -18,10 +26,10 @@ export default function Scallop() {
 
 	const abstractHandStyle = {
 		borderRadius: 16,
-		bottom: "calc(50% - 9px)",
-		left: "calc(50% - 9px)",
+		bottom: `calc(50% - ${handPosition})`,
+		left: `calc(50% - ${handPosition})`,
 		position: "absolute",
-		transformOrigin: "50% calc(100% - 9px)",
+		transformOrigin: `50% calc(100% - ${handPosition})`,
 	};
 
 	return (
@@ -29,10 +37,11 @@ export default function Scallop() {
 			style={{
 				alignItems: "center",
 				display: "flex",
-				height: 240,
+				flexShrink: 0,
+				height: scallopSize,
 				justifyContent: "center",
 				position: "relative",
-				width: 240,
+				width: scallopSize,
 			}}
 		>
 			<M3eShape
@@ -63,7 +72,7 @@ export default function Scallop() {
 						backgroundColor: "var(--md-sys-color-surface-variant)",
 						height: "38%",
 						transform: `rotate(${hoursDegrees}deg)`,
-						width: 18,
+						width: handSize,
 					}}
 				/>
 				{/* Minute Hand */}
@@ -74,7 +83,7 @@ export default function Scallop() {
 						backgroundColor: "var(--md-sys-color-primary)",
 						height: "48%",
 						transform: `rotate(${minutesDegrees}deg)`,
-						width: 18,
+						width: handSize,
 					}}
 				/>
 
@@ -94,11 +103,11 @@ export default function Scallop() {
 						style={{
 							backgroundColor: "var(--md-sys-color-tertiary)",
 							borderRadius: "50%",
-							height: 18,
+							height: handSize,
 							left: "70%",
 							position: "absolute",
 							transform: "translateX(-50%)",
-							width: 18,
+							width: handSize,
 						}}
 					/>
 				</div>

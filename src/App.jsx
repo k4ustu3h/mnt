@@ -74,6 +74,7 @@ export default function App() {
 								style={{
 									alignItems: "center",
 									display: "flex",
+									flexWrap: "wrap",
 									gap: 24,
 									justifyContent: "center",
 								}}

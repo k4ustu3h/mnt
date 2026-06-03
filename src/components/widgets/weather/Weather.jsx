@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { M3eHeading } from "@m3e/react/heading";
 import { M3eShape } from "@m3e/react/shape";
 
 import { getWeatherDetails, getIconUrl } from "@/utils/weather";
+import { weatherDimensions } from "@/styles/dimensions";
+import useBreakpoint from "@/hooks/useBreakpoint";
 
 export default function Weather() {
 	const [weatherData, setWeatherData] = useState({
@@ -17,6 +19,16 @@ export default function Weather() {
 			? "dark"
 			: "light",
 	);
+
+	const breakpoint = useBreakpoint();
+	const {
+		containerSize,
+		fontSize,
+		iconSize,
+		padding,
+		paddingLeft,
+		paddingTop,
+	} = weatherDimensions[breakpoint];
 
 	useEffect(() => {
 		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -76,9 +88,10 @@ export default function Weather() {
 		<div>
 			<div
 				style={{
-					height: 240,
+					flexShrink: 0,
+					height: containerSize,
 					position: "relative",
-					width: 240,
+					width: containerSize,
 				}}
 			>
 				<M3eShape
@@ -98,7 +111,7 @@ export default function Weather() {
 						flexDirection: "column",
 						inset: 0,
 						justifyContent: "center",
-						padding: 24,
+						padding: padding,
 						position: "absolute",
 					}}
 				>
@@ -106,12 +119,12 @@ export default function Weather() {
 						size="large"
 						style={{
 							color: "var(--md-sys-color-primary)",
-							fontSize: 88,
+							fontSize: fontSize,
 							fontVariationSettings: '"ROND" 100',
 							fontWeight: 500,
 							letterSpacing: "-0.02em",
-							paddingLeft: 38,
-							paddingTop: 16,
+							paddingLeft: paddingLeft,
+							paddingTop: paddingTop,
 							textAlign: "center",
 						}}
 						variant="display"
@@ -121,9 +134,9 @@ export default function Weather() {
 
 					<div
 						style={{
-							height: 78,
+							height: iconSize,
 							position: "relative",
-							width: 78,
+							width: iconSize,
 						}}
 					>
 						<img
