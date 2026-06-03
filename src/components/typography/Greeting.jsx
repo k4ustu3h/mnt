@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { M3eHeading } from "@m3e/react/heading";
+import { M3eCard } from "@m3e/react/card";
 
 export default function Greeting() {
 	const [name, setName] = useState(() => {
@@ -26,16 +27,20 @@ export default function Greeting() {
 	}
 
 	return (
-		<M3eHeading
-			size="large"
-			style={{
-				color: "var(--md-sys-color-primary)",
-				fontWeight: 800,
-				textAlign: "center",
-			}}
-			variant="display"
-		>
-			{timeGreeting} {name}!
-		</M3eHeading>
+		<M3eCard style={{ height: "fit-content" }}>
+			<M3eHeading
+				size="large"
+				style={{
+					color: "var(--md-sys-color-primary)",
+					fontVariationSettings: '"wdth" 125',
+					fontWeight: 800,
+					padding: 16,
+					textAlign: "center",
+				}}
+				variant="display"
+			>
+				{timeGreeting} {name}!
+			</M3eHeading>
+		</M3eCard>
 	);
 }

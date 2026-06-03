@@ -55,25 +55,33 @@ export default function App() {
 						<AppBar />
 						<div
 							style={{
-								alignItems: "center",
 								display: "flex",
 								flex: 1,
 								flexDirection: "column",
-								gap: 24,
-								justifyContent: "center",
 								padding: 24,
 							}}
 						>
-							<Greeting />
 							<div
 								style={{
 									display: "flex",
+									flex: 1,
+									justifyContent: "center",
+								}}
+							>
+								<Greeting />
+							</div>
+							<div
+								style={{
+									alignItems: "center",
+									display: "flex",
 									gap: 24,
+									justifyContent: "center",
 								}}
 							>
 								{showScallop && <Scallop />}
 								{showWeather && <Weather />}
 							</div>
+							<div style={{ flex: 1 }} />
 						</div>
 					</div>
 				</Drawer>
