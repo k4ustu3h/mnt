@@ -3,10 +3,16 @@ import { useEffect, useState } from "react";
 import { M3eHeading } from "@m3e/react/heading";
 import { M3eCard } from "@m3e/react/card";
 
+import { greetingTypography } from "@/styles/dimensions";
+import useBreakpoint from "@/hooks/useBreakpoint";
+
 export default function Greeting() {
 	const [name, setName] = useState(() => {
 		return localStorage.getItem("newTabUserName") || "User";
 	});
+
+	const breakpoint = useBreakpoint();
+	const { variant, size } = greetingTypography[breakpoint];
 
 	useEffect(() => {
 		const handleNameChange = () => {
@@ -29,7 +35,7 @@ export default function Greeting() {
 	return (
 		<M3eCard style={{ height: "fit-content" }}>
 			<M3eHeading
-				size="large"
+				size={size}
 				style={{
 					color: "var(--md-sys-color-primary)",
 					fontVariationSettings: '"wdth" 125',
@@ -37,7 +43,7 @@ export default function Greeting() {
 					padding: 16,
 					textAlign: "center",
 				}}
-				variant="display"
+				variant={variant}
 			>
 				{timeGreeting} {name}!
 			</M3eHeading>

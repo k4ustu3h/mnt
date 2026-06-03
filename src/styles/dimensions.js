@@ -68,3 +68,11 @@ export const weatherDimensions = {
 		paddingTop: "0.86vw",
 	},
 };
+
+export const greetingTypography = {
+	xs: { size: "medium", variant: "headline" },
+	sm: { size: "large", variant: "headline" },
+	md: { size: "small", variant: "display" },
+	lg: { size: "medium", variant: "display" },
+	xl: { size: "large", variant: "display" },
+};
