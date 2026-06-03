@@ -5,8 +5,10 @@ import SettingsList from "@/components/lists/SettingsList";
 
 export default function Drawer({
 	children,
+	setShowGreeting,
 	setShowScallop,
 	setShowWeather,
+	showGreeting,
 	showScallop,
 	showWeather,
 }) {
@@ -44,10 +46,12 @@ export default function Drawer({
 					Settings
 				</M3eHeading>
 				<SettingsList
-					showScallop={showScallop}
-					showWeather={showWeather}
+					setShowGreeting={setShowGreeting}
 					setShowScallop={setShowScallop}
 					setShowWeather={setShowWeather}
+					showGreeting={showGreeting}
+					showScallop={showScallop}
+					showWeather={showWeather}
 				/>
 			</div>
 		</M3eDrawerContainer>

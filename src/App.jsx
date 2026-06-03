@@ -10,6 +10,11 @@ import Weather from "@/components/widgets/weather/Weather";
 export default function App() {
 	const [bgUrl] = useState(() => `https://picsum.photos/1920/1080`);
 
+	const [showGreeting, setShowGreeting] = useState(() => {
+		const saved = localStorage.getItem("showGreeting");
+		return saved !== null ? JSON.parse(saved) : true;
+	});
+
 	const [showScallop, setShowScallop] = useState(() => {
 		const saved = localStorage.getItem("showScallop");
 		return saved !== null ? JSON.parse(saved) : true;
@@ -19,6 +24,10 @@ export default function App() {
 		const saved = localStorage.getItem("showWeather");
 		return saved !== null ? JSON.parse(saved) : true;
 	});
+
+	useEffect(() => {
+		localStorage.setItem("showGreeting", JSON.stringify(showGreeting));
+	}, [showGreeting]);
 
 	useEffect(() => {
 		localStorage.setItem("showScallop", JSON.stringify(showScallop));
@@ -39,8 +48,10 @@ export default function App() {
 				}}
 			>
 				<Drawer
+					setShowGreeting={setShowGreeting}
 					setShowScallop={setShowScallop}
 					setShowWeather={setShowWeather}
+					showGreeting={showGreeting}
 					showScallop={showScallop}
 					showWeather={showWeather}
 				>
@@ -68,7 +79,7 @@ export default function App() {
 									justifyContent: "center",
 								}}
 							>
-								<Greeting />
+								{showGreeting && <Greeting />}
 							</div>
 							<div
 								style={{

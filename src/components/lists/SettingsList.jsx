@@ -14,19 +14,30 @@ import UsernameField from "@/components/textfields/UsernameField";
 import WidgetSwitch from "@/components/switches/WidgetSwitch";
 
 export default function SettingsList({
-	showScallop,
-	showWeather,
+	setShowGreeting,
 	setShowScallop,
 	setShowWeather,
+	showGreeting,
+	showScallop,
+	showWeather,
 }) {
 	return (
 		<M3eActionList variant="segmented">
 			<M3eExpandableListItem>
 				<Person slot="leading" />
 				User
-				<ListItem>
-					<UsernameField />
-				</ListItem>
+				<div slot="items">
+					<M3eListAction>
+						<WidgetSwitch
+							checked={showGreeting}
+							label="Greeting"
+							onChange={setShowGreeting}
+						/>
+					</M3eListAction>
+					<ListItem>
+						<UsernameField disabled={!showGreeting} />
+					</ListItem>
+				</div>
 			</M3eExpandableListItem>
 			<M3eExpandableListItem>
 				<Widgets slot="leading" />

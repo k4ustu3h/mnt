@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { M3eFormField } from "@m3e/react/form-field";
 
-export default function UsernameField() {
+export default function UsernameField({ disabled }) {
 	const [name, setName] = useState(() => {
 		return localStorage.getItem("newTabUserName") || "User";
 	});
@@ -20,6 +20,8 @@ export default function UsernameField() {
 		<M3eFormField
 			style={{
 				width: "100%",
+				opacity: disabled ? 0.5 : 1,
+				pointerEvents: disabled ? "none" : "auto",
 			}}
 			variant="outlined"
 		>
@@ -27,6 +29,7 @@ export default function UsernameField() {
 				Display Name
 			</label>
 			<input
+				disabled={disabled}
 				id="username"
 				onChange={handleNameChange}
 				placeholder="Enter your name"
