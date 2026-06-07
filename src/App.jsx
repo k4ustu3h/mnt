@@ -1,39 +1,17 @@
-import { useEffect, useState } from "react";
-
 import AppBar from "@/components/surfaces/AppBar";
 import Drawer from "@/components/surfaces/Drawer";
-import Greeting from "@/components/typography/Greeting";
-import Scallop from "@/components/widgets/clocks/Scallop";
 import ThemeWrapper from "@/components/theme/ThemeWrapper";
-import Weather from "@/components/widgets/weather/Weather";
+import Widgets from "@/components/layout/Widgets";
+
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 export default function App() {
-	const [showGreeting, setShowGreeting] = useState(() => {
-		const saved = localStorage.getItem("showGreeting");
-		return saved !== null ? JSON.parse(saved) : true;
-	});
-
-	const [showScallop, setShowScallop] = useState(() => {
-		const saved = localStorage.getItem("showScallop");
-		return saved !== null ? JSON.parse(saved) : true;
-	});
-
-	const [showWeather, setShowWeather] = useState(() => {
-		const saved = localStorage.getItem("showWeather");
-		return saved !== null ? JSON.parse(saved) : true;
-	});
-
-	useEffect(() => {
-		localStorage.setItem("showGreeting", JSON.stringify(showGreeting));
-	}, [showGreeting]);
-
-	useEffect(() => {
-		localStorage.setItem("showScallop", JSON.stringify(showScallop));
-	}, [showScallop]);
-
-	useEffect(() => {
-		localStorage.setItem("showWeather", JSON.stringify(showWeather));
-	}, [showWeather]);
+	const [showGreeting, setShowGreeting] = useLocalStorage(
+		"showGreeting",
+		true,
+	);
+	const [showScallop, setShowScallop] = useLocalStorage("showScallop", true);
+	const [showWeather, setShowWeather] = useLocalStorage("showWeather", true);
 
 	return (
 		<ThemeWrapper>
@@ -54,37 +32,11 @@ export default function App() {
 					}}
 				>
 					<AppBar />
-					<div
-						style={{
-							display: "flex",
-							flex: 1,
-							flexDirection: "column",
-							padding: 24,
-						}}
-					>
-						<div
-							style={{
-								display: "flex",
-								flex: 1,
-								justifyContent: "center",
-							}}
-						>
-							{showGreeting && <Greeting />}
-						</div>
-						<div
-							style={{
-								alignItems: "center",
-								display: "flex",
-								flexWrap: "wrap",
-								gap: 24,
-								justifyContent: "center",
-							}}
-						>
-							{showScallop && <Scallop />}
-							{showWeather && <Weather />}
-						</div>
-						<div style={{ flex: 1 }} />
-					</div>
+					<Widgets
+						showGreeting={showGreeting}
+						showScallop={showScallop}
+						showWeather={showWeather}
+					/>
 				</div>
 			</Drawer>
 		</ThemeWrapper>
