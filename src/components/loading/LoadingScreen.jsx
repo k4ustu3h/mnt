@@ -1,6 +1,18 @@
+import { useEffect, useState } from "react";
+
 import { M3eLoadingIndicator } from "@m3e/react/loading-indicator";
 
 export default function LoadingScreen({ bgUrl }) {
+	const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+	useEffect(() => {
+		const img = new Image();
+		img.onload = () => {
+			setIsImageLoaded(true);
+		};
+		img.src = bgUrl;
+	}, [bgUrl]);
+
 	return (
 		<div
 			style={{
@@ -19,7 +31,9 @@ export default function LoadingScreen({ bgUrl }) {
 					backgroundSize: "cover",
 					filter: "blur(24px)",
 					inset: "-30px",
+					opacity: isImageLoaded ? 1 : 0,
 					position: "absolute",
+					transition: "opacity 0.6s linear",
 					zIndex: 0,
 				}}
 			/>

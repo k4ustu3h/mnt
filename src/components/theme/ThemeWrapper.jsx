@@ -4,11 +4,15 @@ import { M3eTheme } from "@m3e/react/theme";
 
 import { extractThemeColor } from "@/utils/monet";
 
-import Background from "@/components/layout/Background";
+import Wallpaper from "@/components/layout/Wallpaper";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 
 export default function ThemeWrapper({ children }) {
-	const [bgUrl] = useState(() => `https://picsum.photos/1920/1080`);
+	const [bgUrl] = useState(() => {
+		const width = window.innerWidth;
+		const height = window.innerHeight;
+		return `https://picsum.photos/${width}/${height}`;
+	});
 
 	const [themeColor, setThemeColor] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +45,7 @@ export default function ThemeWrapper({ children }) {
 
 	return (
 		<M3eTheme color={themeColor} motion="expressive">
-			<Background bgUrl={bgUrl}>{children}</Background>
+			<Wallpaper bgUrl={bgUrl}>{children}</Wallpaper>
 		</M3eTheme>
 	);
 }

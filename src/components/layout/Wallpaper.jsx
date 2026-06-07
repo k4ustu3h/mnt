@@ -1,4 +1,4 @@
-export default function Background({ bgUrl, children }) {
+export default function Wallpaper({ bgUrl, children }) {
 	return (
 		<div
 			style={{
