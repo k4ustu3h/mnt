@@ -26,7 +26,7 @@ export default function Widgets({ showGreeting, showScallop, showWeather }) {
 					alignItems: "center",
 					display: "flex",
 					flexWrap: "wrap",
-					gap: 24,
+					gap: "6vw",
 					justifyContent: "center",
 				}}
 			>

@@ -24,7 +24,7 @@ export default function SettingsList({
 	return (
 		<M3eActionList variant="segmented">
 			<M3eExpandableListItem>
-				<Person slot="leading" />
+				<Person color="var(--md-sys-color-on-surface)" slot="leading" />
 				User
 				<div slot="items">
 					<M3eListAction>
@@ -40,7 +40,10 @@ export default function SettingsList({
 				</div>
 			</M3eExpandableListItem>
 			<M3eExpandableListItem>
-				<Widgets slot="leading" />
+				<Widgets
+					color="var(--md-sys-color-on-surface)"
+					slot="leading"
+				/>
 				Widgets
 				<div slot="items">
 					<M3eListAction>
