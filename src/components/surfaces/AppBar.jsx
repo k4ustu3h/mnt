@@ -21,7 +21,7 @@ export default function AppBar() {
 			>
 				<Settings />
 				<SettingsFilled slot="selected" />
-				<M3eDrawerToggle for="settings-drawer" />
+				<M3eDrawerToggle htmlFor="settings-drawer" />
 			</M3eIconButton>
 		</M3eAppBar>
 	);

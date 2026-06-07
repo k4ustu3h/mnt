@@ -8,8 +8,6 @@ import ThemeWrapper from "@/components/theme/ThemeWrapper";
 import Weather from "@/components/widgets/weather/Weather";
 
 export default function App() {
-	const [bgUrl] = useState(() => `https://picsum.photos/1920/1080`);
-
 	const [showGreeting, setShowGreeting] = useState(() => {
 		const saved = localStorage.getItem("showGreeting");
 		return saved !== null ? JSON.parse(saved) : true;
@@ -38,66 +36,57 @@ export default function App() {
 	}, [showWeather]);
 
 	return (
-		<ThemeWrapper bgUrl={bgUrl}>
-			<div
-				style={{
-					backgroundImage: `url(${bgUrl})`,
-					backgroundPosition: "center",
-					backgroundSize: "cover",
-					height: "100vh",
-				}}
+		<ThemeWrapper>
+			<Drawer
+				setShowGreeting={setShowGreeting}
+				setShowScallop={setShowScallop}
+				setShowWeather={setShowWeather}
+				showGreeting={showGreeting}
+				showScallop={showScallop}
+				showWeather={showWeather}
 			>
-				<Drawer
-					setShowGreeting={setShowGreeting}
-					setShowScallop={setShowScallop}
-					setShowWeather={setShowWeather}
-					showGreeting={showGreeting}
-					showScallop={showScallop}
-					showWeather={showWeather}
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						height: "100%",
+						width: "100%",
+					}}
 				>
+					<AppBar />
 					<div
 						style={{
 							display: "flex",
+							flex: 1,
 							flexDirection: "column",
-							height: "100%",
-							width: "100%",
+							padding: 24,
 						}}
 					>
-						<AppBar />
 						<div
 							style={{
 								display: "flex",
 								flex: 1,
-								flexDirection: "column",
-								padding: 24,
+								justifyContent: "center",
 							}}
 						>
-							<div
-								style={{
-									display: "flex",
-									flex: 1,
-									justifyContent: "center",
-								}}
-							>
-								{showGreeting && <Greeting />}
-							</div>
-							<div
-								style={{
-									alignItems: "center",
-									display: "flex",
-									flexWrap: "wrap",
-									gap: 24,
-									justifyContent: "center",
-								}}
-							>
-								{showScallop && <Scallop />}
-								{showWeather && <Weather />}
-							</div>
-							<div style={{ flex: 1 }} />
+							{showGreeting && <Greeting />}
 						</div>
+						<div
+							style={{
+								alignItems: "center",
+								display: "flex",
+								flexWrap: "wrap",
+								gap: 24,
+								justifyContent: "center",
+							}}
+						>
+							{showScallop && <Scallop />}
+							{showWeather && <Weather />}
+						</div>
+						<div style={{ flex: 1 }} />
 					</div>
-				</Drawer>
-			</div>
+				</div>
+			</Drawer>
 		</ThemeWrapper>
 	);
 }

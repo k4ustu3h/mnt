@@ -25,7 +25,7 @@ export default function UsernameField({ disabled }) {
 			}}
 			variant="outlined"
 		>
-			<label for="username" slot="label">
+			<label htmlFor="username" slot="label">
 				Display Name
 			</label>
 			<input
