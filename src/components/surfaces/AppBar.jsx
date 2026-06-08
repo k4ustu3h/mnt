@@ -13,6 +13,8 @@ import {
 	Settings as SettingsFilled,
 } from "@nine-thirty-five/material-symbols-react/rounded/filled";
 
+import AppsFolder from "@/components/layout/AppsFolder";
+
 export default function AppBar() {
 	const [isAppsOpen, setIsAppsOpen] = useState(false);
 
@@ -33,6 +35,10 @@ export default function AppBar() {
 						<Apps />
 						<AppsFilled slot="selected" />
 					</M3eIconButton>
+					<AppsFolder
+						isOpen={isAppsOpen}
+						onClose={() => setIsAppsOpen(false)}
+					/>
 				</div>
 				<M3eIconButton toggle variant="tonal" width="wide">
 					<Settings />
