@@ -1,28 +1,45 @@
+import { useState } from "react";
 import { M3eAppBar } from "@m3e/react/app-bar";
+import { M3eButtonGroup } from "@m3e/react/button-group";
 import { M3eDrawerToggle } from "@m3e/react/drawer-container";
 import { M3eIconButton } from "@m3e/react/icon-button";
 
-import { Settings } from "@nine-thirty-five/material-symbols-react/rounded";
-import { Settings as SettingsFilled } from "@nine-thirty-five/material-symbols-react/rounded/filled";
+import {
+	Apps,
+	Settings,
+} from "@nine-thirty-five/material-symbols-react/rounded";
+import {
+	Apps as AppsFilled,
+	Settings as SettingsFilled,
+} from "@nine-thirty-five/material-symbols-react/rounded/filled";
 
 export default function AppBar() {
+	const [isAppsOpen, setIsAppsOpen] = useState(false);
+
 	return (
 		<M3eAppBar
 			style={{
 				"--m3e-app-bar-container-color": "transparent",
 			}}
 		>
-			<M3eIconButton
-				slot="trailing"
-				style={{ paddingInline: 8 }}
-				toggle
-				variant="tonal"
-				width="wide"
-			>
-				<Settings />
-				<SettingsFilled slot="selected" />
-				<M3eDrawerToggle htmlFor="settings-drawer" />
-			</M3eIconButton>
+			<M3eButtonGroup slot="trailing" style={{ paddingInline: 8 }}>
+				<div style={{ position: "relative" }}>
+					<M3eIconButton
+						onClick={() => setIsAppsOpen(!isAppsOpen)}
+						selected={isAppsOpen}
+						toggle
+						variant="tonal"
+					>
+						<Apps />
+						<AppsFilled slot="selected" />
+					</M3eIconButton>
+				</div>
+				<M3eIconButton toggle variant="tonal" width="wide">
+					<Settings />
+					<SettingsFilled slot="selected" />
+					<M3eDrawerToggle htmlFor="settings-drawer" />
+				</M3eIconButton>
+			</M3eButtonGroup>
 		</M3eAppBar>
 	);
 }
