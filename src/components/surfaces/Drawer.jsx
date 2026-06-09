@@ -5,9 +5,11 @@ import SettingsList from "@/components/lists/SettingsList";
 
 export default function Drawer({
 	children,
+	setShowGoogleApps,
 	setShowGreeting,
 	setShowScallop,
 	setShowWeather,
+	showGoogleApps,
 	showGreeting,
 	showScallop,
 	showWeather,
@@ -46,9 +48,11 @@ export default function Drawer({
 					Settings
 				</M3eHeading>
 				<SettingsList
+					setShowGoogleApps={setShowGoogleApps}
 					setShowGreeting={setShowGreeting}
 					setShowScallop={setShowScallop}
 					setShowWeather={setShowWeather}
+					showGoogleApps={showGoogleApps}
 					showGreeting={showGreeting}
 					showScallop={showScallop}
 					showWeather={showWeather}

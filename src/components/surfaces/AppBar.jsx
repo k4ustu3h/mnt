@@ -15,7 +15,7 @@ import {
 
 import AppsFolder from "@/components/layout/AppsFolder";
 
-export default function AppBar() {
+export default function AppBar({ showGoogleApps }) {
 	const [isAppsOpen, setIsAppsOpen] = useState(false);
 
 	return (
@@ -25,21 +25,23 @@ export default function AppBar() {
 			}}
 		>
 			<M3eButtonGroup slot="trailing" style={{ paddingInline: 8 }}>
-				<div style={{ position: "relative" }}>
-					<M3eIconButton
-						onClick={() => setIsAppsOpen(!isAppsOpen)}
-						selected={isAppsOpen}
-						toggle
-						variant="tonal"
-					>
-						<Apps />
-						<AppsFilled slot="selected" />
-					</M3eIconButton>
-					<AppsFolder
-						isOpen={isAppsOpen}
-						onClose={() => setIsAppsOpen(false)}
-					/>
-				</div>
+				{showGoogleApps && (
+					<div style={{ position: "relative" }}>
+						<M3eIconButton
+							onClick={() => setIsAppsOpen(!isAppsOpen)}
+							selected={isAppsOpen}
+							toggle
+							variant="tonal"
+						>
+							<Apps />
+							<AppsFilled slot="selected" />
+						</M3eIconButton>
+						<AppsFolder
+							isOpen={isAppsOpen}
+							onClose={() => setIsAppsOpen(false)}
+						/>
+					</div>
+				)}
 				<M3eIconButton toggle variant="tonal" width="wide">
 					<Settings />
 					<SettingsFilled slot="selected" />

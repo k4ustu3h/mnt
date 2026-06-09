@@ -6,6 +6,10 @@ import Widgets from "@/components/layout/Widgets";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 export default function App() {
+	const [showGoogleApps, setShowGoogleApps] = useLocalStorage(
+		"showGoogleApps",
+		true,
+	);
 	const [showGreeting, setShowGreeting] = useLocalStorage(
 		"showGreeting",
 		true,
@@ -16,9 +20,11 @@ export default function App() {
 	return (
 		<ThemeWrapper>
 			<Drawer
+				setShowGoogleApps={setShowGoogleApps}
 				setShowGreeting={setShowGreeting}
 				setShowScallop={setShowScallop}
 				setShowWeather={setShowWeather}
+				showGoogleApps={showGoogleApps}
 				showGreeting={showGreeting}
 				showScallop={showScallop}
 				showWeather={showWeather}
@@ -31,7 +37,7 @@ export default function App() {
 						width: "100%",
 					}}
 				>
-					<AppBar />
+					<AppBar showGoogleApps={showGoogleApps} />
 					<Widgets
 						showGreeting={showGreeting}
 						showScallop={showScallop}
