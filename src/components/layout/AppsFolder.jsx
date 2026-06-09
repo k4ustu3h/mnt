@@ -33,9 +33,8 @@ export default function AppsFolder({ isOpen, onClose }) {
 					flexDirection: "column",
 					height: 420,
 					opacity: isOpen ? 1 : 0,
-					overflowX: "hidden",
-					overflowY: "auto",
-					padding: 24,
+					overflow: "hidden",
+					padding: 0,
 					pointerEvents: isOpen ? "auto" : "none",
 					position: "absolute",
 					right: 0,
@@ -44,28 +43,34 @@ export default function AppsFolder({ isOpen, onClose }) {
 					transformOrigin: "top right",
 					transition: "all var(--md-sys-motion-spring-fast-spatial)",
 					visibility: isOpen ? "visible" : "hidden",
-					width: 272,
+					width: 304,
 					zIndex: 100,
 				}}
 			>
-				<div
-					style={{
-						alignItems: "start",
-						display: "grid",
-						gap: 16,
-						gridTemplateColumns: "repeat(4, 1fr)",
-						width: "100%",
-					}}
-				>
-					{apps.map((app) => (
-						<MonochromeIcon
-							key={app.name}
-							name={app.name}
-							url={app.url}
-						>
-							{app.icon}
-						</MonochromeIcon>
-					))}
+				<div className="folder-scroll">
+					<div
+						style={{
+							alignItems: "start",
+							boxSizing: "border-box",
+							display: "grid",
+							gap: 16,
+							gridTemplateColumns: "repeat(4, 1fr)",
+							paddingBlock: 24,
+							paddingLeft: 24,
+							paddingRight: 12,
+							width: "100%",
+						}}
+					>
+						{apps.map((app) => (
+							<MonochromeIcon
+								key={app.name}
+								name={app.name}
+								url={app.url}
+							>
+								{app.icon}
+							</MonochromeIcon>
+						))}
+					</div>
 				</div>
 			</div>
 		</>
