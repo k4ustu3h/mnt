@@ -1,7 +1,6 @@
 import { lazy, Suspense } from "react";
 
 import { M3eDrawerContainer } from "@m3e/react/drawer-container";
-import { M3eHeading } from "@m3e/react/heading";
 
 import DefaultNewTab from "@/components/buttons/DefaultNewTab";
 
@@ -43,16 +42,6 @@ export default function Drawer({
 					width: 320,
 				}}
 			>
-				<M3eHeading
-					emphasized
-					size="small"
-					style={{
-						color: "var(--md-sys-color-on-surface)",
-					}}
-					variant="display"
-				>
-					Settings
-				</M3eHeading>
 				<Suspense fallback={<div style={{ flex: 1 }} />}>
 					<SettingsList
 						setShowGoogleApps={setShowGoogleApps}
@@ -66,8 +55,8 @@ export default function Drawer({
 						showWeather={showWeather}
 						wallpaperRefreshRate={wallpaperRefreshRate}
 					/>
+					<DefaultNewTab />
 				</Suspense>
-				<DefaultNewTab />
 			</div>
 		</M3eDrawerContainer>
 	);
