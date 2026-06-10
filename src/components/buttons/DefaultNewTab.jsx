@@ -6,7 +6,7 @@ export default function DefaultNewTab() {
 		const defaultNTUrl = "chrome://new-tab-page/";
 
 		if (window.chrome && window.chrome.tabs) {
-			window.chrome.tabs.create({ url: defaultNTUrl });
+			window.chrome.tabs.update({ url: defaultNTUrl });
 		}
 	};
 
