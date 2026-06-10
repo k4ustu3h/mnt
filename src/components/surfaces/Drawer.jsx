@@ -1,6 +1,7 @@
 import { M3eDrawerContainer } from "@m3e/react/drawer-container";
 import { M3eHeading } from "@m3e/react/heading";
 
+import DefaultNewTab from "@/components/buttons/DefaultNewTab";
 import SettingsList from "@/components/lists/SettingsList";
 
 export default function Drawer({
@@ -57,6 +58,7 @@ export default function Drawer({
 					showScallop={showScallop}
 					showWeather={showWeather}
 				/>
+				<DefaultNewTab />
 			</div>
 		</M3eDrawerContainer>
 	);
