@@ -2,17 +2,14 @@ import { useEffect, useState } from "react";
 
 import { M3eTheme } from "@m3e/react/theme";
 
+import getWallpaperUrl from "@/utils/wallpaper";
 import { extractThemeColor } from "@/utils/monet";
 
 import Wallpaper from "@/components/layout/Wallpaper";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 
 export default function ThemeWrapper({ children }) {
-	const [bgUrl] = useState(() => {
-		const width = window.innerWidth;
-		const height = window.innerHeight;
-		return `https://picsum.photos/${width}/${height}`;
-	});
+	const [bgUrl] = useState(() => getWallpaperUrl());
 
 	const [themeColor, setThemeColor] = useState("");
 	const [isLoading, setIsLoading] = useState(true);

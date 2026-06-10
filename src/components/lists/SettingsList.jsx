@@ -2,11 +2,13 @@ import {
 	M3eActionList,
 	M3eExpandableListItem,
 	M3eListAction,
+	M3eListOption,
 } from "@m3e/react/list";
 
 import {
 	AppRegistration,
 	Person,
+	WallpaperSlideshow,
 	Widgets,
 } from "@nine-thirty-five/material-symbols-react/rounded";
 
@@ -19,10 +21,12 @@ export default function SettingsList({
 	setShowGreeting,
 	setShowScallop,
 	setShowWeather,
+	setWallpaperRefreshRate,
 	showGoogleApps,
 	showGreeting,
 	showScallop,
 	showWeather,
+	wallpaperRefreshRate,
 }) {
 	return (
 		<M3eActionList variant="segmented">
@@ -79,6 +83,34 @@ export default function SettingsList({
 							onChange={setShowWeather}
 						/>
 					</M3eListAction>
+				</div>
+			</M3eExpandableListItem>
+			<M3eExpandableListItem>
+				<WallpaperSlideshow
+					color="var(--md-sys-color-on-surface)"
+					slot="leading"
+				/>
+				Wallpaper
+				<span slot="supporting-text">Refresh Rate</span>
+				<div slot="items">
+					<M3eListOption
+						onClick={() => setWallpaperRefreshRate("newTab")}
+						selected={wallpaperRefreshRate === "newTab"}
+					>
+						New Tab
+					</M3eListOption>
+					<M3eListOption
+						onClick={() => setWallpaperRefreshRate("hourly")}
+						selected={wallpaperRefreshRate === "hourly"}
+					>
+						Hourly
+					</M3eListOption>
+					<M3eListOption
+						onClick={() => setWallpaperRefreshRate("daily")}
+						selected={wallpaperRefreshRate === "daily"}
+					>
+						Daily
+					</M3eListOption>
 				</div>
 			</M3eExpandableListItem>
 		</M3eActionList>

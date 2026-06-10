@@ -10,10 +10,12 @@ export default function Drawer({
 	setShowGreeting,
 	setShowScallop,
 	setShowWeather,
+	setWallpaperRefreshRate,
 	showGoogleApps,
 	showGreeting,
 	showScallop,
 	showWeather,
+	wallpaperRefreshRate,
 }) {
 	return (
 		<M3eDrawerContainer
@@ -53,10 +55,12 @@ export default function Drawer({
 					setShowGreeting={setShowGreeting}
 					setShowScallop={setShowScallop}
 					setShowWeather={setShowWeather}
+					setWallpaperRefreshRate={setWallpaperRefreshRate}
 					showGoogleApps={showGoogleApps}
 					showGreeting={showGreeting}
 					showScallop={showScallop}
 					showWeather={showWeather}
+					wallpaperRefreshRate={wallpaperRefreshRate}
 				/>
 				<DefaultNewTab />
 			</div>

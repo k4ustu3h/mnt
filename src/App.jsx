@@ -16,6 +16,10 @@ export default function App() {
 	);
 	const [showScallop, setShowScallop] = useLocalStorage("showScallop", true);
 	const [showWeather, setShowWeather] = useLocalStorage("showWeather", true);
+	const [wallpaperRefreshRate, setWallpaperRefreshRate] = useLocalStorage(
+		"wallpaperRefreshRate",
+		"newTab",
+	);
 
 	return (
 		<ThemeWrapper>
@@ -24,10 +28,12 @@ export default function App() {
 				setShowGreeting={setShowGreeting}
 				setShowScallop={setShowScallop}
 				setShowWeather={setShowWeather}
+				setWallpaperRefreshRate={setWallpaperRefreshRate}
 				showGoogleApps={showGoogleApps}
 				showGreeting={showGreeting}
 				showScallop={showScallop}
 				showWeather={showWeather}
+				wallpaperRefreshRate={wallpaperRefreshRate}
 			>
 				<div
 					style={{
