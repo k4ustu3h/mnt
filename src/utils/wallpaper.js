@@ -1,6 +1,6 @@
 export default function getWallpaperUrl() {
-	const height = window.innerHeight;
-	const width = window.innerWidth;
+	const height = Math.round(window.innerHeight * 1.1);
+	const width = Math.round(window.innerWidth * 1.1);
 
 	const refreshRate =
 		JSON.parse(localStorage.getItem("wallpaperRefreshRate")) ?? "newTab";

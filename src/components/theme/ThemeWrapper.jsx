@@ -11,6 +11,21 @@ import LoadingScreen from "@/components/loading/LoadingScreen";
 export default function ThemeWrapper({ children }) {
 	const [bgUrl] = useState(() => getWallpaperUrl());
 
+	const [animateZoom] = useState(() => {
+		const refreshRate =
+			JSON.parse(localStorage.getItem("wallpaperRefreshRate")) ??
+			"newTab";
+
+		if (refreshRate === "newTab") return true;
+
+		const savedData = JSON.parse(localStorage.getItem("wallpaperData"));
+		if (savedData && Date.now() - savedData.timestamp < 2000) {
+			return true;
+		}
+
+		return false;
+	});
+
 	const [themeColor, setThemeColor] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +57,9 @@ export default function ThemeWrapper({ children }) {
 
 	return (
 		<M3eTheme color={themeColor} motion="expressive">
-			<Wallpaper bgUrl={bgUrl}>{children}</Wallpaper>
+			<Wallpaper animateZoom={animateZoom} bgUrl={bgUrl}>
+				{children}
+			</Wallpaper>
 		</M3eTheme>
 	);
 }
