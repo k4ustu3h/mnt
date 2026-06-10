@@ -14,8 +14,32 @@ export default defineConfig({
 			output: {
 				manualChunks: (id) => {
 					if (id.includes("node_modules")) {
-						if (id.includes("@m3e")) return "m3e-vendor";
+						if (id.includes("@m3e/react/")) {
+							const pathParts = id
+								.split("@m3e/react/")[1]
+								.split("/");
+
+							const rawName =
+								pathParts[0] === "dist"
+									? pathParts[1]
+									: pathParts[0];
+
+							const cleanName = rawName.split(".")[0];
+
+							return `m3e-${cleanName}`;
+						}
+
+						if (
+							id.includes(
+								"@nine-thirty-five/material-symbols-react",
+							)
+						) {
+							return "material-symbols-vendor";
+						}
 						if (id.includes("react")) return "react-vendor";
+						if (id.includes("@icons-pack/react-simple-icons")) {
+							return "simple-icons-vendor";
+						}
 						return "vendor";
 					}
 				},
