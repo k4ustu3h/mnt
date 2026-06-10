@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
+
 import { M3eAppBar } from "@m3e/react/app-bar";
 import { M3eButtonGroup } from "@m3e/react/button-group";
 import { M3eDrawerToggle } from "@m3e/react/drawer-container";
@@ -13,7 +14,7 @@ import {
 	Settings as SettingsFilled,
 } from "@nine-thirty-five/material-symbols-react/rounded/filled";
 
-import AppsFolder from "@/components/layout/AppsFolder";
+const AppsFolder = lazy(() => import("@/components/layout/AppsFolder"));
 
 export default function AppBar({ showGoogleApps }) {
 	const [isAppsOpen, setIsAppsOpen] = useState(false);
@@ -36,10 +37,13 @@ export default function AppBar({ showGoogleApps }) {
 							<Apps />
 							<AppsFilled slot="selected" />
 						</M3eIconButton>
-						<AppsFolder
-							isOpen={isAppsOpen}
-							onClose={() => setIsAppsOpen(false)}
-						/>
+
+						<Suspense fallback={null}>
+							<AppsFolder
+								isOpen={isAppsOpen}
+								onClose={() => setIsAppsOpen(false)}
+							/>
+						</Suspense>
 					</div>
 				)}
 				<M3eIconButton toggle variant="tonal" width="wide">

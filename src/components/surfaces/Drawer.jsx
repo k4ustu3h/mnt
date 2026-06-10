@@ -1,8 +1,11 @@
+import { lazy, Suspense } from "react";
+
 import { M3eDrawerContainer } from "@m3e/react/drawer-container";
 import { M3eHeading } from "@m3e/react/heading";
 
 import DefaultNewTab from "@/components/buttons/DefaultNewTab";
-import SettingsList from "@/components/lists/SettingsList";
+
+const SettingsList = lazy(() => import("@/components/lists/SettingsList"));
 
 export default function Drawer({
 	children,
@@ -50,18 +53,20 @@ export default function Drawer({
 				>
 					Settings
 				</M3eHeading>
-				<SettingsList
-					setShowGoogleApps={setShowGoogleApps}
-					setShowGreeting={setShowGreeting}
-					setShowScallop={setShowScallop}
-					setShowWeather={setShowWeather}
-					setWallpaperRefreshRate={setWallpaperRefreshRate}
-					showGoogleApps={showGoogleApps}
-					showGreeting={showGreeting}
-					showScallop={showScallop}
-					showWeather={showWeather}
-					wallpaperRefreshRate={wallpaperRefreshRate}
-				/>
+				<Suspense fallback={<div style={{ flex: 1 }} />}>
+					<SettingsList
+						setShowGoogleApps={setShowGoogleApps}
+						setShowGreeting={setShowGreeting}
+						setShowScallop={setShowScallop}
+						setShowWeather={setShowWeather}
+						setWallpaperRefreshRate={setWallpaperRefreshRate}
+						showGoogleApps={showGoogleApps}
+						showGreeting={showGreeting}
+						showScallop={showScallop}
+						showWeather={showWeather}
+						wallpaperRefreshRate={wallpaperRefreshRate}
+					/>
+				</Suspense>
 				<DefaultNewTab />
 			</div>
 		</M3eDrawerContainer>
