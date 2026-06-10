@@ -7,7 +7,10 @@ import {
 
 import {
 	AppRegistration,
+	EventRepeat,
+	Pace,
 	Person,
+	TabRecent,
 	WallpaperSlideshow,
 	Widgets,
 } from "@nine-thirty-five/material-symbols-react/rounded";
@@ -97,18 +100,21 @@ export default function SettingsList({
 						onClick={() => setWallpaperRefreshRate("newTab")}
 						selected={wallpaperRefreshRate === "newTab"}
 					>
+						<TabRecent slot="leading" />
 						New Tab
 					</M3eListOption>
 					<M3eListOption
 						onClick={() => setWallpaperRefreshRate("hourly")}
 						selected={wallpaperRefreshRate === "hourly"}
 					>
+						<Pace slot="leading" />
 						Hourly
 					</M3eListOption>
 					<M3eListOption
 						onClick={() => setWallpaperRefreshRate("daily")}
 						selected={wallpaperRefreshRate === "daily"}
 					>
+						<EventRepeat slot="leading" />
 						Daily
 					</M3eListOption>
 				</div>
