@@ -1,4 +1,9 @@
-export default function Wallpaper({ animateZoom, bgUrl, children }) {
+export default function Wallpaper({
+	animateZoom,
+	bgUrl,
+	children,
+	isAppsOpen,
+}) {
 	return (
 		<div
 			style={{
@@ -21,7 +26,7 @@ export default function Wallpaper({ animateZoom, bgUrl, children }) {
 			<div
 				style={{
 					animation: animateZoom
-						? "wallpaper-reveal 1.2s var(--md-sys-motion-spring-default-effects) forwards"
+						? "wallpaper-reveal var(--md-sys-motion-spring-slow-effects)"
 						: "none",
 					backgroundImage: `url(${bgUrl})`,
 					backgroundPosition: "center",
@@ -30,6 +35,9 @@ export default function Wallpaper({ animateZoom, bgUrl, children }) {
 					left: 0,
 					position: "absolute",
 					top: 0,
+					transform: isAppsOpen ? "scale(1.05)" : "scale(1.1)",
+					transition:
+						"transform var(--md-sys-motion-spring-fast-effects)",
 					width: "100%",
 					zIndex: 0,
 				}}

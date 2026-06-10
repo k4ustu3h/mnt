@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import AppBar from "@/components/surfaces/AppBar";
 import Drawer from "@/components/surfaces/Drawer";
 import ThemeWrapper from "@/components/theme/ThemeWrapper";
@@ -6,6 +8,7 @@ import Widgets from "@/components/layout/Widgets";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 export default function App() {
+	const [isAppsOpen, setIsAppsOpen] = useState(false);
 	const [showGoogleApps, setShowGoogleApps] = useLocalStorage(
 		"showGoogleApps",
 		true,
@@ -22,7 +25,7 @@ export default function App() {
 	);
 
 	return (
-		<ThemeWrapper>
+		<ThemeWrapper isAppsOpen={isAppsOpen}>
 			<Drawer
 				setShowGoogleApps={setShowGoogleApps}
 				setShowGreeting={setShowGreeting}
@@ -43,7 +46,11 @@ export default function App() {
 						width: "100%",
 					}}
 				>
-					<AppBar showGoogleApps={showGoogleApps} />
+					<AppBar
+						isAppsOpen={isAppsOpen}
+						setIsAppsOpen={setIsAppsOpen}
+						showGoogleApps={showGoogleApps}
+					/>
 					<Widgets
 						showGreeting={showGreeting}
 						showScallop={showScallop}

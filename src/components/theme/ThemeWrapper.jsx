@@ -8,7 +8,7 @@ import { extractThemeColor } from "@/utils/monet";
 import Wallpaper from "@/components/layout/Wallpaper";
 import LoadingScreen from "@/components/loading/LoadingScreen";
 
-export default function ThemeWrapper({ children }) {
+export default function ThemeWrapper({ children, isAppsOpen }) {
 	const [bgUrl] = useState(() => getWallpaperUrl());
 
 	const [animateZoom] = useState(() => {
@@ -57,7 +57,11 @@ export default function ThemeWrapper({ children }) {
 
 	return (
 		<M3eTheme color={themeColor} motion="expressive">
-			<Wallpaper animateZoom={animateZoom} bgUrl={bgUrl}>
+			<Wallpaper
+				animateZoom={animateZoom}
+				bgUrl={bgUrl}
+				isAppsOpen={isAppsOpen}
+			>
 				{children}
 			</Wallpaper>
 		</M3eTheme>

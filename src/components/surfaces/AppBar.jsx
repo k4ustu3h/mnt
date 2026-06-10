@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense } from "react";
 
 import { M3eAppBar } from "@m3e/react/app-bar";
 import { M3eButtonGroup } from "@m3e/react/button-group";
@@ -16,9 +16,7 @@ import {
 
 const AppsFolder = lazy(() => import("@/components/layout/AppsFolder"));
 
-export default function AppBar({ showGoogleApps }) {
-	const [isAppsOpen, setIsAppsOpen] = useState(false);
-
+export default function AppBar({ showGoogleApps, isAppsOpen, setIsAppsOpen }) {
 	return (
 		<M3eAppBar
 			style={{
