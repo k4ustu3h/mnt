@@ -12,11 +12,13 @@ export default function Drawer({
 	setShowGreeting,
 	setShowScallop,
 	setShowWeather,
+	setThemeScheme,
 	setWallpaperRefreshRate,
 	showGoogleApps,
 	showGreeting,
 	showScallop,
 	showWeather,
+	themeScheme,
 	wallpaperRefreshRate,
 }) {
 	return (
@@ -48,11 +50,13 @@ export default function Drawer({
 						setShowGreeting={setShowGreeting}
 						setShowScallop={setShowScallop}
 						setShowWeather={setShowWeather}
+						setThemeScheme={setThemeScheme}
 						setWallpaperRefreshRate={setWallpaperRefreshRate}
 						showGoogleApps={showGoogleApps}
 						showGreeting={showGreeting}
 						showScallop={showScallop}
 						showWeather={showWeather}
+						themeScheme={themeScheme}
 						wallpaperRefreshRate={wallpaperRefreshRate}
 					/>
 					<DefaultNewTab />

@@ -2,13 +2,19 @@ import {
 	M3eActionList,
 	M3eExpandableListItem,
 	M3eListAction,
+	M3eListItem,
 	M3eListOption,
 } from "@m3e/react/list";
+import {
+	M3eButtonSegment,
+	M3eSegmentedButton,
+} from "@m3e/react/segmented-button";
 
 import {
 	AppRegistration,
 	EventRepeat,
 	Pace,
+	Palette,
 	Person,
 	TabRecent,
 	WallpaperSlideshow,
@@ -24,11 +30,13 @@ export default function SettingsList({
 	setShowGreeting,
 	setShowScallop,
 	setShowWeather,
+	setThemeScheme,
 	setWallpaperRefreshRate,
 	showGoogleApps,
 	showGreeting,
 	showScallop,
 	showWeather,
+	themeScheme,
 	wallpaperRefreshRate,
 }) {
 	return (
@@ -47,6 +55,37 @@ export default function SettingsList({
 							onChange={setShowGoogleApps}
 						/>
 					</M3eListAction>
+				</div>
+			</M3eExpandableListItem>
+			<M3eExpandableListItem>
+				<Palette
+					color="var(--md-sys-color-on-surface)"
+					slot="leading"
+				/>
+				Appearance
+				<div slot="items">
+					<M3eListItem>
+						<M3eSegmentedButton>
+							<M3eButtonSegment
+								onClick={() => setThemeScheme("dark")}
+								checked={themeScheme === "dark"}
+							>
+								Dark
+							</M3eButtonSegment>
+							<M3eButtonSegment
+								onClick={() => setThemeScheme("light")}
+								checked={themeScheme === "light"}
+							>
+								Light
+							</M3eButtonSegment>
+							<M3eButtonSegment
+								onClick={() => setThemeScheme("auto")}
+								checked={themeScheme === "auto"}
+							>
+								System
+							</M3eButtonSegment>
+						</M3eSegmentedButton>
+					</M3eListItem>
 				</div>
 			</M3eExpandableListItem>
 			<M3eExpandableListItem>

@@ -19,23 +19,29 @@ export default function App() {
 	);
 	const [showScallop, setShowScallop] = useLocalStorage("showScallop", true);
 	const [showWeather, setShowWeather] = useLocalStorage("showWeather", true);
+	const [themeScheme, setThemeScheme] = useLocalStorage(
+		"themeScheme",
+		"auto",
+	);
 	const [wallpaperRefreshRate, setWallpaperRefreshRate] = useLocalStorage(
 		"wallpaperRefreshRate",
 		"newTab",
 	);
 
 	return (
-		<ThemeWrapper isAppsOpen={isAppsOpen}>
+		<ThemeWrapper isAppsOpen={isAppsOpen} themeScheme={themeScheme}>
 			<Drawer
 				setShowGoogleApps={setShowGoogleApps}
 				setShowGreeting={setShowGreeting}
 				setShowScallop={setShowScallop}
 				setShowWeather={setShowWeather}
+				setThemeScheme={setThemeScheme}
 				setWallpaperRefreshRate={setWallpaperRefreshRate}
 				showGoogleApps={showGoogleApps}
 				showGreeting={showGreeting}
 				showScallop={showScallop}
 				showWeather={showWeather}
+				themeScheme={themeScheme}
 				wallpaperRefreshRate={wallpaperRefreshRate}
 			>
 				<div
