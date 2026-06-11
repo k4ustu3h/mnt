@@ -14,9 +14,13 @@ import {
 	Settings as SettingsFilled,
 } from "@nine-thirty-five/material-symbols-react/rounded/filled";
 
+import useSettings from "@/hooks/useSettings";
+
 const AppsFolder = lazy(() => import("@/components/layout/AppsFolder"));
 
-export default function AppBar({ showGoogleApps, isAppsOpen, setIsAppsOpen }) {
+export default function AppBar() {
+	const { showGoogleApps, isAppsOpen, setIsAppsOpen } = useSettings();
+
 	return (
 		<M3eAppBar
 			style={{
@@ -37,10 +41,7 @@ export default function AppBar({ showGoogleApps, isAppsOpen, setIsAppsOpen }) {
 						</M3eIconButton>
 
 						<Suspense fallback={null}>
-							<AppsFolder
-								isOpen={isAppsOpen}
-								onClose={() => setIsAppsOpen(false)}
-							/>
+							<AppsFolder />
 						</Suspense>
 					</div>
 				)}

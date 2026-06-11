@@ -6,21 +6,7 @@ import DefaultNewTab from "@/components/buttons/DefaultNewTab";
 
 const SettingsList = lazy(() => import("@/components/lists/SettingsList"));
 
-export default function Drawer({
-	children,
-	setShowGoogleApps,
-	setShowGreeting,
-	setShowScallop,
-	setShowWeather,
-	setThemeScheme,
-	setWallpaperRefreshRate,
-	showGoogleApps,
-	showGreeting,
-	showScallop,
-	showWeather,
-	themeScheme,
-	wallpaperRefreshRate,
-}) {
+export default function Drawer({ children }) {
 	return (
 		<M3eDrawerContainer
 			endMode="push"
@@ -45,20 +31,7 @@ export default function Drawer({
 				}}
 			>
 				<Suspense fallback={<div style={{ flex: 1 }} />}>
-					<SettingsList
-						setShowGoogleApps={setShowGoogleApps}
-						setShowGreeting={setShowGreeting}
-						setShowScallop={setShowScallop}
-						setShowWeather={setShowWeather}
-						setThemeScheme={setThemeScheme}
-						setWallpaperRefreshRate={setWallpaperRefreshRate}
-						showGoogleApps={showGoogleApps}
-						showGreeting={showGreeting}
-						showScallop={showScallop}
-						showWeather={showWeather}
-						themeScheme={themeScheme}
-						wallpaperRefreshRate={wallpaperRefreshRate}
-					/>
+					<SettingsList />
 					<DefaultNewTab />
 				</Suspense>
 			</div>

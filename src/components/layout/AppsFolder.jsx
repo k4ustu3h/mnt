@@ -1,24 +1,28 @@
 import { apps } from "@/data/GoogleApps";
 
+import useSettings from "@/hooks/useSettings";
+
 import MonochromeIcon from "@/components/layout/MonochromeIcon";
 
-export default function AppsFolder({ isOpen, onClose }) {
+export default function AppsFolder() {
+	const { isAppsOpen, setIsAppsOpen } = useSettings();
+
 	return (
 		<>
 			<div
-				onClick={onClose}
+				onClick={() => setIsAppsOpen(false)}
 				style={{
 					backgroundColor: "rgba(0, 0, 0, 0.2)",
 					bottom: 0,
 					left: 0,
-					opacity: isOpen ? 1 : 0,
-					pointerEvents: isOpen ? "auto" : "none",
+					opacity: isAppsOpen ? 1 : 0,
+					pointerEvents: isAppsOpen ? "auto" : "none",
 					position: "fixed",
 					right: 0,
 					top: 0,
 					transition:
 						"opacity var(--md-sys-motion-spring-fast-spatial)",
-					visibility: isOpen ? "visible" : "hidden",
+					visibility: isAppsOpen ? "visible" : "hidden",
 					zIndex: 99,
 				}}
 			/>
@@ -32,17 +36,17 @@ export default function AppsFolder({ isOpen, onClose }) {
 					display: "flex",
 					flexDirection: "column",
 					height: 420,
-					opacity: isOpen ? 1 : 0,
+					opacity: isAppsOpen ? 1 : 0,
 					overflow: "hidden",
 					padding: 0,
-					pointerEvents: isOpen ? "auto" : "none",
+					pointerEvents: isAppsOpen ? "auto" : "none",
 					position: "absolute",
 					right: 0,
 					top: "calc(100% + 12px)",
-					transform: isOpen ? "scale(1)" : "scale(0.8)",
+					transform: isAppsOpen ? "scale(1)" : "scale(0.8)",
 					transformOrigin: "top right",
 					transition: "all var(--md-sys-motion-spring-fast-spatial)",
-					visibility: isOpen ? "visible" : "hidden",
+					visibility: isAppsOpen ? "visible" : "hidden",
 					width: 304,
 					zIndex: 100,
 				}}

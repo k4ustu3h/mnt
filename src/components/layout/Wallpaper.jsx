@@ -1,9 +1,8 @@
-export default function Wallpaper({
-	animateZoom,
-	bgUrl,
-	children,
-	isAppsOpen,
-}) {
+import useSettings from "@/hooks/useSettings";
+
+export default function Wallpaper({ animateZoom, bgUrl, children }) {
+	const { isAppsOpen } = useSettings();
+
 	return (
 		<div
 			style={{

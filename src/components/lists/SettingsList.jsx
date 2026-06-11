@@ -21,24 +21,28 @@ import {
 	Widgets,
 } from "@nine-thirty-five/material-symbols-react/rounded";
 
+import useSettings from "@/hooks/useSettings";
+
 import ListItem from "@/components/lists/ListItem";
 import UsernameField from "@/components/textfields/UsernameField";
 import WidgetSwitch from "@/components/switches/WidgetSwitch";
 
-export default function SettingsList({
-	setShowGoogleApps,
-	setShowGreeting,
-	setShowScallop,
-	setShowWeather,
-	setThemeScheme,
-	setWallpaperRefreshRate,
-	showGoogleApps,
-	showGreeting,
-	showScallop,
-	showWeather,
-	themeScheme,
-	wallpaperRefreshRate,
-}) {
+export default function SettingsList() {
+	const {
+		setShowGoogleApps,
+		setShowGreeting,
+		setShowScallop,
+		setShowWeather,
+		setThemeScheme,
+		setWallpaperRefreshRate,
+		showGoogleApps,
+		showGreeting,
+		showScallop,
+		showWeather,
+		themeScheme,
+		wallpaperRefreshRate,
+	} = useSettings();
+
 	return (
 		<M3eActionList variant="segmented">
 			<M3eExpandableListItem>

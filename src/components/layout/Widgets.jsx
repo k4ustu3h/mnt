@@ -1,9 +1,13 @@
+import useSettings from "@/hooks/useSettings";
+
 import Greeting from "@/components/typography/Greeting";
 import Scallop from "@/components/widgets/clocks/Scallop";
 import WallpaperInfo from "@/components/widgets/WallpaperInfo";
 import Weather from "@/components/widgets/weather/Weather";
 
-export default function Widgets({ showGreeting, showScallop, showWeather }) {
+export default function Widgets() {
+	const { showGreeting, showScallop, showWeather } = useSettings();
+
 	return (
 		<div
 			style={{
