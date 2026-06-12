@@ -11,6 +11,15 @@ export default function AppearanceItem() {
 			Appearance
 			<div slot="items">
 				<M3eListItem>
+					<span
+						style={{
+							fontSize: ".9em",
+							paddingBlockEnd: 8,
+							paddingInlineStart: 12,
+						}}
+					>
+						Theme modes
+					</span>
 					<ThemeModes />
 				</M3eListItem>
 			</div>

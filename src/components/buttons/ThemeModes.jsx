@@ -9,7 +9,7 @@ export default function ThemeModes() {
 	const { themeScheme, setThemeScheme } = useSettings();
 
 	return (
-		<M3eSegmentedButton>
+		<M3eSegmentedButton style={{ paddingBlockEnd: 8 }}>
 			<M3eButtonSegment
 				onClick={() => setThemeScheme("dark")}
 				checked={themeScheme === "dark"}
