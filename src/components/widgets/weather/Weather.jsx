@@ -3,18 +3,23 @@ import { useEffect, useState } from "react";
 import { M3eHeading } from "@m3e/react/heading";
 import { M3eShape } from "@m3e/react/shape";
 
-import { getWeatherDetails, getIconUrl } from "@/utils/weather";
-import { weatherDimensions } from "@/styles/dimensions";
 import useBreakpoint from "@/hooks/useBreakpoint";
+import useSettings from "@/hooks/useSettings";
+
+import { getWeatherDetails, getIconUrl } from "@/utils/weather";
+
+import { weatherDimensions } from "@/styles/dimensions";
 
 export default function Weather() {
+	const { themeScheme } = useSettings();
+
 	const [weatherData, setWeatherData] = useState({
 		temperature: "--",
 		iconName: "mostly_sunny",
 		label: "Loading...",
 	});
 
-	const [theme, setTheme] = useState(
+	const [systemTheme, setSystemTheme] = useState(
 		window.matchMedia("(prefers-color-scheme: dark)").matches
 			? "dark"
 			: "light",
@@ -32,7 +37,8 @@ export default function Weather() {
 
 	useEffect(() => {
 		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-		const handleChange = (e) => setTheme(e.matches ? "dark" : "light");
+		const handleChange = (e) =>
+			setSystemTheme(e.matches ? "dark" : "light");
 
 		mediaQuery.addEventListener("change", handleChange);
 		return () => mediaQuery.removeEventListener("change", handleChange);
@@ -82,7 +88,9 @@ export default function Weather() {
 		}
 	}, []);
 
-	const iconSrc = getIconUrl(weatherData.iconName, theme);
+	const activeTheme = themeScheme === "auto" ? systemTheme : themeScheme;
+
+	const iconSrc = getIconUrl(weatherData.iconName, activeTheme);
 
 	return (
 		<div>
