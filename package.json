@@ -12,7 +12,7 @@
 	"dependencies": {
 		"@icons-pack/react-simple-icons": "13.13.0",
 		"@m3e/react": "2.5.10",
-		"@nine-thirty-five/material-symbols-react": "1.28.2",
+		"@nine-thirty-five/material-symbols-react": "2.0.0",
 		"fast-average-color": "9.5.2",
 		"react": "19.2.7",
 		"react-dom": "19.2.7"
