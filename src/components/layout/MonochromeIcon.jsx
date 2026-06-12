@@ -52,6 +52,7 @@ export default function MonochromeIcon({ children, name, url }) {
 				size="small"
 				variant="label"
 				style={{
+					color: "var(--md-sys-color-on-surface)",
 					maxWidth: shapeSize,
 					overflow: "hidden",
 					textOverflow: "ellipsis",

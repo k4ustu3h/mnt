@@ -1,3 +1,5 @@
+import { M3eContentPane } from "@m3e/react/content-pane";
+
 import { apps } from "@/data/GoogleApps";
 
 import useSettings from "@/hooks/useSettings";
@@ -26,19 +28,15 @@ export default function AppsFolder() {
 					zIndex: 99,
 				}}
 			/>
-			<div
+			<M3eContentPane
 				onClick={(e) => e.stopPropagation()}
 				style={{
-					backdropFilter: "blur(24px)",
-					backgroundColor:
+					"--m3e-content-pane-container-color":
 						"color-mix(in srgb, var(--md-sys-color-surface-container-high) 75%, transparent)",
+					backdropFilter: "blur(24px)",
 					borderRadius: 32,
-					display: "flex",
-					flexDirection: "column",
 					height: 420,
 					opacity: isAppsOpen ? 1 : 0,
-					overflow: "hidden",
-					padding: 0,
 					pointerEvents: isAppsOpen ? "auto" : "none",
 					position: "absolute",
 					right: 0,
@@ -51,32 +49,25 @@ export default function AppsFolder() {
 					zIndex: 100,
 				}}
 			>
-				<div className="folder-scroll">
-					<div
-						style={{
-							alignItems: "start",
-							boxSizing: "border-box",
-							display: "grid",
-							gap: 16,
-							gridTemplateColumns: "repeat(4, 1fr)",
-							paddingBlock: 24,
-							paddingLeft: 24,
-							paddingRight: 12,
-							width: "100%",
-						}}
-					>
-						{apps.map((app) => (
-							<MonochromeIcon
-								key={app.name}
-								name={app.name}
-								url={app.url}
-							>
-								{app.icon}
-							</MonochromeIcon>
-						))}
-					</div>
+				<div
+					style={{
+						display: "grid",
+						gap: 16,
+						gridTemplateColumns: "repeat(4, 1fr)",
+						width: "100%",
+					}}
+				>
+					{apps.map((app) => (
+						<MonochromeIcon
+							key={app.name}
+							name={app.name}
+							url={app.url}
+						>
+							{app.icon}
+						</MonochromeIcon>
+					))}
 				</div>
-			</div>
+			</M3eContentPane>
 		</>
 	);
 }
