@@ -16,6 +16,7 @@ export default function WallpaperItem() {
 		<M3eExpandableListItem>
 			<WallpaperSlideshow
 				color="var(--md-sys-color-on-surface)"
+				size={24}
 				slot="leading"
 			/>
 			Wallpaper
@@ -28,21 +29,21 @@ export default function WallpaperItem() {
 					onClick={() => setWallpaperRefreshRate("newTab")}
 					selected={wallpaperRefreshRate === "newTab"}
 				>
-					<TabRecent slot="leading" />
+					<TabRecent slot="leading" size={24} />
 					New Tab
 				</M3eListOption>
 				<M3eListOption
 					onClick={() => setWallpaperRefreshRate("hourly")}
 					selected={wallpaperRefreshRate === "hourly"}
 				>
-					<Pace slot="leading" />
+					<Pace slot="leading" size={24} />
 					Hourly
 				</M3eListOption>
 				<M3eListOption
 					onClick={() => setWallpaperRefreshRate("daily")}
 					selected={wallpaperRefreshRate === "daily"}
 				>
-					<EventRepeat slot="leading" />
+					<EventRepeat slot="leading" size={24} />
 					Daily
 				</M3eListOption>
 			</div>

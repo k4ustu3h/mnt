@@ -40,7 +40,7 @@ export const apps = [
 	{
 		name: "Account",
 		url: "https://myaccount.google.com",
-		icon: <AccountCircle />,
+		icon: <AccountCircle size={24} />,
 	},
 	{
 		name: "Search",
@@ -140,7 +140,7 @@ export const apps = [
 	{
 		name: "Saved",
 		url: "https://www.google.com/save",
-		icon: <Bookmark />,
+		icon: <Bookmark size={24} />,
 	},
 	{
 		name: "Google Ads",
@@ -150,7 +150,7 @@ export const apps = [
 	{
 		name: "Contacts",
 		url: "https://contacts.google.com",
-		icon: <ContactsProduct />,
+		icon: <ContactsProduct size={24} />,
 	},
 	{
 		name: "Forms",
@@ -165,7 +165,7 @@ export const apps = [
 	{
 		name: "Password Manager",
 		url: "https://passwords.google.com",
-		icon: <VpnKey />,
+		icon: <VpnKey size={24} />,
 	},
 	{
 		name: "Google Analytics",
@@ -185,7 +185,7 @@ export const apps = [
 	{
 		name: "Wallet",
 		url: "https://wallet.google.com",
-		icon: <Wallet />,
+		icon: <Wallet size={24} />,
 	},
 	{
 		name: "NotebookLM",
@@ -195,6 +195,6 @@ export const apps = [
 	{
 		name: "Tasks",
 		url: "https://tasksboard.com",
-		icon: <Task />,
+		icon: <Task size={24} />,
 	},
 ];

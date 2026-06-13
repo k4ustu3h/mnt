@@ -13,6 +13,7 @@ export default function AppBarItem() {
 		<M3eExpandableListItem>
 			<AppRegistration
 				color="var(--md-sys-color-on-surface)"
+				size={24}
 				slot="leading"
 			/>
 			App Bar

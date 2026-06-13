@@ -36,8 +36,8 @@ export default function AppBar() {
 							toggle
 							variant="tonal"
 						>
-							<Apps />
-							<AppsFilled slot="selected" />
+							<Apps size={24} />
+							<AppsFilled size={24} slot="selected" />
 						</M3eIconButton>
 
 						<Suspense fallback={null}>
@@ -46,8 +46,8 @@ export default function AppBar() {
 					</div>
 				)}
 				<M3eIconButton toggle variant="tonal" width="wide">
-					<Settings />
-					<SettingsFilled slot="selected" />
+					<Settings size={24} />
+					<SettingsFilled size={24} slot="selected" />
 					<M3eDrawerToggle htmlFor="settings-drawer" />
 				</M3eIconButton>
 			</M3eButtonGroup>

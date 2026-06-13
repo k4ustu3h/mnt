@@ -12,7 +12,7 @@ export default function DefaultNewTab() {
 
 	return (
 		<M3eButton onClick={openDefaultNewTab} shape="square" variant="filled">
-			<Tab slot="icon" />
+			<Tab size={24} slot="icon" />
 			Open Default New Tab
 		</M3eButton>
 	);

@@ -12,7 +12,11 @@ export default function WidgetsItem() {
 
 	return (
 		<M3eExpandableListItem>
-			<Widgets color="var(--md-sys-color-on-surface)" slot="leading" />
+			<Widgets
+				color="var(--md-sys-color-on-surface)"
+				size={24}
+				slot="leading"
+			/>
 			Widgets
 			<div slot="items">
 				<M3eListAction>
