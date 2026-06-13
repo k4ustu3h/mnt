@@ -6,6 +6,7 @@ export default function ListItem({ children }) {
 				background: "var(--m3e-list-item-container-color)",
 				borderRadius: "var(--m3e-list-item-container-shape)",
 				boxSizing: "border-box",
+				color: "var(--m3e-list-item-label-text-color)",
 				display: "flex",
 				flexDirection: "column",
 				padding: 16,
