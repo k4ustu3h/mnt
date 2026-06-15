@@ -1,4 +1,4 @@
-export default function getWallpaperUrl() {
+export default async function getWallpaperUrl() {
 	const height = Math.round(window.innerHeight * 1.1);
 	const width = Math.round(window.innerWidth * 1.1);
 
@@ -36,5 +36,31 @@ export default function getWallpaperUrl() {
 		seed = savedData.seed;
 	}
 
-	return `https://picsum.photos/seed/${seed}/${width}/${height}`;
+	const targetUrl = `https://picsum.photos/seed/${seed}/${width}/${height}`;
+
+	try {
+		const cache = await caches.open("m3ent-wallpaper-cache");
+
+		if (needsNewSeed) {
+			const keys = await cache.keys();
+			for (const request of keys) {
+				await cache.delete(request);
+			}
+		}
+
+		let response = await cache.match(targetUrl);
+
+		if (!response) {
+			response = await fetch(targetUrl);
+
+			await cache.put(targetUrl, response.clone());
+		}
+
+		const blob = await response.blob();
+		return URL.createObjectURL(blob);
+	} catch (error) {
+		console.error("Error fetching or caching wallpaper:", error);
+
+		return targetUrl;
+	}
 }

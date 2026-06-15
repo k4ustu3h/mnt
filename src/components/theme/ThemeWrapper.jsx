@@ -13,7 +13,9 @@ import LoadingScreen from "@/components/loading/LoadingScreen";
 export default function ThemeWrapper({ children }) {
 	const { themeScheme } = useSettings();
 
-	const [bgUrl] = useState(() => getWallpaperUrl());
+	const [bgUrl, setBgUrl] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [themeColor, setThemeColor] = useState("");
 
 	const [animateZoom] = useState(() => {
 		const refreshRate =
@@ -30,32 +32,35 @@ export default function ThemeWrapper({ children }) {
 		return false;
 	});
 
-	const [themeColor, setThemeColor] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
-
 	useEffect(() => {
 		let isMounted = true;
 
-		extractThemeColor(bgUrl)
-			.then((colorHex) => {
+		const initializeTheme = async () => {
+			try {
+				const url = await getWallpaperUrl();
+				if (!isMounted) return;
+				setBgUrl(url);
+
+				const colorHex = await extractThemeColor(url);
+				if (!isMounted) return;
+				setThemeColor(colorHex);
+			} catch (err) {
+				console.error("Theme initialization failed:", err);
+			} finally {
 				if (isMounted) {
-					setThemeColor(colorHex);
 					setIsLoading(false);
 				}
-			})
-			.catch((err) => {
-				console.error("Failed to extract theme color:", err);
-				if (isMounted) {
-					setIsLoading(false);
-				}
-			});
+			}
+		};
+
+		initializeTheme();
 
 		return () => {
 			isMounted = false;
 		};
-	}, [bgUrl]);
+	}, []);
 
-	if (isLoading) return <LoadingScreen bgUrl={bgUrl} />;
+	if (isLoading || !bgUrl) return <LoadingScreen bgUrl={bgUrl} />;
 
 	return (
 		<M3eTheme color={themeColor} motion="expressive" scheme={themeScheme}>
