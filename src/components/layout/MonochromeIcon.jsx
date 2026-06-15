@@ -3,7 +3,10 @@ import { useState } from "react";
 import { M3eShape } from "@m3e/react/shape";
 import { M3eHeading } from "@m3e/react/heading";
 
+import useSettings from "@/hooks/useSettings";
+
 export default function MonochromeIcon({ children, name, url }) {
+	const { iconShape } = useSettings();
 	const [isHovered, setIsHovered] = useState(false);
 
 	const shapeSize = 52;
@@ -20,7 +23,7 @@ export default function MonochromeIcon({ children, name, url }) {
 			}}
 		>
 			<M3eShape
-				name="square"
+				name={iconShape || "circle"}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				style={{

@@ -4,6 +4,10 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import { SettingsContextObj } from "@/hooks/useSettings";
 
 export default function SettingsContext({ children }) {
+	const [iconShape, setIconShape] = useLocalStorage(
+		"newTabIconShape",
+		"square",
+	);
 	const [isAppsOpen, setIsAppsOpen] = useState(false);
 
 	const [showGoogleApps, setShowGoogleApps] = useLocalStorage(
@@ -26,20 +30,22 @@ export default function SettingsContext({ children }) {
 	);
 
 	const value = {
+		iconShape,
 		isAppsOpen,
+		setIconShape,
 		setIsAppsOpen,
-		showGoogleApps,
 		setShowGoogleApps,
-		showGreeting,
 		setShowGreeting,
-		showScallop,
 		setShowScallop,
-		showWeather,
 		setShowWeather,
-		themeScheme,
 		setThemeScheme,
-		wallpaperRefreshRate,
 		setWallpaperRefreshRate,
+		showGoogleApps,
+		showGreeting,
+		showScallop,
+		showWeather,
+		themeScheme,
+		wallpaperRefreshRate,
 	};
 
 	return (

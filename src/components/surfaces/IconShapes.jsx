@@ -3,10 +3,12 @@ import { useState } from "react";
 import { M3eCard } from "@m3e/react/card";
 import { M3eShape } from "@m3e/react/shape";
 
+import useSettings from "@/hooks/useSettings";
+
 const SHAPES = ["circle", "square", "4-sided-cookie", "7-sided-cookie", "arch"];
 
-export default function Shapes() {
-	const [selectedShape, setSelectedShape] = useState("square");
+export default function IconShapes() {
+	const { iconShape, setIconShape } = useSettings();
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -26,12 +28,12 @@ export default function Shapes() {
 				}}
 			>
 				{SHAPES.map((shapeName) => {
-					const isSelected = selectedShape === shapeName;
+					const isSelected = iconShape === shapeName;
 
 					return (
 						<div
 							key={shapeName}
-							onClick={() => setSelectedShape(shapeName)}
+							onClick={() => setIconShape(shapeName)}
 							style={{
 								cursor: "pointer",
 								flexShrink: 0,

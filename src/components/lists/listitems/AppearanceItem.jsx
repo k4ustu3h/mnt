@@ -2,9 +2,9 @@ import { M3eExpandableListItem, M3eListItem } from "@m3e/react/list";
 
 import { Palette } from "@nine-thirty-five/material-symbols-react/rounded";
 
+import IconShapes from "@/components/surfaces/IconShapes";
+import ListItem from "@/components/lists/ListItem";
 import ThemeModes from "@/components/buttons/ThemeModes";
-import Shapes from "@/components/surfaces/Shapes";
-import ListItem from "../ListItem";
 
 export default function AppearanceItem() {
 	return (
@@ -38,7 +38,7 @@ export default function AppearanceItem() {
 					>
 						Icon Shape
 					</span>
-					<Shapes />
+					<IconShapes />
 				</ListItem>
 			</div>
 		</M3eExpandableListItem>
