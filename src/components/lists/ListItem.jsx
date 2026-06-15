@@ -4,9 +4,9 @@ export default function ListItem({ children }) {
 			slot="items"
 			style={{
 				background: "var(--m3e-list-item-container-color)",
-				borderRadius: "var(--m3e-list-item-container-shape)",
+				borderRadius: "var(--md-sys-shape-corner-value-large)",
 				boxSizing: "border-box",
-				color: "var(--m3e-list-item-label-text-color)",
+				color: "var(--md-sys-color-on-surface)",
 				display: "flex",
 				flexDirection: "column",
 				padding: 16,

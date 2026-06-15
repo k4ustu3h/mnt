@@ -46,6 +46,8 @@ export default function Shapes() {
 									"--m3e-shape-container-color": isSelected
 										? "var(--md-sys-color-primary)"
 										: "var(--md-sys-color-surface)",
+									"--m3e-shape-transition":
+										"var(--md-sys-motion-spring-fast-spatial)",
 									height: "100%",
 									transition:
 										"all var(--md-sys-motion-spring-fast-effects)",
