@@ -1,12 +1,13 @@
 {
 	"manifest_version": 3,
-	"name": "M3 Expressive New Tab",
-	"version": "1.0",
-	"description": "A custom new tab page using Material Design 3 Expressive.",
+	"name": "Material New Tab",
+	"version": "1.0.0",
+	"description": "A custom new tab page using the latest Material Design Guidelines.",
 	"chrome_url_overrides": {
 		"newtab": "index.html"
 	},
+	"permissions": ["geolocation"],
 	"action": {
-		"default_title": "M3 New Tab"
+		"default_title": "Material New Tab"
 	}
 }
