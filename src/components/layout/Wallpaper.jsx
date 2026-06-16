@@ -9,7 +9,6 @@ export default function Wallpaper({ animateZoom, bgUrl, children }) {
 				height: "100vh",
 				overflow: "hidden",
 				position: "relative",
-				width: "100%",
 			}}
 		>
 			<style
@@ -45,7 +44,6 @@ export default function Wallpaper({ animateZoom, bgUrl, children }) {
 				style={{
 					height: "100%",
 					position: "relative",
-					width: "100%",
 					zIndex: 1,
 				}}
 			>

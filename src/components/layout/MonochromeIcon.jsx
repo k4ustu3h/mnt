@@ -18,8 +18,6 @@ export default function MonochromeIcon({ children, name, url }) {
 				display: "flex",
 				flexDirection: "column",
 				gap: 4,
-				textAlign: "center",
-				width: "100%",
 			}}
 		>
 			<M3eShape
@@ -43,7 +41,6 @@ export default function MonochromeIcon({ children, name, url }) {
 						display: "flex",
 						height: "100%",
 						justifyContent: "center",
-						textDecoration: "none",
 						width: "100%",
 					}}
 				>

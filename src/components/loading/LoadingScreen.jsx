@@ -21,7 +21,6 @@ export default function LoadingScreen({ bgUrl }) {
 				height: "100vh",
 				overflow: "hidden",
 				position: "relative",
-				width: "100vw",
 			}}
 		>
 			<div
@@ -52,7 +51,6 @@ export default function LoadingScreen({ bgUrl }) {
 					height: "100%",
 					justifyContent: "center",
 					position: "relative",
-					width: "100%",
 					zIndex: 2,
 				}}
 			>

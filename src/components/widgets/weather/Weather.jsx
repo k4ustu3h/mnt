@@ -143,7 +143,6 @@ export default function Weather() {
 					<div
 						style={{
 							height: iconSize,
-							position: "relative",
 							width: iconSize,
 						}}
 					>

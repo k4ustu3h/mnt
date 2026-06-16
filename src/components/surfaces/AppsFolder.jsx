@@ -15,13 +15,10 @@ export default function AppsFolder() {
 				onClick={() => setIsAppsOpen(false)}
 				style={{
 					backgroundColor: "rgba(0, 0, 0, 0.2)",
-					bottom: 0,
-					left: 0,
+					inset: 0,
 					opacity: isAppsOpen ? 1 : 0,
 					pointerEvents: isAppsOpen ? "auto" : "none",
 					position: "fixed",
-					right: 0,
-					top: 0,
 					transition:
 						"opacity var(--md-sys-motion-spring-fast-spatial)",
 					visibility: isAppsOpen ? "visible" : "hidden",
@@ -54,7 +51,6 @@ export default function AppsFolder() {
 						display: "grid",
 						gap: 16,
 						gridTemplateColumns: "repeat(4, 1fr)",
-						width: "100%",
 					}}
 				>
 					{apps.map((app) => (
