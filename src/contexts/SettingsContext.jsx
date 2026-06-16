@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 import { SettingsContextObj } from "@/hooks/useSettings";
@@ -29,24 +30,44 @@ export default function SettingsContext({ children }) {
 		"newTab",
 	);
 
-	const value = {
-		iconShape,
-		isAppsOpen,
-		setIconShape,
-		setIsAppsOpen,
-		setShowGoogleApps,
-		setShowGreeting,
-		setShowScallop,
-		setShowWeather,
-		setThemeScheme,
-		setWallpaperRefreshRate,
-		showGoogleApps,
-		showGreeting,
-		showScallop,
-		showWeather,
-		themeScheme,
-		wallpaperRefreshRate,
-	};
+	const value = useMemo(
+		() => ({
+			iconShape,
+			isAppsOpen,
+			setIconShape,
+			setIsAppsOpen,
+			setShowGoogleApps,
+			setShowGreeting,
+			setShowScallop,
+			setShowWeather,
+			setThemeScheme,
+			setWallpaperRefreshRate,
+			showGoogleApps,
+			showGreeting,
+			showScallop,
+			showWeather,
+			themeScheme,
+			wallpaperRefreshRate,
+		}),
+		[
+			iconShape,
+			isAppsOpen,
+			setIconShape,
+			setIsAppsOpen,
+			setShowGoogleApps,
+			setShowGreeting,
+			setShowScallop,
+			setShowWeather,
+			setThemeScheme,
+			setWallpaperRefreshRate,
+			showGoogleApps,
+			showGreeting,
+			showScallop,
+			showWeather,
+			themeScheme,
+			wallpaperRefreshRate,
+		],
+	);
 
 	return (
 		<SettingsContextObj.Provider value={value}>
