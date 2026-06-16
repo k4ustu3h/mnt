@@ -4,6 +4,7 @@ import { M3eDrawerContainer } from "@m3e/react/drawer-container";
 
 import DefaultNewTab from "@/components/buttons/DefaultNewTab";
 
+const About = lazy(() => import("@/components/layout/About"));
 const SettingsList = lazy(() => import("@/components/lists/SettingsList"));
 
 export default function Drawer({ children }) {
@@ -23,6 +24,7 @@ export default function Drawer({ children }) {
 				<Suspense>
 					<SettingsList />
 					<DefaultNewTab />
+					<About />
 				</Suspense>
 			</div>
 		</M3eDrawerContainer>
