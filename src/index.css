@@ -24,3 +24,12 @@ body {
 	width: 100vw;
 	box-sizing: border-box;
 }
+
+@keyframes wallpaper-reveal {
+	0% {
+		transform: scale(1);
+	}
+	100% {
+		transform: scale(1.1);
+	}
+}

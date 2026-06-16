@@ -11,16 +11,6 @@ export default function Wallpaper({ animateZoom, bgUrl, children }) {
 				position: "relative",
 			}}
 		>
-			<style
-				dangerouslySetInnerHTML={{
-					__html: `
-                    @keyframes wallpaper-reveal {
-                        100% { transform: scale(1.1); }
-                        0% { transform: scale(1); }
-                    }
-                `,
-				}}
-			/>
 			<div
 				style={{
 					animation: animateZoom
