@@ -6,6 +6,7 @@ import DefaultNewTab from "@/components/buttons/DefaultNewTab";
 
 const About = lazy(() => import("@/components/layout/About"));
 const SettingsList = lazy(() => import("@/components/lists/SettingsList"));
+const Version = lazy(() => import("@/components/typography/Version"));
 
 export default function Drawer({ children }) {
 	return (
@@ -25,6 +26,8 @@ export default function Drawer({ children }) {
 					<SettingsList />
 					<DefaultNewTab />
 					<About />
+					<div style={{ flexGrow: 1 }} />
+					<Version />
 				</Suspense>
 			</div>
 		</M3eDrawerContainer>
