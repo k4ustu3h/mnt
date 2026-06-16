@@ -16,7 +16,7 @@ import {
 
 import useSettings from "@/hooks/useSettings";
 
-const AppsFolder = lazy(() => import("@/components/layout/AppsFolder"));
+const AppsFolder = lazy(() => import("@/components/surfaces/AppsFolder"));
 
 export default function AppBar() {
 	const { showGoogleApps, isAppsOpen, setIsAppsOpen } = useSettings();
