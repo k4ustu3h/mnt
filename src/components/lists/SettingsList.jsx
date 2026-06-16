@@ -8,7 +8,7 @@ import WidgetsItem from "@/components/lists/listitems/WidgetsItem";
 
 export default function SettingsList() {
 	return (
-		<M3eActionList variant="segmented">
+		<M3eActionList style={{ flexShrink: 0 }} variant="segmented">
 			<AppBarItem />
 			<AppearanceItem />
 			<UserItem />

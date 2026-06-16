@@ -19,7 +19,9 @@ export default function Drawer({ children }) {
 					display: "flex",
 					flexDirection: "column",
 					gap: 24,
+					overflowY: "auto",
 					padding: 24,
+					scrollbarWidth: "thin",
 				}}
 			>
 				<Suspense>
