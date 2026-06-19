@@ -28,11 +28,17 @@ export default function About() {
 				Material New Tab
 			</M3eHeading>
 			<M3eButtonGroup variant="connected">
-				<M3eButton variant="tonal">
+				<M3eButton
+					href="https://github.com/k4ustu3h/mnt"
+					variant="tonal"
+				>
 					<SiGithub slot="icon" />
 					GitHub
 				</M3eButton>
-				<M3eButton variant="tonal">
+				<M3eButton
+					href="https://materialnewtab.vercel.app/"
+					variant="tonal"
+				>
 					<Language slot="icon" />
 					Website
 				</M3eButton>
