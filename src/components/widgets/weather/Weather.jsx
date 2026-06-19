@@ -45,6 +45,17 @@ export default function Weather() {
 	}, []);
 
 	useEffect(() => {
+		const cachedWeatherStr = localStorage.getItem("weatherCache");
+		if (cachedWeatherStr) {
+			const cachedWeather = JSON.parse(cachedWeatherStr);
+			const now = Date.now();
+
+			if (now - cachedWeather.timestamp < 1800000) {
+				setWeatherData(cachedWeather.data);
+				return;
+			}
+		}
+
 		const defaultLat = 51.5036;
 		const defaultLon = -0.2272;
 
@@ -62,11 +73,21 @@ export default function Weather() {
 
 					const details = getWeatherDetails(code, isDay);
 
-					setWeatherData({
+					const newWeatherData = {
 						temperature: temp,
 						iconName: details.iconName,
 						label: details.label,
-					});
+					};
+
+					setWeatherData(newWeatherData);
+
+					localStorage.setItem(
+						"MNTweatherCache",
+						JSON.stringify({
+							timestamp: Date.now(),
+							data: newWeatherData,
+						}),
+					);
 				}
 			} catch (error) {
 				console.error("Error fetching weather data:", error);
