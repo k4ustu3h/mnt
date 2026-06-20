@@ -12,7 +12,8 @@ export default function Version() {
 		}
 
 		if (typeof chrome !== "undefined" && chrome.runtime?.getManifest) {
-			return chrome.runtime.getManifest().version;
+			const manifest = chrome.runtime.getManifest();
+			return manifest.version_name || manifest.version;
 		}
 
 		return "";
@@ -23,7 +24,7 @@ export default function Version() {
 
 		fetch("/manifest.json")
 			.then((res) => res.json())
-			.then((data) => setVersion(data.version))
+			.then((data) => setVersion(data.version_name || data.version))
 			.catch(() => setVersion("Unknown"));
 	}, [version]);
 
