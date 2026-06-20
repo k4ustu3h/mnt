@@ -17,7 +17,7 @@ A modern, fluid, and highly customizable Chrome New Tab extension crafted strict
 
 - **Dynamic Monet Theming:** Automatically extracts prominent color hexes from your background wallpapers using a fast average color canvas technique to dynamically tint the entire theme seamlessly.
 - **M3 Expressive (MD3E):** Built completely upon the latest Material Design guidelines (MD3E), utilizing the full power of expressive motion tokens, container shapes, and responsive layout standards.
-- **Variable Typography:** Native implementation of [_Google Sans Flex_](https://fonts.google.com/specimen/Google+Sans+Flex/about) utilizing axis configuration controls (like width `"wdth"` and weight `"wght"`) for hyper-polished text scaling.
+- **Variable Typography:** Native implementation of _[Google Sans Flex](https://fonts.google.com/specimen/Google+Sans+Flex/about)_ utilizing axis configuration controls (like width `"wdth"` and weight `"wght"`) for hyper-polished text scaling.
 - **Dynamic Wallpapers:** Features an intelligent background system enabling daily random images sourced from [Lorem Picsum](https://picsum.photos/) with configurable refresh rates.
 - **Custom Widgets & Navigation:**
     - **Scallop Clock:** A 12-sided abstract geometric clock reflecting fluid hour, minute, and second mechanics.
@@ -26,9 +26,36 @@ A modern, fluid, and highly customizable Chrome New Tab extension crafted strict
 
 ---
 
+## Download
+
+<p>
+    <a href="https://github.com/k4ustu3h/mnt/releases/latest">
+        <img src="docs/images/badge-github.png" alt="Get it on GitHub" height="60" />
+    </a>
+</p>
+
+### Pre-release version with recent updates
+
+[nightly.link](https://nightly.link/k4ustu3h/mnt/workflows/build_nightly/main/dist-nightly-artifact) • [GitHub](https://github.com/k4ustu3h/mnt/releases/tag/nightly)
+
+---
+
 ## Installation
 
-Follow these steps to build and run the extension locally in developer mode:
+### Method 1: Install from GitHub Releases (Recommended)
+
+The easiest way to install Material New Tab is by downloading the pre-compiled version directly from our releases page:
+
+1. Download the latest `.zip` release file from the links provided in the **[Download](#download)** section above.
+2. Extract the downloaded `.zip` file into a dedicated folder on your computer.
+3. Open Google Chrome and type `chrome://extensions/` directly into the URL bar.
+4. Toggle the **Developer mode** slider switch situated in the top-right corner of the interface.
+5. Click the **Load unpacked** button located in the top left.
+6. Select the folder where you extracted the extension files.
+
+### Method 2: Build Locally
+
+If you prefer to compile the extension from source, follow these steps to build and run it locally in developer mode:
 
 1. **Clone the repository:**
 
