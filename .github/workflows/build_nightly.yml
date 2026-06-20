@@ -1,0 +1,61 @@
+name: Build Nightly
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release-nightly:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "26"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Get short commit hash
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Upload dist folder as build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-nightly-artifact
+          path: dist/
+          retention-days: 7
+
+      - name: Zip the build for release
+        run: |
+          cd dist
+          zip -r "../MNT Nightly ${{ steps.vars.outputs.sha_short }}.zip" .
+          cd ..
+
+      - name: Delete existing Nightly release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release delete nightly --cleanup-tag -y || true
+
+      - name: Create Nightly Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: nightly
+          name: "Nightly Build"
+          body: "Automated nightly build for commit ${{ github.sha }}."
+          files: "MNT Nightly ${{ steps.vars.outputs.sha_short }}.zip"
+          prerelease: true
