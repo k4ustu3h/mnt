@@ -4,7 +4,7 @@ export default async function getWallpaperUrl() {
 
 	const refreshRate =
 		JSON.parse(localStorage.getItem("wallpaperRefreshRate")) ?? "newTab";
-	const savedData = JSON.parse(localStorage.getItem("wallpaperData"));
+	const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
 
 	const now = Date.now();
 	let needsNewSeed = false;

@@ -4,7 +4,7 @@ export default function useWallpaperInfo() {
 	const [info, setInfo] = useState(null);
 
 	useEffect(() => {
-		const savedData = JSON.parse(localStorage.getItem("wallpaperData"));
+		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
 
 		if (savedData && savedData.seed) {
 			fetch(`https://picsum.photos/seed/${savedData.seed}/info`)

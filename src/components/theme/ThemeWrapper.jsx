@@ -24,7 +24,7 @@ export default function ThemeWrapper({ children }) {
 
 		if (refreshRate === "newTab") return true;
 
-		const savedData = JSON.parse(localStorage.getItem("wallpaperData"));
+		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
 		if (savedData && Date.now() - savedData.timestamp < 2000) {
 			return true;
 		}
