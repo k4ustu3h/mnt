@@ -29,7 +29,7 @@ export default async function getWallpaperUrl() {
 	if (needsNewSeed) {
 		seed = Math.random().toString(36).substring(2, 10);
 		localStorage.setItem(
-			"wallpaperData",
+			"MNTwallpaperData",
 			JSON.stringify({ seed, timestamp: now }),
 		);
 	} else {

@@ -13,11 +13,7 @@ export default function UserItem() {
 
 	return (
 		<M3eExpandableListItem>
-			<Person
-				color="var(--md-sys-color-on-surface)"
-				size={24}
-				slot="leading"
-			/>
+			<Person size={24} slot="leading" />
 			User
 			<div slot="items">
 				<M3eListAction>

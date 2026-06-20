@@ -14,17 +14,10 @@ export default function WallpaperItem() {
 
 	return (
 		<M3eExpandableListItem>
-			<WallpaperSlideshow
-				color="var(--md-sys-color-on-surface)"
-				size={24}
-				slot="leading"
-			/>
+			<WallpaperSlideshow size={24} slot="leading" />
 			Wallpaper
 			<span slot="supporting-text">Refresh Rate</span>
-			<div
-				slot="items"
-				style={{ color: "var(--md-sys-color-on-surface)" }}
-			>
+			<div slot="items">
 				<M3eListOption
 					onClick={() => setWallpaperRefreshRate("newTab")}
 					selected={wallpaperRefreshRate === "newTab"}

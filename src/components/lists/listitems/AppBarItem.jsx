@@ -11,11 +11,7 @@ export default function AppBarItem() {
 
 	return (
 		<M3eExpandableListItem>
-			<AppRegistration
-				color="var(--md-sys-color-on-surface)"
-				size={24}
-				slot="leading"
-			/>
+			<AppRegistration size={24} slot="leading" />
 			App Bar
 			<div slot="items">
 				<M3eListAction>

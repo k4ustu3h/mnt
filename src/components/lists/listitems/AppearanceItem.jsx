@@ -9,11 +9,7 @@ import ThemeModes from "@/components/buttons/ThemeModes";
 export default function AppearanceItem() {
 	return (
 		<M3eExpandableListItem>
-			<Palette
-				color="var(--md-sys-color-on-surface)"
-				size={24}
-				slot="leading"
-			/>
+			<Palette size={24} slot="leading" />
 			Appearance
 			<div slot="items">
 				<M3eListItem>

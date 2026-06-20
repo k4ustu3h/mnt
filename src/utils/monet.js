@@ -8,7 +8,7 @@ export const extractThemeColor = (imageUrl) => {
 		if (seed) {
 			try {
 				const cachedData = JSON.parse(
-					localStorage.getItem("themeColorCache"),
+					localStorage.getItem("MNTthemeColorCache"),
 				);
 				if (cachedData && cachedData[seed]) {
 					return resolve(cachedData[seed]);
@@ -31,7 +31,7 @@ export const extractThemeColor = (imageUrl) => {
 				if (seed) {
 					try {
 						localStorage.setItem(
-							"themeColorCache",
+							"MNTthemeColorCache",
 							JSON.stringify({ [seed]: color.hex }),
 						);
 					} catch (e) {

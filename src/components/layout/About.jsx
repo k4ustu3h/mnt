@@ -19,7 +19,6 @@ export default function About() {
 			<M3eHeading
 				size="small"
 				style={{
-					color: "var(--md-sys-color-on-surface)",
 					fontVariationSettings: `"ROND" 100, "wdth" 150, "wght" 900`,
 					textAlign: "center",
 				}}
