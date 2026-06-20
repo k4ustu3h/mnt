@@ -60,13 +60,21 @@ export default function ThemeWrapper({ children }) {
 		};
 	}, []);
 
-	if (isLoading || !bgUrl) return <LoadingScreen bgUrl={bgUrl} />;
+	const finalThemeColor = themeColor || "#2962ff";
 
 	return (
-		<M3eTheme color={themeColor} motion="expressive" scheme={themeScheme}>
-			<Wallpaper animateZoom={animateZoom} bgUrl={bgUrl}>
-				{children}
-			</Wallpaper>
+		<M3eTheme
+			color={finalThemeColor}
+			motion="expressive"
+			scheme={themeScheme}
+		>
+			{isLoading || !bgUrl ? (
+				<LoadingScreen bgUrl={bgUrl} />
+			) : (
+				<Wallpaper animateZoom={animateZoom} bgUrl={bgUrl}>
+					{children}
+				</Wallpaper>
+			)}
 		</M3eTheme>
 	);
 }

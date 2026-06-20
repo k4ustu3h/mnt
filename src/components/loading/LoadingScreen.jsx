@@ -16,8 +16,8 @@ export default function LoadingScreen({ bgUrl }) {
 	return (
 		<div
 			style={{
-				"--m3e-loading-indicator-active-indicator-color": "#C5D0FF",
 				"--m3e-loading-indicator-size": "64px",
+				backgroundColor: "var(--md-sys-color-surface)",
 				height: "100vh",
 				overflow: "hidden",
 				position: "relative",
@@ -38,7 +38,8 @@ export default function LoadingScreen({ bgUrl }) {
 			/>
 			<div
 				style={{
-					backgroundColor: "rgba(0, 0, 0, 0.2)",
+					backgroundColor:
+						"color-mix(in srgb, var(--md-sys-color-surface) 40%, transparent)",
 					inset: 0,
 					position: "absolute",
 					zIndex: 1,
