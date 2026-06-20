@@ -4,13 +4,35 @@ import useSettings from "@/hooks/useSettings";
 
 import { getIconUrl, getWeatherDetails } from "@/utils/weather";
 
+const getCachedWeather = () => {
+	try {
+		const cachedWeatherStr = localStorage.getItem("MNTweatherCache");
+		if (cachedWeatherStr) {
+			const cachedWeather = JSON.parse(cachedWeatherStr);
+			const now = Date.now();
+
+			if (now - cachedWeather.timestamp < 1800000) {
+				return cachedWeather.data;
+			}
+		}
+	} catch (e) {
+		console.error("Failed to parse weather cache:", e);
+	}
+	return null;
+};
+
 export default function useWeather() {
 	const { themeScheme } = useSettings();
 
-	const [weatherData, setWeatherData] = useState({
-		temperature: "--",
-		iconName: "mostly_sunny",
-		label: "Loading...",
+	const [weatherData, setWeatherData] = useState(() => {
+		const cachedData = getCachedWeather();
+		return (
+			cachedData || {
+				temperature: "--",
+				iconName: "mostly_sunny",
+				label: "Loading...",
+			}
+		);
 	});
 
 	const [systemTheme, setSystemTheme] = useState(
@@ -29,16 +51,7 @@ export default function useWeather() {
 	}, []);
 
 	useEffect(() => {
-		const cachedWeatherStr = localStorage.getItem("MNTweatherCache");
-		if (cachedWeatherStr) {
-			const cachedWeather = JSON.parse(cachedWeatherStr);
-			const now = Date.now();
-
-			if (now - cachedWeather.timestamp < 1800000) {
-				setWeatherData(cachedWeather.data);
-				return;
-			}
-		}
+		if (getCachedWeather()) return;
 
 		const defaultLat = 51.5036;
 		const defaultLon = -0.2272;
