@@ -1,3 +1,5 @@
+import dispatchError from "@/utils/dispatchError";
+
 export default async function getWallpaperUrl() {
 	const height = Math.round(window.innerHeight * 1.1);
 	const width = Math.round(window.innerWidth * 1.1);
@@ -60,11 +62,9 @@ export default async function getWallpaperUrl() {
 				}
 			} catch (error) {
 				clearTimeout(timeoutId);
-				const errMessage =
-					error instanceof Error ? error.message : String(error);
-				console.warn(
-					"Wallpaper fetch failed or timed out. Attempting fallback.",
-					errMessage,
+				dispatchError(
+					"Wallpaper fetch failed. Attempting fallback.",
+					error,
 				);
 
 				const keys = await cache.keys();
@@ -92,11 +92,9 @@ export default async function getWallpaperUrl() {
 					}
 				} catch (error) {
 					clearTimeout(timeoutId);
-					const errMessage =
-						error instanceof Error ? error.message : String(error);
-					console.warn(
+					dispatchError(
 						"Quick fetch failed, falling back to cache.",
-						errMessage,
+						error,
 					);
 
 					const keys = await cache.keys();
@@ -108,19 +106,14 @@ export default async function getWallpaperUrl() {
 		}
 
 		if (!response) {
-			console.warn("No cache blob found. Skipping wallpaper loading.");
+			dispatchError("No cache blob found. Skipping wallpaper loading.");
 			return null;
 		}
 
 		const blob = await response.blob();
 		return URL.createObjectURL(blob);
 	} catch (error) {
-		const errMessage =
-			error instanceof Error ? error.message : String(error);
-		console.error(
-			"Critical error fetching or caching wallpaper:",
-			errMessage,
-		);
+		dispatchError("Critical error fetching or caching wallpaper:", error);
 		return null;
 	}
 }

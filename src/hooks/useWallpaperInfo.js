@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import dispatchError from "@/utils/dispatchError";
+
 export default function useWallpaperInfo() {
 	const [info, setInfo] = useState(null);
 
@@ -7,12 +9,24 @@ export default function useWallpaperInfo() {
 		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
 
 		if (savedData && savedData.seed) {
-			fetch(`https://picsum.photos/seed/${savedData.seed}/info`)
-				.then((res) => res.json())
+			const controller = new AbortController();
+			const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+			fetch(`https://picsum.photos/seed/${savedData.seed}/info`, {
+				signal: controller.signal,
+			})
+				.then(async (res) => {
+					clearTimeout(timeoutId);
+					if (!res.ok) {
+						throw new Error(`HTTP Error: ${res.status}`);
+					}
+					return res.json();
+				})
 				.then((data) => setInfo(data))
-				.catch((err) =>
-					console.error("Failed to fetch wallpaper info:", err),
-				);
+				.catch((err) => {
+					clearTimeout(timeoutId);
+					dispatchError("Failed to fetch wallpaper info:", err);
+				});
 		}
 	}, []);
 

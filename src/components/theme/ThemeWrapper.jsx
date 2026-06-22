@@ -4,6 +4,7 @@ import { M3eTheme } from "@m3e/react/theme";
 
 import useSettings from "@/hooks/useSettings";
 
+import dispatchError from "@/utils/dispatchError";
 import getWallpaperUrl from "@/utils/getWallpaperUrl";
 import monet from "@/utils/monet";
 
@@ -47,7 +48,7 @@ export default function ThemeWrapper({ children }) {
 					setThemeColor(colorHex);
 				}
 			} catch (err) {
-				console.error("Theme initialization failed:", err);
+				dispatchError("Theme initialization failed:", err);
 			} finally {
 				if (isMounted) {
 					setIsLoading(false);
