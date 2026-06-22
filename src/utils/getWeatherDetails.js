@@ -1,4 +1,4 @@
-export const getWeatherDetails = (code, isDay) => {
+export default function getWeatherDetails(code, isDay) {
 	let iconName = "mostly_sunny";
 	let label = "Weather";
 
@@ -63,11 +63,4 @@ export const getWeatherDetails = (code, isDay) => {
 	}
 
 	return { iconName, label };
-};
-
-export const getIconUrl = (iconName, theme) => {
-	return new URL(
-		`../assets/icons/weather/${theme}/${iconName}.svg`,
-		import.meta.url,
-	).href;
-};
+}

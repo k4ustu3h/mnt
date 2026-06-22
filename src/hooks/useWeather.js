@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 import useSettings from "@/hooks/useSettings";
 
-import { getIconUrl, getWeatherDetails } from "@/utils/weather";
+import getIconUrl from "@/utils/getIconUrl";
+import getWeatherDetails from "@/utils/getWeatherDetails";
 
 const getCachedWeather = () => {
 	try {
