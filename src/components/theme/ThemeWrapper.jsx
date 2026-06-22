@@ -41,9 +41,11 @@ export default function ThemeWrapper({ children }) {
 				if (!isMounted) return;
 				setBgUrl(url);
 
-				const colorHex = await monet(url);
-				if (!isMounted) return;
-				setThemeColor(colorHex);
+				if (url) {
+					const colorHex = await monet(url);
+					if (!isMounted) return;
+					setThemeColor(colorHex);
+				}
 			} catch (err) {
 				console.error("Theme initialization failed:", err);
 			} finally {
@@ -68,7 +70,7 @@ export default function ThemeWrapper({ children }) {
 			motion="expressive"
 			scheme={themeScheme}
 		>
-			{isLoading || !bgUrl ? (
+			{isLoading ? (
 				<LoadingScreen bgUrl={bgUrl} />
 			) : (
 				<Wallpaper animateZoom={animateZoom} bgUrl={bgUrl}>
