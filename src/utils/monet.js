@@ -1,6 +1,6 @@
 import { FastAverageColor } from "fast-average-color";
 
-export const extractThemeColor = (imageUrl) => {
+export default function monet(imageUrl) {
 	return new Promise((resolve, reject) => {
 		const match = imageUrl.match(/\/seed\/([^/]+)/);
 		const seed = match ? match[1] : null;
@@ -54,4 +54,4 @@ export const extractThemeColor = (imageUrl) => {
 			reject(error);
 		};
 	});
-};
+}

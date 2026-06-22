@@ -4,11 +4,11 @@ import { M3eTheme } from "@m3e/react/theme";
 
 import useSettings from "@/hooks/useSettings";
 
-import { extractThemeColor } from "@/utils/monet";
-import getWallpaperUrl from "@/utils/wallpaper";
+import getWallpaperUrl from "@/utils/getWallpaperUrl";
+import monet from "@/utils/monet";
 
-import Wallpaper from "@/components/layout/Wallpaper";
 import LoadingScreen from "@/components/loading/LoadingScreen";
+import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function ThemeWrapper({ children }) {
 	const { themeScheme } = useSettings();
@@ -41,7 +41,7 @@ export default function ThemeWrapper({ children }) {
 				if (!isMounted) return;
 				setBgUrl(url);
 
-				const colorHex = await extractThemeColor(url);
+				const colorHex = await monet(url);
 				if (!isMounted) return;
 				setThemeColor(colorHex);
 			} catch (err) {
