@@ -27,6 +27,7 @@ body {
 
 m3e-theme {
 	color: var(--md-sys-color-on-surface);
+	font-family: "Google Sans Flex", sans-serif;
 }
 
 @keyframes wallpaper-reveal {
