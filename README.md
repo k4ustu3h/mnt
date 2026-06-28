@@ -9,7 +9,7 @@
 
 <h1 align="center">Material New Tab</h1>
 
-A modern, fluid, and highly customizable Chrome New Tab extension crafted strictly around the latest **Material Design guidelines (MD3E)**. It brings expressive typography, dynamic color generation, and smooth transitions directly into your daily browsing flow.
+A modern, fluid, and highly customizable New Tab extension crafted strictly around the latest **Material Design guidelines (MD3E)**. It brings expressive typography, dynamic color generation, and smooth transitions directly into your daily browsing flow.
 
 ---
 
@@ -32,6 +32,9 @@ A modern, fluid, and highly customizable Chrome New Tab extension crafted strict
     <a href="https://github.com/k4ustu3h/mnt/releases/latest">
         <img src="docs/images/badge-github.png" alt="Get it on GitHub" height="60" />
     </a>
+     <a href="https://chromewebstore.google.com/detail/material-new-tab/oenppeijibmgkmefjjmpifpgokkdmann">
+        <img src="docs/images/badge-chrome-webstore.png" alt="Get it on GitHub" height="60" />
+    </a>
 </p>
 
 ### Pre-release version with recent updates
@@ -40,7 +43,7 @@ A modern, fluid, and highly customizable Chrome New Tab extension crafted strict
 
 ---
 
-## Installation
+## Manual installation
 
 ### Method 1: Install from GitHub Releases (Recommended)
 
