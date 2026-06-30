@@ -12,7 +12,7 @@ import LoadingScreen from "@/components/loading/LoadingScreen";
 import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function ThemeWrapper({ children }) {
-	const { themeScheme } = useSettings();
+	const { themeScheme, themeContrast } = useSettings();
 
 	const [bgUrl, setBgUrl] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
@@ -68,6 +68,7 @@ export default function ThemeWrapper({ children }) {
 	return (
 		<M3eTheme
 			color={finalThemeColor}
+			contrast={themeContrast}
 			motion="expressive"
 			scheme={themeScheme}
 		>

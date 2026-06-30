@@ -25,6 +25,12 @@ export default function SettingsContext({ children }) {
 		"themeScheme",
 		"auto",
 	);
+
+	const [themeContrast, setThemeContrast] = useLocalStorage(
+		"themeContrast",
+		"standard",
+	);
+
 	const [wallpaperRefreshRate, setWallpaperRefreshRate] = useLocalStorage(
 		"wallpaperRefreshRate",
 		"newTab",
@@ -40,12 +46,14 @@ export default function SettingsContext({ children }) {
 			setShowGreeting,
 			setShowScallop,
 			setShowWeather,
+			setThemeContrast,
 			setThemeScheme,
 			setWallpaperRefreshRate,
 			showGoogleApps,
 			showGreeting,
 			showScallop,
 			showWeather,
+			themeContrast,
 			themeScheme,
 			wallpaperRefreshRate,
 		}),
@@ -58,12 +66,14 @@ export default function SettingsContext({ children }) {
 			setShowGreeting,
 			setShowScallop,
 			setShowWeather,
+			setThemeContrast,
 			setThemeScheme,
 			setWallpaperRefreshRate,
 			showGoogleApps,
 			showGreeting,
 			showScallop,
 			showWeather,
+			themeContrast,
 			themeScheme,
 			wallpaperRefreshRate,
 		],
