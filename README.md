@@ -33,7 +33,7 @@ A modern, fluid, and highly customizable New Tab extension crafted strictly arou
         <img src="docs/images/badge-github.png" alt="Get it on GitHub" height="60" />
     </a>
      <a href="https://chromewebstore.google.com/detail/material-new-tab/oenppeijibmgkmefjjmpifpgokkdmann">
-        <img src="docs/images/badge-chrome-webstore.png" alt="Get it on GitHub" height="60" />
+        <img src="docs/images/badge-chrome-webstore.png" alt="Get it on Chrome Web Store" height="60" />
     </a>
 </p>
 
@@ -45,20 +45,24 @@ A modern, fluid, and highly customizable New Tab extension crafted strictly arou
 
 ## Manual installation
 
-### Method 1: Install from GitHub Releases (Recommended)
+### Step 1: Get the Extension Files
 
-The easiest way to install Material New Tab is by downloading the pre-compiled version directly from our releases page:
+<details>
+    <summary>
+        <b>Method A:</b> Install from GitHub Releases (Recommended)
+    </summary>
 
 1. Download the latest `.zip` release file from the links provided in the **[Download](#download)** section above.
-2. Extract the downloaded `.zip` file into a dedicated folder on your computer.
-3. Open Google Chrome and type `chrome://extensions/` directly into the URL bar.
-4. Toggle the **Developer mode** slider switch situated in the top-right corner of the interface.
-5. Click the **Load unpacked** button located in the top left.
-6. Select the folder where you extracted the extension files.
+2. Extract the downloaded `.zip` file into a dedicated, permanent folder on your computer.
 
-### Method 2: Build Locally
+</details>
 
-If you prefer to compile the extension from source, follow these steps to build and run it locally in developer mode:
+<details>
+    <summary>
+        <b>Method B:</b> Build Locally
+    </summary>
+
+If you prefer to compile the extension from source, follow these steps to build it locally in developer mode:
 
 1. **Clone the repository:**
 
@@ -88,12 +92,71 @@ npm run build
 
 ```
 
-5. **Load the Unpacked Extension into Google Chrome:**
+_Your compiled extension files will now be located in the `dist` folder._
 
-- Open Google Chrome and type `chrome://extensions/` directly into the URL bar.
-- Toggle the **Developer mode** slider switch situated in the top-right corner of the interface.
-- Click the **Load unpacked** button located in the top left.
-- Select the compiled `dist` folder located in the root directory of this project.
+</details>
+
+### Step 2: Load into your Browser
+
+<details>
+    <summary>
+        Google Chrome
+    </summary>
+
+1. Open Google Chrome and type `chrome://extensions/` directly into the URL bar.
+
+2. Toggle the **Developer mode** slider switch situated in the top-right corner of the interface.
+
+3. Click the **Load unpacked** button located in the top left.
+
+4. Select the folder where your extension files are located (or the compiled `dist` folder if built locally).
+
+</details>
+
+<details>
+    <summary>
+        Microsoft Edge
+    </summary>
+
+1. Open Microsoft Edge and type `edge://extensions/` directly into the URL bar.
+
+2. Toggle the **Developer mode** slider switch situated in the bottom-left sidebar.
+
+3. Click the **Load unpacked** button located in the top right.
+
+4. Select the folder where your extension files are located (or the compiled `dist` folder if built locally).
+
+</details>
+
+<details>
+    <summary>
+        Brave
+    </summary>
+
+1. Open Brave and type `brave://extensions/` directly into the URL bar.
+
+2. Toggle the **Developer mode** slider switch situated in the top-right corner of the interface.
+
+3. Click the **Load unpacked** button located in the top left.
+
+4. Select the folder where your extension files are located (or the compiled `dist` folder if built locally).
+
+</details>
+
+<details>
+    <summary>
+        Firefox
+    </summary>
+
+1. Open Firefox and type `about:debugging#/runtime/this-firefox` directly into the URL bar.
+
+2. Click the **Load Temporary Add-on...** button.
+
+3. Navigate to your extracted folder (or the compiled `dist` folder if built locally) and select the `manifest.json` file.
+
+_**Note:** Temporary add-ons in Firefox are removed when you restart the browser. For permanent installation, you will need to download the signed `.xpi` file once it is officially listed on the Firefox Add-ons store._
+
+</details>
 
 ---
 
@@ -103,7 +166,7 @@ This project is built using a modern decoupled component architecture:
 
 - **`/src/components`**: Modular design sections split neatly into UI containers, weather trackers, clock faces, and settings toggles.
 - **`/src/hooks`**: Custom state handling optimizations utilizing optimized browser local storage hooks to protect against layout re-render thrashing.
-- **`manifest.json`**: Engineered safely to comply completely with Google Chrome Manifest V3 specifications (including Content Security Policy-friendly global keyframe animations).
+- **`manifest.json`**: Engineered safely to comply completely with standard **Manifest V3** specifications (including Content Security Policy-friendly global keyframe animations).
 
 ---
 
