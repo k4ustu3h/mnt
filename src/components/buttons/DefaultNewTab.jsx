@@ -1,12 +1,15 @@
 import { M3eButton } from "@m3e/react/button";
+
 import { Tab } from "@nine-thirty-five/material-symbols-react/rounded";
 
 export default function DefaultNewTab() {
-	const openDefaultNewTab = () => {
-		const defaultNTUrl = "chrome://new-tab-page/";
+	const isFirefox = navigator.userAgent.includes("Firefox");
 
-		if (window.chrome && window.chrome.tabs) {
-			window.chrome.tabs.update({ url: defaultNTUrl });
+	if (isFirefox) return null;
+
+	const openDefaultNewTab = () => {
+		if (typeof chrome !== "undefined" && chrome.tabs) {
+			chrome.tabs.update({ url: "chrome://new-tab-page/" });
 		}
 	};
 
