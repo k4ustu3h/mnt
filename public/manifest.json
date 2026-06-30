@@ -18,5 +18,13 @@
 			"16": "icons/icon16.png",
 			"48": "icons/icon48.png"
 		}
+	},
+	"browser_specific_settings": {
+		"gecko": {
+			"data_collection_permissions": {
+				"required": ["none"]
+			},
+			"id": "mnt@k4ustu3h"
+		}
 	}
 }
