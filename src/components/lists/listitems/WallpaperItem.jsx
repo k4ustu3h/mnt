@@ -12,7 +12,7 @@ import {
 	WallpaperSlideshow,
 } from "@nine-thirty-five/material-symbols-react/rounded";
 
-import useSettings from "@/hooks/useSettings";
+import useWallpaper from "@/hooks/context/useWallpaper";
 
 export default function WallpaperItem() {
 	const {
@@ -20,7 +20,7 @@ export default function WallpaperItem() {
 		setWallpaperRefreshRate,
 		wallpaperSource,
 		setWallpaperSource,
-	} = useSettings();
+	} = useWallpaper();
 
 	const fileInputRef = useRef(null);
 

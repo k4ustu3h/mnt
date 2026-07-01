@@ -14,12 +14,14 @@ import {
 	Settings as SettingsFilled,
 } from "@nine-thirty-five/material-symbols-react/rounded/filled";
 
-import useSettings from "@/hooks/useSettings";
+import useUI from "@/hooks/context/useUI";
+import useWidget from "@/hooks/context/useWidget";
 
 const AppsFolder = lazy(() => import("@/components/surfaces/AppsFolder"));
 
 export default function AppBar() {
-	const { showGoogleApps, isAppsOpen, setIsAppsOpen } = useSettings();
+	const { isAppsOpen, setIsAppsOpen } = useUI();
+	const { showGoogleApps } = useWidget();
 
 	return (
 		<M3eAppBar

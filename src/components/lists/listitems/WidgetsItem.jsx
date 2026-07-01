@@ -2,13 +2,13 @@ import { M3eExpandableListItem, M3eListAction } from "@m3e/react/list";
 
 import { Widgets } from "@nine-thirty-five/material-symbols-react/rounded";
 
-import useSettings from "@/hooks/useSettings";
+import useWidget from "@/hooks/context/useWidget";
 
 import WidgetSwitch from "@/components/switches/WidgetSwitch";
 
 export default function WidgetsItem() {
 	const { showScallop, setShowScallop, showWeather, setShowWeather } =
-		useSettings();
+		useWidget();
 
 	return (
 		<M3eExpandableListItem>

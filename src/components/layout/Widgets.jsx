@@ -1,4 +1,4 @@
-import useSettings from "@/hooks/useSettings";
+import useWidget from "@/hooks/context/useWidget";
 
 import Greeting from "@/components/typography/Greeting";
 import Scallop from "@/components/widgets/clocks/Scallop";
@@ -6,7 +6,7 @@ import WallpaperInfo from "@/components/typography/WallpaperInfo";
 import Weather from "@/components/widgets/weather/Weather";
 
 export default function Widgets() {
-	const { showGreeting, showScallop, showWeather } = useSettings();
+	const { showGreeting, showScallop, showWeather } = useWidget();
 
 	return (
 		<div

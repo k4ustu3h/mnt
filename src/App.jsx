@@ -2,7 +2,10 @@ import { useEffect } from "react";
 
 import { M3eSnackbar } from "@m3e/react/snackbar";
 
-import SettingsContext from "@/contexts/SettingsContext";
+import ThemeContext from "@/contexts/ThemeContext";
+import UIContext from "@/contexts/UIContext";
+import WallpaperContext from "@/contexts/WallpaperContext";
+import WidgetContext from "@/contexts/WidgetContext";
 
 import AppBar from "@/components/surfaces/AppBar";
 import Drawer from "@/components/surfaces/Drawer";
@@ -20,22 +23,28 @@ export default function App() {
 	}, []);
 
 	return (
-		<SettingsContext>
-			<ThemeWrapper>
-				<Drawer>
-					<div
-						style={{
-							display: "flex",
-							flexDirection: "column",
-							height: "100%",
-							width: "100%",
-						}}
-					>
-						<AppBar />
-						<Widgets />
-					</div>
-				</Drawer>
-			</ThemeWrapper>
-		</SettingsContext>
+		<WidgetContext>
+			<WallpaperContext>
+				<ThemeContext>
+					<UIContext>
+						<ThemeWrapper>
+							<Drawer>
+								<div
+									style={{
+										display: "flex",
+										flexDirection: "column",
+										height: "100%",
+										width: "100%",
+									}}
+								>
+									<AppBar />
+									<Widgets />
+								</div>
+							</Drawer>
+						</ThemeWrapper>
+					</UIContext>
+				</ThemeContext>
+			</WallpaperContext>
+		</WidgetContext>
 	);
 }

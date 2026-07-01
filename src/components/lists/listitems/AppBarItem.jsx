@@ -2,12 +2,12 @@ import { M3eExpandableListItem, M3eListAction } from "@m3e/react/list";
 
 import { AppRegistration } from "@nine-thirty-five/material-symbols-react/rounded";
 
-import useSettings from "@/hooks/useSettings";
+import useWidget from "@/hooks/context/useWidget";
 
 import WidgetSwitch from "@/components/switches/WidgetSwitch";
 
 export default function AppBarItem() {
-	const { showGoogleApps, setShowGoogleApps } = useSettings();
+	const { showGoogleApps, setShowGoogleApps } = useWidget();
 
 	return (
 		<M3eExpandableListItem>

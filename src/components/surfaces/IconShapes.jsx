@@ -3,12 +3,12 @@ import { useState } from "react";
 import { M3eCard } from "@m3e/react/card";
 import { M3eShape } from "@m3e/react/shape";
 
-import useSettings from "@/hooks/useSettings";
+import useTheme from "@/hooks/context/useTheme";
 
 const SHAPES = ["circle", "square", "4-sided-cookie", "7-sided-cookie", "arch"];
 
 export default function IconShapes() {
-	const { iconShape, setIconShape } = useSettings();
+	const { iconShape, setIconShape } = useTheme();
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (

@@ -2,12 +2,12 @@ import { M3eContentPane } from "@m3e/react/content-pane";
 
 import { apps } from "@/data/GoogleApps";
 
-import useSettings from "@/hooks/useSettings";
+import useUI from "@/hooks/context/useUI";
 
 import MonochromeIcon from "@/components/layout/MonochromeIcon";
 
 export default function AppsFolder() {
-	const { isAppsOpen, setIsAppsOpen } = useSettings();
+	const { isAppsOpen, setIsAppsOpen } = useUI();
 
 	return (
 		<>

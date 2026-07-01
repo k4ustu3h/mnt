@@ -1,7 +1,7 @@
-import useSettings from "@/hooks/useSettings";
+import useUI from "@/hooks/context/useUI";
 
 export default function Wallpaper({ animateZoom, bgUrl, children }) {
-	const { isAppsOpen } = useSettings();
+	const { isAppsOpen } = useUI();
 
 	return (
 		<div

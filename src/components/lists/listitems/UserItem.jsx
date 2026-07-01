@@ -2,14 +2,14 @@ import { M3eExpandableListItem, M3eListAction } from "@m3e/react/list";
 
 import { Person } from "@nine-thirty-five/material-symbols-react/rounded";
 
-import useSettings from "@/hooks/useSettings";
+import useWidget from "@/hooks/context/useWidget";
 
 import ListItem from "@/components/lists/ListItem";
 import UsernameField from "@/components/textfields/UsernameField";
 import WidgetSwitch from "@/components/switches/WidgetSwitch";
 
 export default function UserItem() {
-	const { showGreeting, setShowGreeting } = useSettings();
+	const { showGreeting, setShowGreeting } = useWidget();
 
 	return (
 		<M3eExpandableListItem>

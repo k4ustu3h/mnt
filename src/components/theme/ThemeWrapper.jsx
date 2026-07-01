@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { M3eTheme } from "@m3e/react/theme";
 
-import useSettings from "@/hooks/useSettings";
+import useTheme from "@/hooks/context/useTheme";
 
 import dispatchError from "@/utils/dispatchError";
 import getWallpaperUrl from "@/utils/getWallpaperUrl";
@@ -12,7 +12,7 @@ import LoadingScreen from "@/components/loading/LoadingScreen";
 import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function ThemeWrapper({ children }) {
-	const { themeScheme, themeContrast } = useSettings();
+	const { themeScheme, themeContrast } = useTheme();
 
 	const [bgUrl, setBgUrl] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);

@@ -3,10 +3,10 @@ import { useState } from "react";
 import { M3eShape } from "@m3e/react/shape";
 import { M3eHeading } from "@m3e/react/heading";
 
-import useSettings from "@/hooks/useSettings";
+import useTheme from "@/hooks/context/useTheme";
 
 export default function MonochromeIcon({ children, name, url }) {
-	const { iconShape } = useSettings();
+	const { iconShape } = useTheme();
 	const [isHovered, setIsHovered] = useState(false);
 
 	const shapeSize = 52;

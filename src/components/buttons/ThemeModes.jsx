@@ -3,15 +3,16 @@ import {
 	M3eSegmentedButton,
 } from "@m3e/react/segmented-button";
 
-import useSettings from "@/hooks/useSettings";
 import {
 	Computer,
 	DarkMode,
 	LightMode,
 } from "@nine-thirty-five/material-symbols-react/rounded";
 
+import useTheme from "@/hooks/context/useTheme";
+
 export default function ThemeModes() {
-	const { themeScheme, setThemeScheme } = useSettings();
+	const { themeScheme, setThemeScheme } = useTheme();
 
 	return (
 		<M3eSegmentedButton style={{ paddingBlockEnd: 8 }}>

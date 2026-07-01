@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import useSettings from "@/hooks/useSettings";
+import useTheme from "@/hooks/context/useTheme";
 
 import getIconUrl from "@/utils/getIconUrl";
 import getWeatherDetails from "@/utils/getWeatherDetails";
@@ -23,7 +23,7 @@ const getCachedWeather = () => {
 };
 
 export default function useWeather() {
-	const { themeScheme } = useSettings();
+	const { themeScheme } = useTheme();
 
 	const [weatherData, setWeatherData] = useState(() => {
 		const cachedData = getCachedWeather();

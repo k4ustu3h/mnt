@@ -3,10 +3,10 @@ import {
 	M3eSegmentedButton,
 } from "@m3e/react/segmented-button";
 
-import useSettings from "@/hooks/useSettings";
+import useTheme from "@/hooks/context/useTheme";
 
 export default function ContrastOptions() {
-	const { themeContrast, setThemeContrast } = useSettings();
+	const { themeContrast, setThemeContrast } = useTheme();
 
 	return (
 		<M3eSegmentedButton style={{ paddingBlockEnd: 8 }}>
