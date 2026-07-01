@@ -1,6 +1,25 @@
 import dispatchError from "@/utils/dispatchError";
 
 export default async function getWallpaperUrl() {
+	const wallpaperSource =
+		JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
+
+	if (wallpaperSource === "custom") {
+		try {
+			const cache = await caches.open("MNTwallpaperCache");
+			const response = await cache.match("custom-wallpaper");
+			if (response) {
+				const blob = await response.blob();
+				return URL.createObjectURL(blob);
+			}
+		} catch (error) {
+			dispatchError(
+				"Failed to load custom wallpaper, falling back to random.",
+				error,
+			);
+		}
+	}
+
 	const height = Math.round(window.innerHeight * 1.1);
 	const width = Math.round(window.innerWidth * 1.1);
 
@@ -30,7 +49,6 @@ export default async function getWallpaperUrl() {
 	const seed = needsNewSeed
 		? Math.random().toString(36).substring(2, 10)
 		: savedData.seed;
-
 	const targetUrl = `https://picsum.photos/seed/${seed}/${width}/${height}`;
 
 	try {
@@ -50,6 +68,7 @@ export default async function getWallpaperUrl() {
 				if (response.ok) {
 					const keys = await cache.keys();
 					for (const request of keys) {
+						if (request.url.includes("custom-wallpaper")) continue;
 						await cache.delete(request);
 					}
 					await cache.put(targetUrl, response.clone());
@@ -68,8 +87,11 @@ export default async function getWallpaperUrl() {
 				);
 
 				const keys = await cache.keys();
-				if (keys.length > 0) {
-					response = await cache.match(keys[0]);
+				const validKeys = keys.filter(
+					(k) => !k.url.includes("custom-wallpaper"),
+				);
+				if (validKeys.length > 0) {
+					response = await cache.match(validKeys[0]);
 				}
 			}
 		} else {
@@ -98,8 +120,11 @@ export default async function getWallpaperUrl() {
 					);
 
 					const keys = await cache.keys();
-					if (keys.length > 0) {
-						response = await cache.match(keys[0]);
+					const validKeys = keys.filter(
+						(k) => !k.url.includes("custom-wallpaper"),
+					);
+					if (validKeys.length > 0) {
+						response = await cache.match(validKeys[0]);
 					}
 				}
 			}

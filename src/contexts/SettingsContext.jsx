@@ -9,18 +9,23 @@ export default function SettingsContext({ children }) {
 		"newTabIconShape",
 		"square",
 	);
+
 	const [isAppsOpen, setIsAppsOpen] = useState(false);
 
 	const [showGoogleApps, setShowGoogleApps] = useLocalStorage(
 		"showGoogleApps",
 		true,
 	);
+
 	const [showGreeting, setShowGreeting] = useLocalStorage(
 		"showGreeting",
 		true,
 	);
+
 	const [showScallop, setShowScallop] = useLocalStorage("showScallop", true);
+
 	const [showWeather, setShowWeather] = useLocalStorage("showWeather", true);
+
 	const [themeScheme, setThemeScheme] = useLocalStorage(
 		"themeScheme",
 		"auto",
@@ -29,6 +34,11 @@ export default function SettingsContext({ children }) {
 	const [themeContrast, setThemeContrast] = useLocalStorage(
 		"themeContrast",
 		"standard",
+	);
+
+	const [wallpaperSource, setWallpaperSource] = useLocalStorage(
+		"wallpaperSource",
+		"random",
 	);
 
 	const [wallpaperRefreshRate, setWallpaperRefreshRate] = useLocalStorage(
@@ -49,6 +59,7 @@ export default function SettingsContext({ children }) {
 			setThemeContrast,
 			setThemeScheme,
 			setWallpaperRefreshRate,
+			setWallpaperSource,
 			showGoogleApps,
 			showGreeting,
 			showScallop,
@@ -56,6 +67,7 @@ export default function SettingsContext({ children }) {
 			themeContrast,
 			themeScheme,
 			wallpaperRefreshRate,
+			wallpaperSource,
 		}),
 		[
 			iconShape,
@@ -69,6 +81,7 @@ export default function SettingsContext({ children }) {
 			setThemeContrast,
 			setThemeScheme,
 			setWallpaperRefreshRate,
+			setWallpaperSource,
 			showGoogleApps,
 			showGreeting,
 			showScallop,
@@ -76,6 +89,7 @@ export default function SettingsContext({ children }) {
 			themeContrast,
 			themeScheme,
 			wallpaperRefreshRate,
+			wallpaperSource,
 		],
 	);
 

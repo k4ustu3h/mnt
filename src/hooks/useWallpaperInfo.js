@@ -3,9 +3,24 @@ import { useEffect, useState } from "react";
 import dispatchError from "@/utils/dispatchError";
 
 export default function useWallpaperInfo() {
-	const [info, setInfo] = useState(null);
+	const [info, setInfo] = useState(() => {
+		const wallpaperSource =
+			JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
+
+		if (wallpaperSource === "custom") {
+			return { author: "Custom Upload", url: "#" };
+		}
+		return null;
+	});
 
 	useEffect(() => {
+		const wallpaperSource =
+			JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
+
+		if (wallpaperSource === "custom") {
+			return;
+		}
+
 		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
 
 		if (savedData && savedData.seed) {
