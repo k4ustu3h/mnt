@@ -8,9 +8,8 @@ export default function useWallpaperInfo() {
 			JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
 
 		if (wallpaperSource === "custom") {
-			return { author: "Custom Upload", url: "#" };
+			return null;
 		}
-		return null;
 	});
 
 	useEffect(() => {
