@@ -28,12 +28,15 @@ A modern, fluid, and highly customizable New Tab extension crafted strictly arou
 
 ## Download
 
-<p>
+<p align="center">
     <a href="https://github.com/k4ustu3h/mnt/releases/latest">
         <img src="docs/images/badge-github.png" alt="Get it on GitHub" height="60" />
     </a>
      <a href="https://chromewebstore.google.com/detail/material-new-tab/oenppeijibmgkmefjjmpifpgokkdmann">
         <img src="docs/images/badge-chrome-webstore.png" alt="Get it on Chrome Web Store" height="60" />
+    </a>
+    <a href="https://addons.mozilla.org/en-US/firefox/addon/mnt/">
+        <img src="docs/images/badge-mozilla-addons.svg" alt="Get it on Mozilla Add-ons" height="60" />
     </a>
 </p>
 
@@ -157,16 +160,6 @@ _Your compiled extension files will now be located in the `dist` folder._
 _**Note:** Temporary add-ons in Firefox are removed when you restart the browser. For permanent installation, you will need to download the signed `.xpi` file once it is officially listed on the Firefox Add-ons store._
 
 </details>
-
----
-
-## Configuration & Architecture
-
-This project is built using a modern decoupled component architecture:
-
-- **`/src/components`**: Modular design sections split neatly into UI containers, weather trackers, clock faces, and settings toggles.
-- **`/src/hooks`**: Custom state handling optimizations utilizing optimized browser local storage hooks to protect against layout re-render thrashing.
-- **`manifest.json`**: Engineered safely to comply completely with standard **Manifest V3** specifications (including Content Security Policy-friendly global keyframe animations).
 
 ---
 
