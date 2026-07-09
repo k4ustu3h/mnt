@@ -33,7 +33,10 @@ A modern, fluid, and highly customizable New Tab extension crafted strictly arou
         <img src="docs/images/badge-github.png" alt="Get it on GitHub" height="60" />
     </a>
      <a href="https://chromewebstore.google.com/detail/material-new-tab/oenppeijibmgkmefjjmpifpgokkdmann">
-        <img src="docs/images/badge-chrome-webstore.png" alt="Get it on Chrome Web Store" height="60" />
+        <img src="docs/images/badge-chrome-webstore.png" alt="Available in the Chrome Web Store" height="60" />
+    </a>
+    <a href="https://microsoftedge.microsoft.com/addons/detail/mhcfdnepkmhgokodieknmcbfnchmomfh">
+        <img src="docs/images/badge-microsoft-edge.png" alt="Get it from Microsoft Edge" height="60" />
     </a>
     <a href="https://addons.mozilla.org/en-US/firefox/addon/mnt/">
         <img src="docs/images/badge-mozilla-addons.svg" alt="Get it on Mozilla Add-ons" height="60" />
