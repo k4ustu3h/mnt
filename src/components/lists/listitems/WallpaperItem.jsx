@@ -12,6 +12,8 @@ import {
 	WallpaperSlideshow,
 } from "@nine-thirty-five/material-symbols-react/rounded";
 
+import { SiNasa } from "@icons-pack/react-simple-icons";
+
 import useWallpaper from "@/hooks/context/useWallpaper";
 
 export default function WallpaperItem() {
@@ -51,13 +53,25 @@ export default function WallpaperItem() {
 						<M3eListOption
 							onClick={() => {
 								setWallpaperSource("random");
-								window.location.reload();
+								setTimeout(() => window.location.reload(), 50);
 							}}
 							selected={wallpaperSource === "random"}
 						>
 							<WallpaperSlideshow slot="leading" size={24} />
 							Random
 						</M3eListOption>
+
+						<M3eListOption
+							onClick={() => {
+								setWallpaperSource("apod");
+								setTimeout(() => window.location.reload(), 50);
+							}}
+							selected={wallpaperSource === "apod"}
+						>
+							<SiNasa slot="leading" size={24} />
+							Astronomy Picture of the Day
+						</M3eListOption>
+
 						<input
 							type="file"
 							accept="image/*"
@@ -74,6 +88,7 @@ export default function WallpaperItem() {
 						</M3eListOption>
 					</div>
 				</M3eExpandableListItem>
+
 				{wallpaperSource === "random" && (
 					<M3eExpandableListItem>
 						<WallpaperSlideshow size={24} slot="leading" />

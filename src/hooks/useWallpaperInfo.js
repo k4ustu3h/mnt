@@ -6,21 +6,25 @@ export default function useWallpaperInfo() {
 	const [info, setInfo] = useState(() => {
 		const wallpaperSource =
 			JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
+		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
 
-		if (wallpaperSource === "custom") {
-			return null;
+		if (wallpaperSource === "custom") return null;
+
+		if (wallpaperSource === "apod" && savedData?.source === "apod") {
+			return savedData.info;
 		}
+
+		return null;
 	});
 
 	useEffect(() => {
 		const wallpaperSource =
 			JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
+		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
 
-		if (wallpaperSource === "custom") {
+		if (wallpaperSource === "custom" || wallpaperSource === "apod") {
 			return;
 		}
-
-		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
 
 		if (savedData && savedData.seed) {
 			const controller = new AbortController();
@@ -31,9 +35,7 @@ export default function useWallpaperInfo() {
 			})
 				.then(async (res) => {
 					clearTimeout(timeoutId);
-					if (!res.ok) {
-						throw new Error(`HTTP Error: ${res.status}`);
-					}
+					if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
 					return res.json();
 				})
 				.then((data) => setInfo(data))

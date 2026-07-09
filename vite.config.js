@@ -13,6 +13,15 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "./src"),
 		},
 	},
+	server: {
+		proxy: {
+			"/apod-proxy": {
+				target: "https://apod.nasa.gov",
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/apod-proxy/, ""),
+			},
+		},
+	},
 	build: {
 		rollupOptions: {
 			output: {
