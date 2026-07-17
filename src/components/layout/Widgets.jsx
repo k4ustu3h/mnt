@@ -2,7 +2,7 @@ import useWidget from "@/hooks/context/useWidget";
 
 import Greeting from "@/components/typography/Greeting";
 import Scallop from "@/components/widgets/clocks/Scallop";
-import WallpaperInfo from "@/components/typography/WallpaperInfo";
+import WallpaperInfo from "@/components/buttons/WallpaperInfo";
 import Weather from "@/components/widgets/weather/Weather";
 
 export default function Widgets() {
