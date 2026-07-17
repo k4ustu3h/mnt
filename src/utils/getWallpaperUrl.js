@@ -75,7 +75,7 @@ export default async function getWallpaperUrl() {
 
 					targetImageUrl = data.hdurl || data.url;
 					imageInfo = {
-						author: data.title,
+						author: data.copyright,
 						url: "https://apod.nasa.gov/apod/astropix.html",
 					};
 				} else {
