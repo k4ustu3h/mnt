@@ -8,7 +8,7 @@ import useBreakpoint from "@/hooks/useBreakpoint";
 
 export default function Greeting() {
 	const [name, setName] = useState(() => {
-		return localStorage.getItem("newTabUserName") || "User";
+		return localStorage.getItem("newTabUserName") || "";
 	});
 
 	const breakpoint = useBreakpoint();
@@ -16,7 +16,7 @@ export default function Greeting() {
 
 	useEffect(() => {
 		const handleNameChange = () => {
-			setName(localStorage.getItem("newTabUserName") || "User");
+			setName(localStorage.getItem("newTabUserName") || "");
 		};
 
 		window.addEventListener("userNameChanged", handleNameChange);
@@ -25,11 +25,11 @@ export default function Greeting() {
 	}, []);
 
 	const hour = new Date().getHours();
-	let timeGreeting = "Good Evening,";
+	let timeGreeting = "Good Evening";
 	if (hour >= 6 && hour < 12) {
-		timeGreeting = "Good Morning,";
+		timeGreeting = "Good Morning";
 	} else if (hour >= 12 && hour < 18) {
-		timeGreeting = "Good Afternoon,";
+		timeGreeting = "Good Afternoon";
 	}
 
 	return (
@@ -45,7 +45,8 @@ export default function Greeting() {
 				}}
 				variant={variant}
 			>
-				{timeGreeting} {name}!
+				{timeGreeting}
+				{name ? `, ${name}` : ""}!
 			</M3eHeading>
 		</M3eCard>
 	);

@@ -4,7 +4,7 @@ import { M3eFormField } from "@m3e/react/form-field";
 
 export default function UsernameField({ disabled }) {
 	const [name, setName] = useState(() => {
-		return localStorage.getItem("newTabUserName") || "User";
+		return localStorage.getItem("newTabUserName");
 	});
 
 	const handleNameChange = (e) => {
