@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { M3eButton } from "@m3e/react/button";
 import { M3eSplitButton } from "@m3e/react/split-button";
+import { M3eTooltip } from "@m3e/react/tooltip";
 
 import { KeyboardArrowUp } from "@nine-thirty-five/material-symbols-react/rounded";
 
@@ -50,6 +51,7 @@ export default function WallpaperInfo() {
 				</M3eButton>
 				{wallpaperSource === "apod" && (
 					<M3eButton
+						id="wallpaper-info-toggle"
 						onClick={() =>
 							wallpaperSource === "apod" && setIsOpen(!isOpen)
 						}
@@ -65,6 +67,9 @@ export default function WallpaperInfo() {
 					</M3eButton>
 				)}
 			</M3eSplitButton>
+			<M3eTooltip for="wallpaper-info-toggle" position="above">
+				View more info
+			</M3eTooltip>
 			{wallpaperSource === "apod" && (
 				<APODExplanation
 					explanation={info.explanation}
