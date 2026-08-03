@@ -18,7 +18,11 @@ A modern, fluid, and highly customizable New Tab extension crafted strictly arou
 - **Dynamic Monet Theming:** Automatically extracts prominent color hexes from your background wallpapers using a fast average color canvas technique to dynamically tint the entire theme seamlessly.
 - **M3 Expressive (MD3E):** Built completely upon the latest Material Design guidelines (MD3E), utilizing the full power of expressive motion tokens, container shapes, and responsive layout standards.
 - **Variable Typography:** Native implementation of _[Google Sans Flex](https://fonts.google.com/specimen/Google+Sans+Flex/about)_ utilizing axis configuration controls (like width `"wdth"` and weight `"wght"`) for hyper-polished text scaling.
-- **Dynamic Wallpapers:** Features an intelligent background system enabling daily random images sourced from [Lorem Picsum](https://picsum.photos/) with configurable refresh rates.
+- **Multiple wallpaper sources:** Personalize your background using multiple sources:
+    - **Random (Picsum):** High-quality photography from [Lorem Picsum](https://picsum.photos/) with configurable refresh rates (New Tab, Hourly, or Daily).
+    - **NASA Astronomy:** Integrates the official NASA APOD (Astronomy Picture of the Day) for breathtaking daily cosmos imagery.
+    - **Custom Uploads:** Bypass the cloud completely and upload your own local high-resolution images.
+- **Accessibility & Contrast:** Fine-tune the visual density of the UI with adjustable theme contrast levels (Standard, Medium, High) to ensure perfect legibility and accessibility against any background.
 - **Custom Widgets & Navigation:**
     - **Scallop Clock:** A 12-sided abstract geometric clock reflecting fluid hour, minute, and second mechanics.
     - **Weather Widget:** Live geolocation-driven forecast integration powered by Open-Meteo.
