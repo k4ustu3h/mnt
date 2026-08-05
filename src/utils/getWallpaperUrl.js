@@ -70,8 +70,29 @@ export default async function getWallpaperUrl() {
 					if (!res.ok)
 						throw new Error(`NASA API Error: ${res.status}`);
 					const data = await res.json();
-					if (data.media_type !== "image")
-						throw new Error("NASA APOD is not an image today.");
+
+					if (data.media_type !== "image") {
+						if (savedData.source === "apod" && savedData.url) {
+							clearTimeout(timeoutId);
+
+							savedData.timestamp = now;
+							localStorage.setItem(
+								"MNTwallpaperData",
+								JSON.stringify(savedData),
+							);
+
+							const cachedResponse = await cache.match(
+								savedData.url,
+							);
+							if (cachedResponse) {
+								const blob = await cachedResponse.blob();
+								return URL.createObjectURL(blob);
+							}
+						}
+						throw new Error(
+							"NASA APOD is not an image today, and no cache exists.",
+						);
+					}
 
 					targetImageUrl = data.hdurl || data.url;
 					imageInfo = {
