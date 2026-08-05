@@ -50,10 +50,6 @@ export default function LoadingScreen({ bgUrl }) {
 		? Math.min(Math.round((progress.loaded / progress.total) * 100), 100)
 		: 0;
 
-	console.log(
-		`LoadingScreen: progress.loaded=${progress.loaded}, progress.total=${progress.total}, percent=${percent}`,
-	);
-
 	return (
 		<div
 			style={{
