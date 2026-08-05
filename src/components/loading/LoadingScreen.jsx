@@ -23,7 +23,12 @@ export default function LoadingScreen({ bgUrl }) {
 		}, 4000);
 
 		const handleProgress = (e) => {
-			setProgress(e.detail);
+			setProgress((prevProgress) => {
+				if (e.detail.loaded < prevProgress.loaded) {
+					return prevProgress;
+				}
+				return e.detail;
+			});
 		};
 		window.addEventListener("wallpaper-download-progress", handleProgress);
 
