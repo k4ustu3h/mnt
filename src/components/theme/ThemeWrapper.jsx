@@ -5,7 +5,7 @@ import { M3eTheme } from "@m3e/react/theme";
 import useTheme from "@/hooks/context/useTheme";
 
 import dispatchError from "@/utils/dispatchError";
-import getWallpaperUrl from "@/utils/getWallpaperUrl";
+import getWallpaperUrl from "@/utils/wallpaper/getWallpaperUrl";
 import monet from "@/utils/monet";
 
 import LoadingScreen from "@/components/loading/LoadingScreen";

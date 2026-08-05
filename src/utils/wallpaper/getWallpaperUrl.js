@@ -1,23 +1,18 @@
 import dispatchError from "@/utils/dispatchError";
 
+import getAPOD from "@/utils/wallpaper/getAPOD";
+import getCustom from "@/utils/wallpaper/getCustom";
+import getRandom from "@/utils/wallpaper/getRandom";
+
 export default async function getWallpaperUrl() {
-	const wallpaperSource =
+	let wallpaperSource =
 		JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
 
 	if (wallpaperSource === "custom") {
-		try {
-			const cache = await caches.open("MNTwallpaperCache");
-			const response = await cache.match("custom-wallpaper");
-			if (response) {
-				const blob = await response.blob();
-				return URL.createObjectURL(blob);
-			}
-		} catch (error) {
-			dispatchError(
-				"Failed to load custom wallpaper, falling back to random.",
-				error,
-			);
-		}
+		const customUrl = await getCustom();
+		if (customUrl) return customUrl;
+
+		wallpaperSource = "random";
 	}
 
 	const now = Date.now();
@@ -57,58 +52,30 @@ export default async function getWallpaperUrl() {
 			let seed = null;
 
 			const controller = new AbortController();
-			const timeoutId = setTimeout(() => controller.abort(), 8000);
+			const timeoutId = setTimeout(() => controller.abort(), 30000);
 
 			try {
 				if (wallpaperSource === "apod") {
-					const apiKey = import.meta.env.VITE_APOD_API_KEY;
-					const res = await fetch(
-						`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`,
-						{ signal: controller.signal },
+					const apodData = await getAPOD(
+						controller,
+						savedData,
+						now,
+						cache,
 					);
 
-					if (!res.ok)
-						throw new Error(`NASA API Error: ${res.status}`);
-					const data = await res.json();
-
-					if (data.media_type !== "image") {
-						if (savedData.source === "apod" && savedData.url) {
-							clearTimeout(timeoutId);
-
-							savedData.timestamp = now;
-							localStorage.setItem(
-								"MNTwallpaperData",
-								JSON.stringify(savedData),
-							);
-
-							const cachedResponse = await cache.match(
-								savedData.url,
-							);
-							if (cachedResponse) {
-								const blob = await cachedResponse.blob();
-								return URL.createObjectURL(blob);
-							}
-						}
-						throw new Error(
-							"NASA APOD is not an image today, and no cache exists.",
-						);
+					if (apodData.cachedBlobUrl) {
+						clearTimeout(timeoutId);
+						return apodData.cachedBlobUrl;
 					}
 
-					targetImageUrl = data.hdurl || data.url;
-					imageInfo = {
-						author: data.copyright || "NASA APOD",
-						explanation: data.explanation,
-						title: data.title,
-						url: "https://apod.nasa.gov/apod/astropix.html",
-					};
+					targetImageUrl = apodData.targetImageUrl;
+					imageInfo = apodData.imageInfo;
 				} else {
-					const height = Math.round(window.innerHeight * 1.1);
-					const width = Math.round(window.innerWidth * 1.1);
-					seed = Math.random().toString(36).substring(2, 10);
-					targetImageUrl = `https://picsum.photos/seed/${seed}/${width}/${height}`;
+					const randomData = getRandom();
+					targetImageUrl = randomData.targetImageUrl;
+					seed = randomData.seed;
 				}
 
-				// Route through Vite proxy if running locally to avoid CORS
 				let fetchUrl = targetImageUrl;
 				const isLocalhost =
 					window.location.hostname === "localhost" ||
@@ -139,6 +106,7 @@ export default async function getWallpaperUrl() {
 						source: wallpaperSource,
 						timestamp: now,
 					};
+
 					if (wallpaperSource === "apod") {
 						newSaveData.url = targetImageUrl;
 						newSaveData.info = imageInfo;
