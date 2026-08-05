@@ -54,6 +54,9 @@ export default async function getWallpaperUrl() {
 			const controller = new AbortController();
 			const timeoutId = setTimeout(() => controller.abort(), 30000);
 
+			const cancelHandler = () => controller.abort();
+			window.addEventListener("cancel-wallpaper-download", cancelHandler);
+
 			try {
 				if (wallpaperSource === "apod") {
 					const apodData = await getAPOD(
@@ -65,6 +68,10 @@ export default async function getWallpaperUrl() {
 
 					if (apodData.cachedBlobUrl) {
 						clearTimeout(timeoutId);
+						window.removeEventListener(
+							"cancel-wallpaper-download",
+							cancelHandler,
+						);
 						return apodData.cachedBlobUrl;
 					}
 
@@ -160,7 +167,15 @@ export default async function getWallpaperUrl() {
 						`HTTP Error fetching image blob: ${response.status}`,
 					);
 				}
+				window.removeEventListener(
+					"cancel-wallpaper-download",
+					cancelHandler,
+				);
 			} catch (error) {
+				window.removeEventListener(
+					"cancel-wallpaper-download",
+					cancelHandler,
+				);
 				clearTimeout(timeoutId);
 				dispatchError(
 					`${wallpaperSource} fetch failed. Attempting fallback.`,

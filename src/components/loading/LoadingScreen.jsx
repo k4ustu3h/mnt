@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { M3eHeading } from "@m3e/react/heading";
 import { M3eLinearProgressIndicator } from "@m3e/react/progress-indicator";
 import { M3eLoadingIndicator } from "@m3e/react/loading-indicator";
+import { M3eButton } from "@m3e/react/button";
 
 export default function LoadingScreen({ bgUrl }) {
 	const [isImageLoaded, setIsImageLoaded] = useState(false);
 	const [showProgressUI, setShowProgressUI] = useState(false);
 	const [progress, setProgress] = useState({ loaded: 0, total: 0 });
+	const [isCanceled, setIsCanceled] = useState(false);
 
 	useEffect(() => {
 		const img = new Image();
@@ -40,6 +42,11 @@ export default function LoadingScreen({ bgUrl }) {
 			);
 		};
 	}, []);
+
+	const handleCancel = () => {
+		setIsCanceled(true);
+		window.dispatchEvent(new Event("cancel-wallpaper-download"));
+	};
 
 	const formatBytes = (bytes) => {
 		if (bytes === 0) return "0 MB";
@@ -94,9 +101,26 @@ export default function LoadingScreen({ bgUrl }) {
 					zIndex: 2,
 				}}
 			>
-				{showProgressUI && progress.loaded > 0 ? (
+				{isCanceled ? (
 					<div
 						style={{
+							textAlign: "center",
+							display: "flex",
+							flexDirection: "column",
+							gap: "8px",
+						}}
+					>
+						<M3eHeading variant="title">
+							Download Canceled
+						</M3eHeading>
+						<M3eHeading variant="label" size="small">
+							Loading previous wallpaper...
+						</M3eHeading>
+					</div>
+				) : showProgressUI && progress.loaded > 0 ? (
+					<div
+						style={{
+							alignItems: "center",
 							display: "flex",
 							flexDirection: "column",
 							gap: "16px",
@@ -107,7 +131,6 @@ export default function LoadingScreen({ bgUrl }) {
 							value={progress.total ? percent : undefined}
 							variant="wavy"
 						/>
-
 						<div
 							style={{
 								textAlign: "center",
@@ -122,6 +145,9 @@ export default function LoadingScreen({ bgUrl }) {
 									: `${formatBytes(progress.loaded)} downloaded`}
 							</M3eHeading>
 						</div>
+						<M3eButton variant="outlined" onClick={handleCancel}>
+							Cancel Loading
+						</M3eButton>
 					</div>
 				) : (
 					<M3eLoadingIndicator />
