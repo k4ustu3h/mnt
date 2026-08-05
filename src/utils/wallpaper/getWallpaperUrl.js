@@ -91,6 +91,7 @@ export default async function getWallpaperUrl() {
 				const rawResponse = await fetch(fetchUrl, {
 					signal: controller.signal,
 				});
+				clearTimeout(timeoutId);
 
 				if (rawResponse.ok) {
 					const contentLength =
@@ -129,7 +130,6 @@ export default async function getWallpaperUrl() {
 						`HTTP Error fetching image blob: ${rawResponse.status}`,
 					);
 				}
-				clearTimeout(timeoutId);
 
 				if (response.ok) {
 					const keys = await cache.keys();
