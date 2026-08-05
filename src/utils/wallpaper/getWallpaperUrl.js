@@ -113,7 +113,45 @@ export default async function getWallpaperUrl() {
 					`${wallpaperSource} fetch failed. Attempting fallback.`,
 					error,
 				);
+
 				response = await getFallbackWallpaper(cache);
+
+				if (!response && wallpaperSource === "apod") {
+					try {
+						dispatchError(
+							"No fallback cache found. Fetching temporary Lorem Picsum wallpaper for today.",
+						);
+
+						const randomData = getRandom();
+						const fallbackUrl = randomData.targetImageUrl;
+						const fallbackController = new AbortController();
+
+						response = await streamDownload(
+							fallbackUrl,
+							fallbackController,
+						);
+
+						await saveWallpaperToCache(
+							cache,
+							fallbackUrl,
+							response,
+							"apod",
+							{
+								title: "Temporary Fallback Wallpaper",
+								explanation:
+									"The NASA APOD download was cancelled or failed, and no previous wallpaper was found. This random image is being used for today.",
+							},
+							randomData.seed,
+							now,
+						);
+					} catch (fallbackError) {
+						dispatchError(
+							"Temporary Picsum fallback also failed:",
+							fallbackError,
+						);
+						response = null;
+					}
+				}
 			}
 		} else {
 			if (wallpaperSource === "apod") {
