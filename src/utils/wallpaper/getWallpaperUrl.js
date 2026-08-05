@@ -1,5 +1,12 @@
 import dispatchError from "@/utils/dispatchError";
 
+import {
+	saveWallpaperToCache,
+	getFallbackWallpaper,
+} from "@/utils/wallpaper/cacheManager";
+import evaluateRefreshLogic from "@/utils/wallpaper/evaluateRefreshLogic";
+import streamDownload from "@/utils/wallpaper/streamDownload";
+
 import getAPOD from "@/utils/wallpaper/getAPOD";
 import getCustom from "@/utils/wallpaper/getCustom";
 import getRandom from "@/utils/wallpaper/getRandom";
@@ -11,7 +18,6 @@ export default async function getWallpaperUrl() {
 	if (wallpaperSource === "custom") {
 		const customUrl = await getCustom();
 		if (customUrl) return customUrl;
-
 		wallpaperSource = "random";
 	}
 
@@ -20,27 +26,13 @@ export default async function getWallpaperUrl() {
 		JSON.parse(localStorage.getItem("MNTwallpaperData")) || {};
 	const refreshRate =
 		JSON.parse(localStorage.getItem("wallpaperRefreshRate")) ?? "newTab";
-	const previousSource = savedData.source || "random";
 
-	let needsNewFetch = false;
-
-	if (!savedData.timestamp || wallpaperSource !== previousSource) {
-		needsNewFetch = true;
-	} else if (wallpaperSource === "random") {
-		if (refreshRate === "newTab") needsNewFetch = true;
-		else if (
-			refreshRate === "hourly" &&
-			now - savedData.timestamp > 3600000
-		)
-			needsNewFetch = true;
-		else if (
-			refreshRate === "daily" &&
-			now - savedData.timestamp > 86400000
-		)
-			needsNewFetch = true;
-	} else if (wallpaperSource === "apod") {
-		if (now - savedData.timestamp > 43200000) needsNewFetch = true;
-	}
+	const needsNewFetch = evaluateRefreshLogic(
+		wallpaperSource,
+		savedData,
+		refreshRate,
+		now,
+	);
 
 	try {
 		const cache = await caches.open("MNTwallpaperCache");
@@ -87,7 +79,6 @@ export default async function getWallpaperUrl() {
 				const isLocalhost =
 					window.location.hostname === "localhost" ||
 					window.location.hostname === "127.0.0.1";
-
 				if (isLocalhost && targetImageUrl.includes("apod.nasa.gov")) {
 					fetchUrl = targetImageUrl.replace(
 						"https://apod.nasa.gov",
@@ -95,78 +86,18 @@ export default async function getWallpaperUrl() {
 					);
 				}
 
-				const rawResponse = await fetch(fetchUrl, {
-					signal: controller.signal,
-				});
+				response = await streamDownload(fetchUrl, controller);
+
 				clearTimeout(timeoutId);
-
-				if (rawResponse.ok) {
-					const contentLength =
-						rawResponse.headers.get("content-length");
-					const total = contentLength
-						? parseInt(contentLength, 10)
-						: 0;
-					let loaded = 0;
-
-					const reader = rawResponse.body.getReader();
-					const chunks = [];
-
-					while (true) {
-						const { done, value } = await reader.read();
-						if (done) break;
-
-						chunks.push(value);
-						loaded += value.length;
-
-						window.dispatchEvent(
-							new CustomEvent("wallpaper-download-progress", {
-								detail: { loaded, total },
-							}),
-						);
-					}
-					const blob = new Blob(chunks, {
-						type: rawResponse.headers.get("content-type"),
-					});
-					response = new Response(blob, {
-						headers: rawResponse.headers,
-						status: rawResponse.status,
-						statusText: rawResponse.statusText,
-					});
-				} else {
-					throw new Error(
-						`HTTP Error fetching image blob: ${rawResponse.status}`,
-					);
-				}
-
-				if (response.ok) {
-					const keys = await cache.keys();
-					for (const request of keys) {
-						if (request.url.includes("custom-wallpaper")) continue;
-						await cache.delete(request);
-					}
-
-					await cache.put(targetImageUrl, response.clone());
-
-					const newSaveData = {
-						source: wallpaperSource,
-						timestamp: now,
-					};
-
-					if (wallpaperSource === "apod") {
-						newSaveData.url = targetImageUrl;
-						newSaveData.info = imageInfo;
-					} else {
-						newSaveData.seed = seed;
-					}
-					localStorage.setItem(
-						"MNTwallpaperData",
-						JSON.stringify(newSaveData),
-					);
-				} else {
-					throw new Error(
-						`HTTP Error fetching image blob: ${response.status}`,
-					);
-				}
+				await saveWallpaperToCache(
+					cache,
+					targetImageUrl,
+					response,
+					wallpaperSource,
+					imageInfo,
+					seed,
+					now,
+				);
 				window.removeEventListener(
 					"cancel-wallpaper-download",
 					cancelHandler,
@@ -177,18 +108,12 @@ export default async function getWallpaperUrl() {
 					cancelHandler,
 				);
 				clearTimeout(timeoutId);
+
 				dispatchError(
 					`${wallpaperSource} fetch failed. Attempting fallback.`,
 					error,
 				);
-
-				const keys = await cache.keys();
-				const validKeys = keys.filter(
-					(k) => !k.url.includes("custom-wallpaper"),
-				);
-				if (validKeys.length > 0) {
-					response = await cache.match(validKeys[0]);
-				}
+				response = await getFallbackWallpaper(cache);
 			}
 		} else {
 			if (wallpaperSource === "apod") {
