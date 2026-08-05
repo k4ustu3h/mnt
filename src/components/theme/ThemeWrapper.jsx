@@ -1,22 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { M3eTheme } from "@m3e/react/theme";
 
 import useTheme from "@/hooks/context/useTheme";
-
-import dispatchError from "@/utils/dispatchError";
-import getWallpaperUrl from "@/utils/wallpaper/getWallpaperUrl";
-import monet from "@/utils/monet";
+import useWallpaperTheme from "@/hooks/useWallpaperTheme";
 
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function ThemeWrapper({ children }) {
 	const { themeScheme, themeContrast } = useTheme();
-
-	const [bgUrl, setBgUrl] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
-	const [themeColor, setThemeColor] = useState("");
+	const { bgUrl, themeColor, isLoading } = useWallpaperTheme();
 
 	const [animateZoom] = useState(() => {
 		const refreshRate =
@@ -32,36 +26,6 @@ export default function ThemeWrapper({ children }) {
 
 		return false;
 	});
-
-	useEffect(() => {
-		let isMounted = true;
-
-		const initializeTheme = async () => {
-			try {
-				const url = await getWallpaperUrl();
-				if (!isMounted) return;
-				setBgUrl(url);
-
-				if (url) {
-					const colorHex = await monet(url);
-					if (!isMounted) return;
-					setThemeColor(colorHex);
-				}
-			} catch (err) {
-				dispatchError("Theme initialization failed:", err);
-			} finally {
-				if (isMounted) {
-					setIsLoading(false);
-				}
-			}
-		};
-
-		initializeTheme();
-
-		return () => {
-			isMounted = false;
-		};
-	}, []);
 
 	const finalThemeColor = themeColor || "#2962ff";
 
