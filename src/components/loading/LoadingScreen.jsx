@@ -128,6 +128,7 @@ export default function LoadingScreen({ bgUrl }) {
 						}}
 					>
 						<M3eLinearProgressIndicator
+							style={{ width: "100%" }}
 							value={progress.total ? percent : undefined}
 							variant="wavy"
 						/>
