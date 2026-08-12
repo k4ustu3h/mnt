@@ -188,8 +188,8 @@ export const apps = [
 		icon: <Wallet size={24} />,
 	},
 	{
-		name: "NotebookLM",
-		url: "https://notebooklm.google.com",
+		name: "Gemini Notebook",
+		url: "https://notebook.google.com/",
 		icon: <SiNotebooklm />,
 	},
 	{
