@@ -1,31 +1,29 @@
-import {
-	SiBlogger,
-	SiChromewebstore,
-	SiGmail,
-	SiGoogle,
-	SiGoogleads,
-	SiGoogleanalytics,
-	SiGooglecalendar,
-	SiGooglechat,
-	SiGoogleclassroom,
-	SiGoogledocs,
-	SiGoogledrive,
-	SiGoogleearth,
-	SiGoogleforms,
-	SiGooglegemini,
-	SiGooglekeep,
-	SiGooglemaps,
-	SiGooglemeet,
-	SiGooglenews,
-	SiGooglephotos,
-	SiGoogleplay,
-	SiGooglesheets,
-	SiGoogleslides,
-	SiGoogletranslate,
-	SiNotebooklm,
-	SiYoutube,
-	SiYoutubemusic,
-} from "@icons-pack/react-simple-icons";
+import SiBlogger from "@icons-pack/react-simple-icons/icons/SiBlogger";
+import SiChromewebstore from "@icons-pack/react-simple-icons/icons/SiChromewebstore";
+import SiGmail from "@icons-pack/react-simple-icons/icons/SiGmail";
+import SiGoogle from "@icons-pack/react-simple-icons/icons/SiGoogle";
+import SiGoogleads from "@icons-pack/react-simple-icons/icons/SiGoogleads";
+import SiGoogleanalytics from "@icons-pack/react-simple-icons/icons/SiGoogleanalytics";
+import SiGooglecalendar from "@icons-pack/react-simple-icons/icons/SiGooglecalendar";
+import SiGooglechat from "@icons-pack/react-simple-icons/icons/SiGooglechat";
+import SiGoogleclassroom from "@icons-pack/react-simple-icons/icons/SiGoogleclassroom";
+import SiGoogledocs from "@icons-pack/react-simple-icons/icons/SiGoogledocs";
+import SiGoogledrive from "@icons-pack/react-simple-icons/icons/SiGoogledrive";
+import SiGoogleearth from "@icons-pack/react-simple-icons/icons/SiGoogleearth";
+import SiGoogleforms from "@icons-pack/react-simple-icons/icons/SiGoogleforms";
+import SiGooglegemini from "@icons-pack/react-simple-icons/icons/SiGooglegemini";
+import SiGooglekeep from "@icons-pack/react-simple-icons/icons/SiGooglekeep";
+import SiGooglemaps from "@icons-pack/react-simple-icons/icons/SiGooglemaps";
+import SiGooglemeet from "@icons-pack/react-simple-icons/icons/SiGooglemeet";
+import SiGooglenews from "@icons-pack/react-simple-icons/icons/SiGooglenews";
+import SiGooglephotos from "@icons-pack/react-simple-icons/icons/SiGooglephotos";
+import SiGoogleplay from "@icons-pack/react-simple-icons/icons/SiGoogleplay";
+import SiGooglesheets from "@icons-pack/react-simple-icons/icons/SiGooglesheets";
+import SiGoogleslides from "@icons-pack/react-simple-icons/icons/SiGoogleslides";
+import SiGoogletranslate from "@icons-pack/react-simple-icons/icons/SiGoogletranslate";
+import SiNotebooklm from "@icons-pack/react-simple-icons/icons/SiNotebooklm";
+import SiYoutube from "@icons-pack/react-simple-icons/icons/SiYoutube";
+import SiYoutubemusic from "@icons-pack/react-simple-icons/icons/SiYoutubemusic";
 
 import {
 	AccountCircle,

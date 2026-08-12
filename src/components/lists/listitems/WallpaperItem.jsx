@@ -12,7 +12,7 @@ import {
 	WallpaperSlideshow,
 } from "@nine-thirty-five/material-symbols-react/rounded";
 
-import { SiNasa } from "@icons-pack/react-simple-icons";
+import SiNasa from "@icons-pack/react-simple-icons/icons/SiNasa";
 
 import useWallpaper from "@/hooks/context/useWallpaper";
 
