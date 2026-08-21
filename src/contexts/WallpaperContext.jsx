@@ -3,6 +3,10 @@ import { WallpaperContextObj } from "@/hooks/context/useWallpaper";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
 export default function WallpaperContext({ children }) {
+	const [apodIncludeVideo, setApodIncludeVideo] = useLocalStorage(
+		"apodIncludeVideo",
+		false,
+	);
 	const [wallpaperRefreshRate, setWallpaperRefreshRate] = useLocalStorage(
 		"wallpaperRefreshRate",
 		"newTab",
@@ -13,6 +17,8 @@ export default function WallpaperContext({ children }) {
 	);
 
 	const value = {
+		apodIncludeVideo,
+		setApodIncludeVideo,
 		setWallpaperRefreshRate,
 		setWallpaperSource,
 		wallpaperRefreshRate,

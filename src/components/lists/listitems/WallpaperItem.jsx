@@ -1,6 +1,10 @@
 import { useRef } from "react";
 
-import { M3eExpandableListItem, M3eListOption } from "@m3e/react/list";
+import {
+	M3eExpandableListItem,
+	M3eListAction,
+	M3eListOption,
+} from "@m3e/react/list";
 
 import {
 	EventRepeat,
@@ -16,11 +20,15 @@ import SiNasa from "@icons-pack/react-simple-icons/icons/SiNasa";
 
 import useWallpaper from "@/hooks/context/useWallpaper";
 
+import WidgetSwitch from "@/components/switches/WidgetSwitch";
+
 export default function WallpaperItem() {
 	const {
+		apodIncludeVideo,
 		wallpaperRefreshRate,
 		setWallpaperRefreshRate,
 		wallpaperSource,
+		setApodIncludeVideo,
 		setWallpaperSource,
 	} = useWallpaper();
 
@@ -121,6 +129,15 @@ export default function WallpaperItem() {
 							</M3eListOption>
 						</div>
 					</M3eExpandableListItem>
+				)}
+				{wallpaperSource === "apod" && (
+					<M3eListAction>
+						<WidgetSwitch
+							checked={apodIncludeVideo}
+							label="Include Videos"
+							onChange={setApodIncludeVideo}
+						/>
+					</M3eListAction>
 				)}
 			</div>
 		</M3eExpandableListItem>

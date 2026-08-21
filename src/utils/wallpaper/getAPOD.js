@@ -1,5 +1,9 @@
 export default async function getAPOD(controller, savedData, now, cache) {
 	const apiKey = import.meta.env.VITE_APOD_API_KEY;
+
+	const apodIncludeVideo =
+		JSON.parse(localStorage.getItem("apodIncludeVideo")) ?? false;
+
 	const res = await fetch(
 		`https://api.nasa.gov/planetary/apod?api_key=${apiKey}`,
 		{ signal: controller.signal },
@@ -8,7 +12,11 @@ export default async function getAPOD(controller, savedData, now, cache) {
 	if (!res.ok) throw new Error(`NASA API Error: ${res.status}`);
 	const data = await res.json();
 
-	if (data.media_type !== "image") {
+	const isAllowedMedia =
+		data.media_type === "image" ||
+		(data.media_type === "video" && apodIncludeVideo);
+
+	if (!isAllowedMedia) {
 		if (savedData.source === "apod" && savedData.url) {
 			savedData.timestamp = now;
 			localStorage.setItem("MNTwallpaperData", JSON.stringify(savedData));
@@ -20,7 +28,7 @@ export default async function getAPOD(controller, savedData, now, cache) {
 			}
 		}
 		throw new Error(
-			"NASA APOD is not an image today, and no cache exists.",
+			"NASA APOD is not an allowed media type today, and no cache exists.",
 		);
 	}
 
