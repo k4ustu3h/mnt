@@ -1,7 +1,9 @@
-export default async function streamDownload(fetchUrl, controller) {
+export default async function streamDownload(controller, fetchUrl, timeoutId) {
 	const rawResponse = await fetch(fetchUrl, {
 		signal: controller.signal,
 	});
+
+	if (timeoutId) clearTimeout(timeoutId);
 
 	if (!rawResponse.ok) {
 		throw new Error(

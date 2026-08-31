@@ -86,7 +86,11 @@ export default async function getWallpaperUrl() {
 					);
 				}
 
-				response = await streamDownload(fetchUrl, controller);
+				response = await streamDownload(
+					controller,
+					fetchUrl,
+					timeoutId,
+				);
 
 				clearTimeout(timeoutId);
 				await saveWallpaperToCache(
