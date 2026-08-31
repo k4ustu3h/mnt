@@ -55,14 +55,13 @@ export default async function monet(mediaUrl) {
 			}
 		};
 
-		const handleError = (error) => {
+		const handleError = () => {
 			fac.destroy();
-			reject(error);
+			reject(new Error(`Failed to decode media at: ${mediaUrl}`));
 		};
 
 		if (isVideo) {
 			const video = document.createElement("video");
-			video.crossOrigin = "anonymous";
 			video.muted = true;
 			video.src = mediaUrl;
 
@@ -72,7 +71,6 @@ export default async function monet(mediaUrl) {
 			video.load();
 		} else {
 			const img = new Image();
-			img.crossOrigin = "anonymous";
 			img.src = mediaUrl;
 
 			img.onload = () => handleSuccess(img);
