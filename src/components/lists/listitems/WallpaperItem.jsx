@@ -40,7 +40,10 @@ export default function WallpaperItem() {
 
 		try {
 			const cache = await caches.open("MNTwallpaperCache");
-			await cache.put("custom-wallpaper", new Response(file));
+			await cache.put(
+				"https://mnt.local/custom-wallpaper",
+				new Response(file),
+			);
 			setWallpaperSource("custom");
 
 			window.location.reload();
