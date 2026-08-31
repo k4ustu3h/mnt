@@ -93,18 +93,22 @@ export default async function getWallpaperUrl() {
 				);
 
 				clearTimeout(timeoutId);
-				await saveWallpaperToCache(
+				window.removeEventListener(
+					"cancel-wallpaper-download",
+					cancelHandler,
+				);
+
+				const cacheResponse = response.clone();
+				saveWallpaperToCache(
 					cache,
 					targetImageUrl,
-					response,
+					cacheResponse,
 					wallpaperSource,
 					imageInfo,
 					seed,
 					now,
-				);
-				window.removeEventListener(
-					"cancel-wallpaper-download",
-					cancelHandler,
+				).catch((err) =>
+					console.error("Background caching failed:", err),
 				);
 			} catch (error) {
 				window.removeEventListener(
@@ -135,10 +139,11 @@ export default async function getWallpaperUrl() {
 							fallbackController,
 						);
 
-						await saveWallpaperToCache(
+						const fallbackCacheResponse = response.clone();
+						saveWallpaperToCache(
 							cache,
 							fallbackUrl,
-							response,
+							fallbackCacheResponse,
 							"apod",
 							{
 								title: "Temporary Fallback Wallpaper",
@@ -147,6 +152,11 @@ export default async function getWallpaperUrl() {
 							},
 							randomData.seed,
 							now,
+						).catch((err) =>
+							console.error(
+								"Background fallback caching failed:",
+								err,
+							),
 						);
 					} catch (fallbackError) {
 						dispatchError(

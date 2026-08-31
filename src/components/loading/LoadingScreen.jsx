@@ -57,6 +57,9 @@ export default function LoadingScreen({ bgUrl }) {
 		? Math.min(Math.round((progress.loaded / progress.total) * 100), 100)
 		: 0;
 
+	const isExtracting =
+		progress.total > 0 && progress.loaded >= progress.total;
+
 	return (
 		<div
 			style={{
@@ -129,6 +132,11 @@ export default function LoadingScreen({ bgUrl }) {
 					>
 						<M3eLinearProgressIndicator
 							style={{ width: "100%" }}
+							mode={
+								isExtracting || !progress.total
+									? "indeterminate"
+									: "determinate"
+							}
 							value={progress.total ? percent : undefined}
 							variant="wavy"
 						/>
@@ -138,7 +146,9 @@ export default function LoadingScreen({ bgUrl }) {
 							}}
 						>
 							<M3eHeading variant="title">
-								Downloading high-res wallpaper...
+								{isExtracting
+									? "Extracting Material theme..."
+									: "Downloading high-res wallpaper..."}
 							</M3eHeading>
 							<M3eHeading variant="label" size="small">
 								{progress.total
@@ -146,7 +156,11 @@ export default function LoadingScreen({ bgUrl }) {
 									: `${formatBytes(progress.loaded)} downloaded`}
 							</M3eHeading>
 						</div>
-						<M3eButton variant="outlined" onClick={handleCancel}>
+						<M3eButton
+							variant="outlined"
+							onClick={handleCancel}
+							disabled={isExtracting}
+						>
 							Cancel Loading
 						</M3eButton>
 					</div>
