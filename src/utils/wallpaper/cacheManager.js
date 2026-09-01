@@ -1,3 +1,5 @@
+import { setWallpaperData } from "@/utils/wallpaper/storageManager";
+
 export async function saveWallpaperToCache(
 	cache,
 	targetImageUrl,
@@ -15,19 +17,29 @@ export async function saveWallpaperToCache(
 
 	await cache.put(targetImageUrl, response.clone());
 
+	const standardizedInfo = imageInfo || {
+		title:
+			wallpaperSource === "custom" ? "Custom Upload" : "Random Wallpaper",
+		author: "Material New Tab",
+		explanation:
+			wallpaperSource === "custom"
+				? "Your locally uploaded custom wallpaper."
+				: "A randomly generated high-resolution image.",
+	};
+
 	const newSaveData = {
 		source: wallpaperSource,
 		timestamp: now,
+		info: standardizedInfo,
 	};
 
 	if (wallpaperSource === "apod") {
 		newSaveData.url = targetImageUrl;
-		newSaveData.info = imageInfo;
-	} else {
+	} else if (wallpaperSource === "random") {
 		newSaveData.seed = seed;
 	}
 
-	localStorage.setItem("MNTwallpaperData", JSON.stringify(newSaveData));
+	setWallpaperData(newSaveData);
 }
 
 export async function getFallbackWallpaper(cache) {
