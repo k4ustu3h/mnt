@@ -40,7 +40,7 @@ export default function WallpaperInfo() {
 			ref={containerRef}
 			style={{ position: "relative", display: "inline-flex" }}
 		>
-			<M3eSplitButton variant="text">
+			<M3eSplitButton variant="outlined">
 				<M3eButton
 					href={info.url}
 					rel="noreferrer"
@@ -56,6 +56,7 @@ export default function WallpaperInfo() {
 							wallpaperSource === "apod" && setIsOpen(!isOpen)
 						}
 						slot="trailing-button"
+						variant="outlined"
 					>
 						<KeyboardArrowUp
 							size={24}
