@@ -27,7 +27,7 @@ export default function About() {
 			>
 				Material New Tab
 			</M3eHeading>
-			<div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+			<div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
 				<M3eButtonGroup variant="connected">
 					<M3eButton
 						href="https://github.com/k4ustu3h/mnt"
