@@ -17,6 +17,10 @@ export default function LoadingScreen({ bgUrl }) {
 			setIsImageLoaded(true);
 		};
 		if (bgUrl) img.src = bgUrl;
+
+		return () => {
+			img.onload = null;
+		};
 	}, [bgUrl]);
 
 	useEffect(() => {
