@@ -13,7 +13,7 @@ export default function WidgetSwitch({ checked, label, onChange }) {
 				width: "100%",
 			}}
 		>
-			<M3eHeading size="large" variant="body">
+			<M3eHeading size="large" variant="label">
 				{label}
 			</M3eHeading>
 			<div style={{ pointerEvents: "none" }}>
