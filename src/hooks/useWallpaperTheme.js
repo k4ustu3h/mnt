@@ -6,10 +6,14 @@ import getWallpaperUrl from "@/utils/wallpaper/getWallpaperUrl";
 
 import monet from "@/utils/monet";
 
+import useWallpaper from "@/hooks/context/useWallpaper";
+
 export default function useWallpaperTheme() {
 	const [bgUrl, setBgUrl] = useState(null);
 	const [themeColor, setThemeColor] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
+
+	const { wallpaperSource, wallpaperRefreshRate } = useWallpaper();
 
 	useEffect(() => {
 		let isMounted = true;
@@ -19,7 +23,10 @@ export default function useWallpaperTheme() {
 			if (isMounted) setIsLoading(true);
 
 			try {
-				const url = await getWallpaperUrl();
+				const url = await getWallpaperUrl(
+					wallpaperSource,
+					wallpaperRefreshRate,
+				);
 				if (!isMounted) return;
 
 				if (currentBlobUrl && currentBlobUrl.startsWith("blob:")) {
@@ -46,14 +53,11 @@ export default function useWallpaperTheme() {
 		initializeTheme();
 
 		const handleStorageChange = (e) => {
-			if (
-				e.key === "wallpaperSource" ||
-				e.key === "wallpaperRefreshRate" ||
-				e.key === "MNTwallpaperData"
-			) {
+			if (e.key === "MNTwallpaperData") {
 				initializeTheme();
 			}
 		};
+
 		window.addEventListener("storage", handleStorageChange);
 
 		return () => {
@@ -64,7 +68,7 @@ export default function useWallpaperTheme() {
 				URL.revokeObjectURL(currentBlobUrl);
 			}
 		};
-	}, []);
+	}, [wallpaperSource, wallpaperRefreshRate]);
 
 	return { bgUrl, themeColor, isLoading };
 }

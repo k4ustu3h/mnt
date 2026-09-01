@@ -137,8 +137,8 @@ async function fetchPrimaryWallpaper(cache, wallpaperSource, savedData, now) {
 	}
 }
 
-export default async function getWallpaperUrl() {
-	let wallpaperSource = getWallpaperSource();
+export default async function getWallpaperUrl(activeSource, activeRefreshRate) {
+	let wallpaperSource = activeSource ?? getWallpaperSource();
 
 	if (wallpaperSource === "custom") {
 		const customUrl = await getCustom();
@@ -148,7 +148,8 @@ export default async function getWallpaperUrl() {
 
 	const now = Date.now();
 	const savedData = getWallpaperData();
-	const refreshRate = getWallpaperRefreshRate();
+	const refreshRate = activeRefreshRate ?? getWallpaperRefreshRate();
+
 	const needsNewFetch = evaluateRefreshLogic(
 		wallpaperSource,
 		savedData,
@@ -184,7 +185,7 @@ export default async function getWallpaperUrl() {
 
 			if (!response) {
 				clearWallpaperData();
-				return getWallpaperUrl();
+				return getWallpaperUrl(activeSource, activeRefreshRate);
 			}
 		}
 

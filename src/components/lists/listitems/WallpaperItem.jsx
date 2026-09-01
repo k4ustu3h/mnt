@@ -45,8 +45,6 @@ export default function WallpaperItem() {
 				new Response(file),
 			);
 			setWallpaperSource("custom");
-
-			window.location.reload();
 		} catch (error) {
 			console.error("Failed to save custom wallpaper", error);
 		}
@@ -62,10 +60,7 @@ export default function WallpaperItem() {
 					Source
 					<div slot="items">
 						<M3eListOption
-							onClick={() => {
-								setWallpaperSource("random");
-								setTimeout(() => window.location.reload(), 50);
-							}}
+							onClick={() => setWallpaperSource("random")}
 							selected={wallpaperSource === "random"}
 						>
 							<WallpaperSlideshow slot="leading" size={24} />
@@ -73,10 +68,7 @@ export default function WallpaperItem() {
 						</M3eListOption>
 
 						<M3eListOption
-							onClick={() => {
-								setWallpaperSource("apod");
-								setTimeout(() => window.location.reload(), 50);
-							}}
+							onClick={() => setWallpaperSource("apod")}
 							selected={wallpaperSource === "apod"}
 						>
 							<SiNasa slot="leading" size={24} />
