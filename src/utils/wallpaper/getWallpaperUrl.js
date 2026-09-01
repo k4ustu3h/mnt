@@ -11,6 +11,13 @@ import getAPOD from "@/utils/wallpaper/getAPOD";
 import getCustom from "@/utils/wallpaper/getCustom";
 import getRandom from "@/utils/wallpaper/getRandom";
 
+import {
+	clearWallpaperData,
+	getWallpaperData,
+	getWallpaperRefreshRate,
+	getWallpaperSource,
+} from "@/utils/wallpaper/storageManager";
+
 async function fetchFromCache(cache, wallpaperSource, savedData) {
 	if (wallpaperSource === "apod") {
 		return await cache.match(savedData.url);
@@ -131,8 +138,7 @@ async function fetchPrimaryWallpaper(cache, wallpaperSource, savedData, now) {
 }
 
 export default async function getWallpaperUrl() {
-	let wallpaperSource =
-		JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
+	let wallpaperSource = getWallpaperSource();
 
 	if (wallpaperSource === "custom") {
 		const customUrl = await getCustom();
@@ -141,10 +147,8 @@ export default async function getWallpaperUrl() {
 	}
 
 	const now = Date.now();
-	const savedData =
-		JSON.parse(localStorage.getItem("MNTwallpaperData")) || {};
-	const refreshRate =
-		JSON.parse(localStorage.getItem("wallpaperRefreshRate")) ?? "newTab";
+	const savedData = getWallpaperData();
+	const refreshRate = getWallpaperRefreshRate();
 	const needsNewFetch = evaluateRefreshLogic(
 		wallpaperSource,
 		savedData,
@@ -179,7 +183,7 @@ export default async function getWallpaperUrl() {
 			response = await fetchFromCache(cache, wallpaperSource, savedData);
 
 			if (!response) {
-				localStorage.removeItem("MNTwallpaperData");
+				clearWallpaperData();
 				return getWallpaperUrl();
 			}
 		}

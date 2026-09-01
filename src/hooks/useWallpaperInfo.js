@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 
 import dispatchError from "@/utils/dispatchError";
 
+import {
+	getWallpaperData,
+	getWallpaperSource,
+} from "@/utils/wallpaper/storageManager";
+
 export default function useWallpaperInfo() {
 	const getInfoFromStorage = () => {
-		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
-		const wallpaperSource =
-			JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
+		const savedData = getWallpaperData();
+		const wallpaperSource = getWallpaperSource();
 
 		if (wallpaperSource === "custom") return null;
 
@@ -30,11 +34,8 @@ export default function useWallpaperInfo() {
 				return;
 			}
 
-			const wallpaperSource =
-				JSON.parse(localStorage.getItem("wallpaperSource")) ?? "random";
-			const savedData = JSON.parse(
-				localStorage.getItem("MNTwallpaperData"),
-			);
+			const wallpaperSource = getWallpaperSource();
+			const savedData = getWallpaperData();
 
 			if (wallpaperSource === "random" && savedData?.seed) {
 				if (abortController) abortController.abort();
