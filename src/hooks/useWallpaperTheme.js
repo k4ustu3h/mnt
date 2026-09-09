@@ -37,9 +37,18 @@ export default function useWallpaperTheme() {
 				setBgUrl(url);
 
 				if (url) {
-					const colorHex = await monet(url);
-					if (!isMounted) return;
-					setThemeColor(colorHex);
+					try {
+						const colorHex = await monet(url);
+						if (!isMounted) return;
+						setThemeColor(colorHex);
+					} catch (monetErr) {
+						console.warn(
+							"Monet failed to extract color from media, using fallback:",
+							monetErr,
+						);
+						if (!isMounted) return;
+						setThemeColor("#6750A4");
+					}
 				}
 			} catch (err) {
 				dispatchError("Theme initialization failed:", err);

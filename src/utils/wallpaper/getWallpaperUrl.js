@@ -194,8 +194,20 @@ export default async function getWallpaperUrl(activeSource, activeRefreshRate) {
 			return null;
 		}
 
-		const blob = await response.blob();
-		return URL.createObjectURL(blob);
+		const rawBlob = await response.blob();
+
+		let mimeType = rawBlob.type;
+		if (!mimeType || mimeType === "application/octet-stream") {
+			const urlSource = savedData?.url || "";
+			mimeType = urlSource.endsWith(".mp4")
+				? "video/mp4"
+				: urlSource.endsWith(".webm")
+					? "video/webm"
+					: "image/jpeg";
+		}
+
+		const typedBlob = new Blob([rawBlob], { type: mimeType });
+		return URL.createObjectURL(typedBlob);
 	} catch (error) {
 		dispatchError("Critical error caching wallpaper:", error);
 		return null;
