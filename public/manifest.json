@@ -27,5 +27,10 @@
 			"id": "mnt@k4ustu3h"
 		}
 	},
-	"host_permissions": ["https://api.nasa.gov/*", "https://apod.nasa.gov/*"]
+	"host_permissions": [
+		"https://science.nasa.gov/*",
+		"https://assets.science.nasa.gov/*",
+		"https://api.nasa.gov/*",
+		"https://apod.nasa.gov/*"
+	]
 }

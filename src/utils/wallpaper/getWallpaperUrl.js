@@ -198,12 +198,18 @@ export default async function getWallpaperUrl(activeSource, activeRefreshRate) {
 
 		let mimeType = rawBlob.type;
 		if (!mimeType || mimeType === "application/octet-stream") {
-			const urlSource = savedData?.url || "";
+			const urlSource = (savedData?.url || "")
+				.split("?")[0]
+				.toLowerCase();
 			mimeType = urlSource.endsWith(".mp4")
 				? "video/mp4"
 				: urlSource.endsWith(".webm")
 					? "video/webm"
-					: "image/jpeg";
+					: urlSource.endsWith(".png")
+						? "image/png"
+						: urlSource.endsWith(".webp")
+							? "image/webp"
+							: "image/jpeg";
 		}
 
 		const typedBlob = new Blob([rawBlob], { type: mimeType });

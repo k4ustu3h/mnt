@@ -29,6 +29,7 @@ export default function APODExplanation({ explanation, title, open }) {
 					style={{
 						margin: 0,
 						maxHeight: "32vh",
+						overflowY: "auto",
 					}}
 				>
 					{explanation}
