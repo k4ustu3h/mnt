@@ -11,8 +11,8 @@
 	},
 	"dependencies": {
 		"@icons-pack/react-simple-icons": "13.15.1",
-		"@m3e/react": "2.9.2",
-		"@nine-thirty-five/material-symbols-react": "2.4.5",
+		"@m3e/react": "2.10.0",
+		"@nine-thirty-five/material-symbols-react": "2.5.0",
 		"fast-average-color": "9.6.0",
 		"react": "19.3.0",
 		"react-dom": "19.3.0"
