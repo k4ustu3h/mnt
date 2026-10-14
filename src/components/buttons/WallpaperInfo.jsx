@@ -52,9 +52,7 @@ export default function WallpaperInfo() {
 				{wallpaperSource === "apod" && (
 					<M3eButton
 						id="wallpaper-info-toggle"
-						onClick={() =>
-							wallpaperSource === "apod" && setIsOpen(!isOpen)
-						}
+						onClick={() => setIsOpen((prev) => !prev)}
 						slot="trailing-button"
 						variant="outlined"
 					>
@@ -76,7 +74,6 @@ export default function WallpaperInfo() {
 					explanation={info.explanation}
 					title={info.title}
 					open={isOpen}
-					onClose={() => setIsOpen(false)}
 				/>
 			)}
 		</div>

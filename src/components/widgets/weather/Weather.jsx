@@ -20,9 +20,8 @@ export default function Weather() {
 	} = weatherDimensions[breakpoint];
 
 	return (
-		<div>
-			<div
-				style={{
+		<div
+			style={{
 					flexShrink: 0,
 					height: containerSize,
 					position: "relative",
@@ -84,6 +83,5 @@ export default function Weather() {
 					</div>
 				</div>
 			</div>
-		</div>
 	);
 }

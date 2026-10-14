@@ -1,3 +1,5 @@
+import { setWallpaperData } from "@/utils/wallpaper/storageManager";
+
 function stripHtml(html) {
 	if (!html) return "";
 	if (typeof DOMParser !== "undefined") {
@@ -17,10 +19,10 @@ function stripHtml(html) {
 
 function cleanAuthor(rawAuthor) {
 	if (!rawAuthor) return "NASA APOD";
-	const withoutLabel = rawAuthor
-		.replace(/<\/?(?:strong|b|em|span)[^>]*>/gi, "")
-		.replace(/^(?:Image\s+)?Credit:\s*/i, "");
-	const text = stripHtml(withoutLabel).replace(/\s+/g, " ").trim();
+	const text = stripHtml(rawAuthor)
+		.replace(/^(?:Image\s+)?Credit:\s*/i, "")
+		.replace(/\s+/g, " ")
+		.trim();
 	return text || "NASA APOD";
 }
 
@@ -33,29 +35,24 @@ function cleanExplanation(rawExplanation) {
 	if (!rawExplanation) return "";
 	const cleaned = rawExplanation
 		.replace(
-			/<strong[^>]*>\s*(?:Tomorrow(?:['’]|&#039;)s picture|Your Sky Surprise):[\s\S]*$/i,
+			/(?:<strong[^>]*>\s*)?(?:Tomorrow(?:['’]|&#039;)s picture|Your Sky Surprise):[\s\S]*$/i,
 			"",
 		)
 		.replace(
-			/(?:Tomorrow(?:['’]|&#039;)s picture|Your Sky Surprise):[\s\S]*$/i,
+			/^(?:<(?:strong|b)[^>]*>\s*)?Explanation:?(?:\s*<\/(?:strong|b)>)?\s*/i,
 			"",
 		)
-		.replace(/^<strong[^>]*>\s*Explanation:?\s*<\/strong>\s*/i, "")
-		.replace(/^<b[^>]*>\s*Explanation:?\s*<\/b>\s*/i, "")
-		.replace(/^Explanation:?\s*/i, "")
 		.replace(/<br\s*\/?>/gi, " ");
 
 	return stripHtml(cleaned).replace(/\s+/g, " ").trim();
 }
 
 export default async function getAPOD(controller, savedData, now, cache) {
-	const apiKey = import.meta.env.VITE_APOD_API_KEY || "DEMO_KEY";
-
 	const apodIncludeVideo =
 		JSON.parse(localStorage.getItem("apodIncludeVideo")) ?? false;
 
 	const res = await fetch(
-		`https://science.nasa.gov/wp-json/wp/v2/apod-basic/?api_key=${apiKey}`,
+		"https://science.nasa.gov/wp-json/wp/v2/apod-basic/",
 		{ signal: controller.signal },
 	);
 
@@ -72,7 +69,7 @@ export default async function getAPOD(controller, savedData, now, cache) {
 	if (!isAllowedMedia) {
 		if (savedData.source === "apod" && savedData.url) {
 			savedData.timestamp = now;
-			localStorage.setItem("MNTwallpaperData", JSON.stringify(savedData));
+			setWallpaperData(savedData);
 
 			const cachedResponse = await cache.match(savedData.url);
 			if (cachedResponse) {
@@ -87,16 +84,9 @@ export default async function getAPOD(controller, savedData, now, cache) {
 
 	let targetImageUrl = null;
 	if (data.media_type === "video" && apodIncludeVideo) {
-		const videoSrcMatch =
-			data.basic_html?.match(
-				/<video[^>]*>[\s\S]*?<source[^>]+src=["']([^"']+\.(?:mp4|webm))["']/i,
-			) ||
-			data.basic_html?.match(
-				/<source[^>]+src=["']([^"']+\.(?:mp4|webm))["']/i,
-			) ||
-			data.basic_html?.match(
-				/<video[^>]+src=["']([^"']+\.(?:mp4|webm))["']/i,
-			);
+		const videoSrcMatch = data.basic_html?.match(
+			/<(?:source|video)[^>]+src=["']([^"']+\.(?:mp4|webm))["']/i,
+		);
 		if (videoSrcMatch) {
 			targetImageUrl = videoSrcMatch[1];
 		}

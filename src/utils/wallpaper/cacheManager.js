@@ -15,7 +15,7 @@ export async function saveWallpaperToCache(
 		await cache.delete(request);
 	}
 
-	await cache.put(targetImageUrl, response.clone());
+	await cache.put(targetImageUrl, response);
 
 	const standardizedInfo = imageInfo || {
 		title:
@@ -47,7 +47,7 @@ export async function getFallbackWallpaper(cache) {
 	const validKeys = keys.filter((k) => !k.url.includes("custom-wallpaper"));
 
 	if (validKeys.length > 0) {
-		return await cache.match(validKeys[0]);
+		return cache.match(validKeys[0]);
 	}
 	return null;
 }

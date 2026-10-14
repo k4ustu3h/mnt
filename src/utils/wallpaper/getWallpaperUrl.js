@@ -20,14 +20,14 @@ import {
 
 async function fetchFromCache(cache, wallpaperSource, savedData) {
 	if (wallpaperSource === "apod") {
-		return await cache.match(savedData.url);
+		return cache.match(savedData.url);
 	}
 
 	const height = Math.round(window.innerHeight * 1.1);
 	const width = Math.round(window.innerWidth * 1.1);
 	const targetImageUrl = `https://picsum.photos/seed/${savedData.seed}/${width}/${height}`;
 
-	return await cache.match(targetImageUrl);
+	return cache.match(targetImageUrl);
 }
 
 async function handleFailedFetch(cache, wallpaperSource, now, originalError) {

@@ -68,7 +68,6 @@ export default function Scallop() {
 				<div
 					style={{
 						...abstractHandStyle,
-						background: "var(--md-sys-color-surface-variant)",
 						backgroundColor: "var(--md-sys-color-surface-variant)",
 						height: "38%",
 						transform: `rotate(${hoursDegrees}deg)`,
@@ -79,7 +78,6 @@ export default function Scallop() {
 				<div
 					style={{
 						...abstractHandStyle,
-						background: "var(--md-sys-color-primary)",
 						backgroundColor: "var(--md-sys-color-primary)",
 						height: "48%",
 						transform: `rotate(${minutesDegrees}deg)`,

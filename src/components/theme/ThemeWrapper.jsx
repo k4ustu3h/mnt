@@ -5,6 +5,11 @@ import { M3eTheme } from "@m3e/react/theme";
 import useTheme from "@/hooks/context/useTheme";
 import useWallpaperTheme from "@/hooks/useWallpaperTheme";
 
+import {
+	getWallpaperData,
+	getWallpaperRefreshRate,
+} from "@/utils/wallpaper/storageManager";
+
 import LoadingScreen from "@/components/loading/LoadingScreen";
 import Wallpaper from "@/components/layout/Wallpaper";
 
@@ -13,18 +18,13 @@ export default function ThemeWrapper({ children }) {
 	const { bgUrl, themeColor, isLoading } = useWallpaperTheme();
 
 	const [animateZoom] = useState(() => {
-		const refreshRate =
-			JSON.parse(localStorage.getItem("wallpaperRefreshRate")) ??
-			"newTab";
-
+		const refreshRate = getWallpaperRefreshRate();
 		if (refreshRate === "newTab") return true;
 
-		const savedData = JSON.parse(localStorage.getItem("MNTwallpaperData"));
-		if (savedData && Date.now() - savedData.timestamp < 2000) {
-			return true;
-		}
-
-		return false;
+		const savedData = getWallpaperData();
+		return Boolean(
+			savedData?.timestamp && Date.now() - savedData.timestamp < 2000,
+		);
 	});
 
 	const finalThemeColor = themeColor || "#2962ff";
