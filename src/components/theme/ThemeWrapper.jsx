@@ -15,7 +15,7 @@ import Wallpaper from "@/components/layout/Wallpaper";
 
 export default function ThemeWrapper({ children }) {
 	const { themeScheme, themeContrast } = useTheme();
-	const { bgUrl, themeColor, isLoading } = useWallpaperTheme();
+	const { bgUrl, isVideo, themeColor, isLoading } = useWallpaperTheme();
 
 	const [animateZoom] = useState(() => {
 		const refreshRate = getWallpaperRefreshRate();
@@ -37,9 +37,13 @@ export default function ThemeWrapper({ children }) {
 			scheme={themeScheme}
 		>
 			{isLoading ? (
-				<LoadingScreen bgUrl={bgUrl} />
+				<LoadingScreen bgUrl={bgUrl} isVideo={isVideo} />
 			) : (
-				<Wallpaper animateZoom={animateZoom} bgUrl={bgUrl}>
+				<Wallpaper
+					animateZoom={animateZoom}
+					bgUrl={bgUrl}
+					isVideo={isVideo}
+				>
 					{children}
 				</Wallpaper>
 			)}

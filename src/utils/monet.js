@@ -1,41 +1,54 @@
 import { FastAverageColor } from "fast-average-color";
 
-export default async function monet(mediaUrl) {
-	let isVideo = false;
-	try {
-		const res = await fetch(mediaUrl);
-		const blob = await res.blob();
-		isVideo = blob.type.startsWith("video/");
-	} catch (err) {
-		console.error("Failed to fetch media for MIME type check", err);
+export default async function monet(mediaUrl, isVideo = false) {
+	if (!mediaUrl) {
+		return Promise.reject(new Error("No mediaUrl provided to monet"));
 	}
 
 	return new Promise((resolve, reject) => {
 		const fac = new FastAverageColor();
+		let timeoutId = null;
+
+		const cleanup = () => {
+			if (timeoutId) clearTimeout(timeoutId);
+			fac.destroy();
+		};
 
 		const handleSuccess = (mediaElement) => {
 			try {
 				const color = fac.getColor(mediaElement);
-				fac.destroy();
+				cleanup();
 				resolve(color.hex);
 			} catch (error) {
-				fac.destroy();
+				cleanup();
 				reject(error);
 			}
 		};
 
-		const handleError = () => {
-			fac.destroy();
-			reject(new Error(`Failed to decode media at: ${mediaUrl}`));
+		const handleError = (err) => {
+			cleanup();
+			reject(
+				err instanceof Error
+					? err
+					: new Error(`Failed to decode media at: ${mediaUrl}`),
+			);
 		};
+
+		timeoutId = setTimeout(() => {
+			handleError(new Error(`Timeout decoding media at: ${mediaUrl}`));
+		}, 3000);
 
 		if (isVideo) {
 			const video = document.createElement("video");
 			video.muted = true;
+			video.playsInline = true;
+			video.preload = "auto";
 			video.src = mediaUrl;
 
-			video.addEventListener("loadeddata", () => handleSuccess(video));
-			video.addEventListener("error", handleError);
+			video.addEventListener("loadeddata", () => handleSuccess(video), {
+				once: true,
+			});
+			video.addEventListener("error", handleError, { once: true });
 
 			video.load();
 		} else {

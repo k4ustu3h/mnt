@@ -94,11 +94,17 @@ async function fetchPrimaryWallpaper(cache, wallpaperSource, savedData, now) {
 			const apodData = await getAPOD(controller, savedData, now, cache);
 
 			if (apodData.cachedBlobUrl) {
-				return { blobUrl: apodData.cachedBlobUrl };
+				return {
+					blobUrl: apodData.cachedBlobUrl,
+					isVideo: apodData.isVideo,
+				};
 			}
 
 			targetImageUrl = apodData.targetImageUrl;
 			imageInfo = apodData.imageInfo;
+			if (apodData.isVideo !== undefined) {
+				imageInfo.isVideo = apodData.isVideo;
+			}
 		} else {
 			const randomData = getRandom();
 			targetImageUrl = randomData.targetImageUrl;
@@ -141,8 +147,8 @@ export default async function getWallpaperUrl(activeSource, activeRefreshRate) {
 	let wallpaperSource = activeSource ?? getWallpaperSource();
 
 	if (wallpaperSource === "custom") {
-		const customUrl = await getCustom();
-		if (customUrl) return customUrl;
+		const customResult = await getCustom();
+		if (customResult) return customResult;
 		wallpaperSource = "random";
 	}
 
@@ -170,7 +176,12 @@ export default async function getWallpaperUrl(activeSource, activeRefreshRate) {
 					now,
 				);
 
-				if (result.blobUrl) return result.blobUrl;
+				if (result.blobUrl) {
+					return {
+						url: result.blobUrl,
+						isVideo: Boolean(result.isVideo),
+					};
+				}
 				response = result.response;
 			} catch (error) {
 				response = await handleFailedFetch(
@@ -212,8 +223,12 @@ export default async function getWallpaperUrl(activeSource, activeRefreshRate) {
 							: "image/jpeg";
 		}
 
+		const isVideo = mimeType.startsWith("video/");
 		const typedBlob = new Blob([rawBlob], { type: mimeType });
-		return URL.createObjectURL(typedBlob);
+		return {
+			url: URL.createObjectURL(typedBlob),
+			isVideo,
+		};
 	} catch (error) {
 		dispatchError("Critical error caching wallpaper:", error);
 		return null;

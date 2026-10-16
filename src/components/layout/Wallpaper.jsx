@@ -1,24 +1,12 @@
-import { useEffect, useState } from "react";
-
 import useUI from "@/hooks/context/useUI";
 
-export default function Wallpaper({ animateZoom, bgUrl, children }) {
+export default function Wallpaper({
+	animateZoom,
+	bgUrl,
+	isVideo = false,
+	children,
+}) {
 	const { isAppsOpen } = useUI();
-
-	const [isVideo, setIsVideo] = useState(false);
-
-	useEffect(() => {
-		if (!bgUrl) return;
-
-		fetch(bgUrl)
-			.then((res) => res.blob())
-			.then((blob) => {
-				setIsVideo(blob.type.startsWith("video/"));
-			})
-			.catch((err) =>
-				console.error("Error checking wallpaper format:", err),
-			);
-	}, [bgUrl]);
 
 	const sharedStyles = {
 		animation: animateZoom
@@ -48,7 +36,7 @@ export default function Wallpaper({ animateZoom, bgUrl, children }) {
 					loop
 					muted
 					playsInline
-					src={bgUrl}
+					src={bgUrl || undefined}
 					style={{
 						...sharedStyles,
 						objectFit: "cover",
@@ -58,7 +46,7 @@ export default function Wallpaper({ animateZoom, bgUrl, children }) {
 				<div
 					style={{
 						...sharedStyles,
-						backgroundImage: `url(${bgUrl})`,
+						backgroundImage: bgUrl ? `url(${bgUrl})` : "none",
 						backgroundPosition: "center",
 						backgroundSize: "cover",
 					}}

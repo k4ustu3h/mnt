@@ -5,23 +5,25 @@ import { M3eLinearProgressIndicator } from "@m3e/react/progress-indicator";
 import { M3eLoadingIndicator } from "@m3e/react/loading-indicator";
 import { M3eButton } from "@m3e/react/button";
 
-export default function LoadingScreen({ bgUrl }) {
+export default function LoadingScreen({ bgUrl, isVideo = false }) {
 	const [isImageLoaded, setIsImageLoaded] = useState(false);
 	const [showProgressUI, setShowProgressUI] = useState(false);
 	const [progress, setProgress] = useState({ loaded: 0, total: 0 });
 	const [isCanceled, setIsCanceled] = useState(false);
 
 	useEffect(() => {
+		if (!bgUrl || isVideo) return;
+
 		const img = new Image();
 		img.onload = () => {
 			setIsImageLoaded(true);
 		};
-		if (bgUrl) img.src = bgUrl;
+		img.src = bgUrl;
 
 		return () => {
 			img.onload = null;
 		};
-	}, [bgUrl]);
+	}, [bgUrl, isVideo]);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
@@ -76,7 +78,8 @@ export default function LoadingScreen({ bgUrl }) {
 		>
 			<div
 				style={{
-					backgroundImage: `url(${bgUrl})`,
+					backgroundImage:
+						bgUrl && !isVideo ? `url(${bgUrl})` : "none",
 					backgroundPosition: "center",
 					backgroundSize: "cover",
 					filter: "blur(24px)",

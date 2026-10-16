@@ -8,7 +8,10 @@ export default async function getCustom() {
 		);
 		if (response) {
 			const blob = await response.blob();
-			return URL.createObjectURL(blob);
+			return {
+				url: URL.createObjectURL(blob),
+				isVideo: blob.type.startsWith("video/"),
+			};
 		}
 		return null;
 	} catch (error) {

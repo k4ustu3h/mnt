@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import dispatchError from "@/utils/dispatchError";
 
@@ -10,35 +10,50 @@ import useWallpaper from "@/hooks/context/useWallpaper";
 
 export default function useWallpaperTheme() {
 	const [bgUrl, setBgUrl] = useState(null);
+	const [isVideo, setIsVideo] = useState(false);
 	const [themeColor, setThemeColor] = useState("");
 	const [isLoading, setIsLoading] = useState(true);
 
 	const { wallpaperSource, wallpaperRefreshRate } = useWallpaper();
+	const activeBlobUrlRef = useRef(null);
 
 	useEffect(() => {
 		let isMounted = true;
-		let currentBlobUrl = null;
 
 		const initializeTheme = async () => {
 			if (isMounted) setIsLoading(true);
 
 			try {
-				const url = await getWallpaperUrl(
+				const result = await getWallpaperUrl(
 					wallpaperSource,
 					wallpaperRefreshRate,
 				);
-				if (!isMounted) return;
-
-				if (currentBlobUrl && currentBlobUrl.startsWith("blob:")) {
-					URL.revokeObjectURL(currentBlobUrl);
+				if (!isMounted) {
+					if (result?.url?.startsWith("blob:")) {
+						URL.revokeObjectURL(result.url);
+					}
+					return;
 				}
 
-				currentBlobUrl = url;
-				setBgUrl(url);
+				const nextUrl =
+					typeof result === "string" ? result : result?.url ?? null;
+				const nextIsVideo = Boolean(result?.isVideo);
 
-				if (url) {
+				if (
+					activeBlobUrlRef.current &&
+					activeBlobUrlRef.current.startsWith("blob:") &&
+					activeBlobUrlRef.current !== nextUrl
+				) {
+					URL.revokeObjectURL(activeBlobUrlRef.current);
+				}
+
+				activeBlobUrlRef.current = nextUrl;
+				setBgUrl(nextUrl);
+				setIsVideo(nextIsVideo);
+
+				if (nextUrl) {
 					try {
-						const colorHex = await monet(url);
+						const colorHex = await monet(nextUrl, nextIsVideo);
 						if (!isMounted) return;
 						setThemeColor(colorHex);
 					} catch (monetErr) {
@@ -72,12 +87,8 @@ export default function useWallpaperTheme() {
 		return () => {
 			isMounted = false;
 			window.removeEventListener("storage", handleStorageChange);
-
-			if (currentBlobUrl && currentBlobUrl.startsWith("blob:")) {
-				URL.revokeObjectURL(currentBlobUrl);
-			}
 		};
 	}, [wallpaperSource, wallpaperRefreshRate]);
 
-	return { bgUrl, themeColor, isLoading };
+	return { bgUrl, isVideo, themeColor, isLoading };
 }

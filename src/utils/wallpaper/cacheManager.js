@@ -27,10 +27,16 @@ export async function saveWallpaperToCache(
 				: "A randomly generated high-resolution image.",
 	};
 
+	const isVideo = Boolean(
+		imageInfo?.isVideo ??
+			targetImageUrl?.split("?")[0].match(/\.(mp4|webm)$/i),
+	);
+
 	const newSaveData = {
 		source: wallpaperSource,
 		timestamp: now,
 		info: standardizedInfo,
+		isVideo,
 	};
 
 	if (wallpaperSource === "apod") {

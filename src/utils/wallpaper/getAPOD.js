@@ -74,7 +74,15 @@ export default async function getAPOD(controller, savedData, now, cache) {
 			const cachedResponse = await cache.match(savedData.url);
 			if (cachedResponse) {
 				const blob = await cachedResponse.blob();
-				return { cachedBlobUrl: URL.createObjectURL(blob) };
+				const isCachedVideo = Boolean(
+					savedData.isVideo ??
+						savedData.url?.split("?")[0].match(/\.(mp4|webm)$/i) ??
+						blob.type.startsWith("video/"),
+				);
+				return {
+					cachedBlobUrl: URL.createObjectURL(blob),
+					isVideo: isCachedVideo,
+				};
 			}
 		}
 		throw new Error(
@@ -109,8 +117,14 @@ export default async function getAPOD(controller, savedData, now, cache) {
 		throw new Error("Unable to locate NASA APOD image or video asset URL.");
 	}
 
+	const isVideo = Boolean(
+		targetImageUrl.split("?")[0].match(/\.(mp4|webm)$/i) ||
+			(data.media_type === "video" && apodIncludeVideo),
+	);
+
 	return {
 		targetImageUrl,
+		isVideo,
 		imageInfo: {
 			author: cleanAuthor(data.copyright || data.credit),
 			explanation: cleanExplanation(data.explanation),
@@ -119,6 +133,7 @@ export default async function getAPOD(controller, savedData, now, cache) {
 				data.permalink ||
 				data.url ||
 				"https://science.nasa.gov/apod",
+			isVideo,
 		},
 	};
 }
