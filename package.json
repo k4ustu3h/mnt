@@ -11,21 +11,21 @@
 	},
 	"dependencies": {
 		"@icons-pack/react-simple-icons": "13.15.1",
-		"@m3e/react": "2.10.0",
+		"@m3e/react": "2.10.2",
 		"@nine-thirty-five/material-symbols-react": "2.5.0",
 		"fast-average-color": "9.6.0",
-		"react": "19.3.0",
-		"react-dom": "19.3.0"
+		"react": "19.3.1",
+		"react-dom": "19.3.1"
 	},
 	"devDependencies": {
 		"@eslint/js": "10.0.1",
 		"@rolldown/plugin-babel": "0.2.4",
 		"@vitejs/plugin-react": "6.1.2",
 		"babel-plugin-react-compiler": "1.0.0",
-		"eslint": "10.12.0",
+		"eslint": "10.13.0",
 		"eslint-plugin-react-hooks": "7.1.1",
 		"eslint-plugin-react-refresh": "0.5.7",
 		"globals": "17.13.0",
-		"vite": "8.3.4"
+		"vite": "8.3.5"
 	}
 }
