@@ -66,15 +66,17 @@ export default function WallpaperInfo() {
 					</M3eButton>
 				)}
 			</M3eSplitButton>
-			<M3eTooltip for="wallpaper-info-toggle" position="above">
-				View more info
-			</M3eTooltip>
 			{wallpaperSource === "apod" && (
-				<APODExplanation
-					explanation={info.explanation}
-					title={info.title}
-					open={isOpen}
-				/>
+				<>
+					<M3eTooltip for="wallpaper-info-toggle" position="above">
+						View more info
+					</M3eTooltip>
+					<APODExplanation
+						explanation={info.explanation}
+						title={info.title}
+						open={isOpen}
+					/>
+				</>
 			)}
 		</div>
 	);

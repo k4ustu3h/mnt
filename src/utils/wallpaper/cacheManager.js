@@ -17,19 +17,32 @@ export async function saveWallpaperToCache(
 
 	await cache.put(targetImageUrl, response);
 
-	const standardizedInfo = imageInfo || {
+	const standardizedInfo = {
 		title:
-			wallpaperSource === "custom" ? "Custom Upload" : "Random Wallpaper",
-		author: "Material New Tab",
+			imageInfo?.title ||
+			(wallpaperSource === "custom"
+				? "Custom Upload"
+				: "Random Wallpaper"),
+		author:
+			imageInfo?.author ||
+			(wallpaperSource === "random"
+				? "Lorem Picsum"
+				: "Material New Tab"),
+		url:
+			imageInfo?.url ||
+			(wallpaperSource === "random"
+				? "https://picsum.photos"
+				: undefined),
 		explanation:
-			wallpaperSource === "custom"
+			imageInfo?.explanation ||
+			(wallpaperSource === "custom"
 				? "Your locally uploaded custom wallpaper."
-				: "A randomly generated high-resolution image.",
+				: "A randomly generated high-resolution image."),
 	};
 
 	const isVideo = Boolean(
 		imageInfo?.isVideo ??
-			targetImageUrl?.split("?")[0].match(/\.(mp4|webm)$/i),
+		targetImageUrl?.split("?")[0].match(/\.(mp4|webm)$/i),
 	);
 
 	const newSaveData = {

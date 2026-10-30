@@ -16,6 +16,7 @@ import {
 	getWallpaperData,
 	getWallpaperRefreshRate,
 	getWallpaperSource,
+	setWallpaperData,
 } from "@/utils/wallpaper/storageManager";
 
 async function fetchFromCache(cache, wallpaperSource, savedData) {
@@ -44,13 +45,15 @@ async function handleFailedFetch(cache, wallpaperSource, now, originalError) {
 				"No fallback cache found. Fetching temporary Lorem Picsum wallpaper for today.",
 			);
 
-			const randomData = getRandom();
-			const fallbackUrl = randomData.targetImageUrl;
 			const fallbackController = new AbortController();
+			const randomData = getRandom(fallbackController);
+			const fallbackUrl = randomData.targetImageUrl;
 
 			response = await streamDownload(fallbackController, fallbackUrl);
 
 			const fallbackCacheResponse = response.clone();
+			const fallbackInfo = await randomData.infoPromise;
+
 			saveWallpaperToCache(
 				cache,
 				fallbackUrl,
@@ -58,6 +61,8 @@ async function handleFailedFetch(cache, wallpaperSource, now, originalError) {
 				"apod",
 				{
 					title: "Temporary Fallback Wallpaper",
+					author: fallbackInfo?.author || "Lorem Picsum",
+					url: fallbackInfo?.url || "https://picsum.photos",
 					explanation:
 						"The NASA APOD download was cancelled or failed, and no previous wallpaper was found. This random image is being used for today.",
 				},
@@ -82,6 +87,7 @@ async function fetchPrimaryWallpaper(cache, wallpaperSource, savedData, now) {
 	let targetImageUrl;
 	let imageInfo = null;
 	let seed = null;
+	let infoPromise = null;
 
 	const controller = new AbortController();
 	const timeoutId = setTimeout(() => controller.abort(), 30000);
@@ -106,9 +112,10 @@ async function fetchPrimaryWallpaper(cache, wallpaperSource, savedData, now) {
 				imageInfo.isVideo = apodData.isVideo;
 			}
 		} else {
-			const randomData = getRandom();
+			const randomData = getRandom(controller);
 			targetImageUrl = randomData.targetImageUrl;
 			seed = randomData.seed;
+			infoPromise = randomData.infoPromise;
 		}
 
 		let fetchUrl = targetImageUrl;
@@ -125,6 +132,47 @@ async function fetchPrimaryWallpaper(cache, wallpaperSource, savedData, now) {
 
 		const response = await streamDownload(controller, fetchUrl, timeoutId);
 		const cacheResponse = response.clone();
+
+		if (infoPromise) {
+			imageInfo = await infoPromise;
+		}
+
+		if (
+			wallpaperSource === "random" &&
+			(!imageInfo ||
+				!imageInfo.author ||
+				imageInfo.author === "Lorem Picsum" ||
+				imageInfo.author === "Material New Tab")
+		) {
+			const picsumId = response.headers.get("picsum-id");
+			if (picsumId) {
+				try {
+					const infoRes = await fetch(
+						`https://picsum.photos/id/${picsumId}/info`,
+						{ signal: controller.signal },
+					);
+					if (infoRes.ok) {
+						const infoData = await infoRes.json();
+						if (infoData?.author) {
+							imageInfo = {
+								author: infoData.author.trim(),
+								url:
+									infoData.url?.trim() ||
+									`https://picsum.photos/id/${picsumId}`,
+								title: `Photo by ${infoData.author.trim()}`,
+								explanation:
+									"A randomly generated high-resolution image from Lorem Picsum.",
+							};
+						}
+					}
+				} catch (infoErr) {
+					console.warn(
+						"Failed to fetch Lorem Picsum info by id:",
+						infoErr,
+					);
+				}
+			}
+		}
 
 		saveWallpaperToCache(
 			cache,
@@ -197,6 +245,36 @@ export default async function getWallpaperUrl(activeSource, activeRefreshRate) {
 			if (!response) {
 				clearWallpaperData();
 				return getWallpaperUrl(activeSource, activeRefreshRate);
+			}
+
+			if (
+				wallpaperSource === "random" &&
+				savedData?.seed &&
+				(!savedData.info ||
+					savedData.info.author === "Material New Tab")
+			) {
+				fetch(`https://picsum.photos/seed/${savedData.seed}/info`)
+					.then((res) => (res.ok ? res.json() : null))
+					.then((infoData) => {
+						if (infoData?.author) {
+							setWallpaperData({
+								...savedData,
+								info: {
+									...savedData.info,
+									author: infoData.author.trim(),
+									url:
+										infoData.url?.trim() ||
+										`https://picsum.photos/id/${infoData.id}`,
+									title: `Photo by ${infoData.author.trim()}`,
+									explanation:
+										"A randomly generated high-resolution image from Lorem Picsum.",
+								},
+							});
+						}
+					})
+					.catch((err) =>
+						console.warn("Failed to backfill Picsum info:", err),
+					);
 			}
 		}
 

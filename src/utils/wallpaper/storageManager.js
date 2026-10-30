@@ -31,6 +31,9 @@ export function getWallpaperData() {
 export function setWallpaperData(data) {
 	try {
 		localStorage.setItem("MNTwallpaperData", JSON.stringify(data));
+		window.dispatchEvent(
+			new CustomEvent("wallpaper-data-updated", { detail: data }),
+		);
 	} catch (error) {
 		console.error("Failed to save MNTwallpaperData:", error);
 	}
@@ -39,6 +42,9 @@ export function setWallpaperData(data) {
 export function clearWallpaperData() {
 	try {
 		localStorage.removeItem("MNTwallpaperData");
+		window.dispatchEvent(
+			new CustomEvent("wallpaper-data-updated", { detail: null }),
+		);
 	} catch (error) {
 		console.error("Failed to clear MNTwallpaperData:", error);
 	}
