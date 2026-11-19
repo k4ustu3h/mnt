@@ -2,6 +2,7 @@ import useWidget from "@/hooks/context/useWidget";
 
 import Greeting from "@/components/typography/Greeting";
 import Scallop from "@/components/widgets/clocks/Scallop";
+import Searchbar from "@/components/inputs/Searchbar";
 import WallpaperInfo from "@/components/buttons/WallpaperInfo";
 import Weather from "@/components/widgets/weather/Weather";
 
@@ -25,6 +26,15 @@ export default function Widgets() {
 				}}
 			>
 				{showGreeting && <Greeting />}
+			</div>
+			<div
+				style={{
+					display: "flex",
+					flex: 1,
+					justifyContent: "center",
+				}}
+			>
+				<Searchbar />
 			</div>
 			<div
 				style={{
