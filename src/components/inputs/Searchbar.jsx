@@ -28,7 +28,7 @@ export default function Searchbar() {
 				<ProviderIcon slot="leading" />
 				<input
 					slot="input"
-					placeholder="Search"
+					placeholder={`Search ${currentProvider.name}`}
 					type="text"
 					name={currentProvider.queryParam}
 					required
