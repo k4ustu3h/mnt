@@ -7,7 +7,8 @@ import WallpaperInfo from "@/components/buttons/WallpaperInfo";
 import Weather from "@/components/widgets/weather/Weather";
 
 export default function Widgets() {
-	const { showGreeting, showScallop, showWeather } = useWidget();
+	const { showGreeting, showScallop, showSearchbar, showWeather } =
+		useWidget();
 
 	return (
 		<div
@@ -34,7 +35,7 @@ export default function Widgets() {
 					justifyContent: "center",
 				}}
 			>
-				<Searchbar />
+				{showSearchbar && <Searchbar />}
 			</div>
 			<div
 				style={{

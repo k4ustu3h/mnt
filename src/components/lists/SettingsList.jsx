@@ -3,6 +3,7 @@ import { M3eActionList } from "@m3e/react/list";
 import AccessibilityItem from "@/components/lists/listitems/AccessibilityItem";
 import AppBarItem from "@/components/lists/listitems/AppBarItem";
 import AppearanceItem from "@/components/lists/listitems/AppearanceItem";
+import SearchItem from "@/components/lists/listitems/SearchItem";
 import UserItem from "@/components/lists/listitems/UserItem";
 import WallpaperItem from "@/components/lists/listitems/WallpaperItem";
 import WidgetsItem from "@/components/lists/listitems/WidgetsItem";
@@ -13,6 +14,7 @@ export default function SettingsList() {
 			<AppBarItem />
 			<AppearanceItem />
 			<UserItem />
+			<SearchItem />
 			<WallpaperItem />
 			<WidgetsItem />
 			<AccessibilityItem />
