@@ -4,7 +4,9 @@ import { Search } from "@nine-thirty-five/material-symbols-react/rounded";
 
 import useWidget from "@/hooks/context/useWidget";
 
+import ListItem from "@/components/lists/ListItem";
 import WidgetSwitch from "@/components/switches/WidgetSwitch";
+import SearchOptions from "@/components/select/SearchOptions";
 
 export default function SearchItem() {
 	const { showSearchbar, setShowSearchbar } = useWidget();
@@ -21,6 +23,9 @@ export default function SearchItem() {
 						onChange={setShowSearchbar}
 					/>
 				</M3eListAction>
+				<ListItem>
+					<SearchOptions />
+				</ListItem>
 			</div>
 		</M3eExpandableListItem>
 	);
