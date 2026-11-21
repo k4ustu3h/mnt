@@ -24,7 +24,7 @@ export default function SearchItem() {
 					/>
 				</M3eListAction>
 				<ListItem>
-					<SearchOptions />
+					<SearchOptions disabled={!showSearchbar} />
 				</ListItem>
 			</div>
 		</M3eExpandableListItem>
