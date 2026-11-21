@@ -28,27 +28,33 @@ export default function Widgets() {
 			>
 				{showGreeting && <Greeting />}
 			</div>
-			<div
-				style={{
-					display: "flex",
-					flex: 1,
-					justifyContent: "center",
-				}}
-			>
-				{showSearchbar && <Searchbar />}
-			</div>
-			<div
-				style={{
-					alignItems: "center",
-					display: "flex",
-					flexWrap: "wrap",
-					gap: "6vw",
-					justifyContent: "center",
-				}}
-			>
-				{showScallop && <Scallop />}
-				{showWeather && <Weather />}
-			</div>
+			{(showSearchbar || showScallop || showWeather) && (
+				<div
+					style={{
+						alignItems: "center",
+						display: "flex",
+						flexDirection: "column",
+						gap: 96,
+						justifyContent: "center",
+					}}
+				>
+					{showSearchbar && <Searchbar />}
+					{(showScallop || showWeather) && (
+						<div
+							style={{
+								alignItems: "center",
+								display: "flex",
+								flexWrap: "wrap",
+								gap: "6vw",
+								justifyContent: "center",
+							}}
+						>
+							{showScallop && <Scallop />}
+							{showWeather && <Weather />}
+						</div>
+					)}
+				</div>
+			)}
 			<div style={{ flex: 1 }} />
 			<WallpaperInfo />
 		</div>
