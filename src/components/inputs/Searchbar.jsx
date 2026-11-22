@@ -9,8 +9,10 @@ import { M3eSearchBar } from "@m3e/react/search";
 
 import useSearch from "@/hooks/context/useSearch";
 
+import Bing from "@/assets/icons/search/Bing";
+
 const SEARCH_ICONS = {
-	bing: Search,
+	bing: Bing,
 	duckduckgo: SiDuckduckgo,
 	google: SiGoogle,
 	wikipedia: SiWikipedia,
